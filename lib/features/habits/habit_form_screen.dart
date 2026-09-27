@@ -2,22 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../widgets/ico_chip.dart';
+import '../../widgets/svg_icon.dart';
 import 'habit_repository.dart';
 import 'habit_tile.dart';
 
-/// Emoji ikon habit — subset pilihan mockup (penuh 64 ada di desain).
-const _emojiChoices = [
-  '🥗', '💧', '🚶', '🏃', '🧘', '😴',
-  '📚', '💻', '✍️', '🎧', '🧠', '⏰',
-  '🍎', '🥦', '🍵', '🚭', '🦷', '🧴',
-  '🙏', '📖', '🎨', '🌱', '❤️', '⭐',
+/// 64 emoji mockup, dikelompokkan per label.
+const List<(String, List<String>)> _emojiGroups = [
+  ('Kesehatan & olahraga', [
+    '💧', '🏃', '🚶', '🧘', '💪', '🏋️', '⚽', '🏀',
+    '🚴', '🏐', '🏸', '🏊', '🥊', '🤸', '🧗', '🩺',
+  ]),
+  ('Makanan & minuman', [
+    '🥗', '🍎', '🍌', '🥦', '🥕', '🍲', '🍚', '🍗',
+    '🐟', '🥚', '🥑', '🥪', '🍜', '🥛', '🥤', '🍵',
+  ]),
+  ('Tidur & relaksasi', [
+    '😴', '🌙', '🛏️', '🛌', '😌', '🧖', '🎵', '☕',
+  ]),
+  ('Belajar & kerja', [
+    '📚', '✏️', '💻', '📝', '🎯', '🧠', '⏰', '✅',
+    '📈', '🎓', '🔬', '🗓️', '✍️', '🖊️', '📱', '⌨️',
+  ]),
+  ('Lainnya', [
+    '❤️', '😊', '🌱', '✨', '🎮', '🐶', '🎬', '🛒',
+  ]),
 ];
 
 const _categories = ['kesehatan', 'belajar', 'lainnya'];
 
 /// Form tambah/ubah habit — frame 05 mockup.
-/// Edit bila query `id` terisi.
 class HabitFormScreen extends ConsumerStatefulWidget {
   const HabitFormScreen({super.key, this.habitId});
 
@@ -30,7 +46,7 @@ class HabitFormScreen extends ConsumerStatefulWidget {
 class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
   late final TextEditingController _title;
   String _category = 'kesehatan';
-  double _weight = 20;
+  double _weight = 40;
   String? _icon = '🥗';
   bool _active = true;
   bool _init = false;
@@ -65,8 +81,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
     final title = _title.text.trim();
     if (title.length < 3) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Judul minimal 3 huruf.')),
+        const SnackBar(content: Text('Judul minimal 3 huruf.')),
       );
       return;
     }
@@ -98,8 +113,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text('Hapus habit?'),
-        content:
-            const Text('Centang yang sudah tercatat tetap tersimpan.'),
+        content: const Text('Centang yang sudah tercatat tetap tersimpan.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
@@ -123,137 +137,337 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
     final theme = Theme.of(context);
     final text = theme.colorScheme.onSurface;
     final muted = theme.colorScheme.onSurfaceVariant;
+    final line = theme.colorScheme.outline;
+    final isDark = theme.brightness == Brightness.dark;
     final isEdit = widget.habitId != null;
+    final primaryInk =
+        isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+    final primarySoft =
+        isDark ? AppColors.primarySoftDark : AppColors.primarySoftLight;
+    final dangerSoft =
+        isDark ? AppColors.dangerSoftDark : AppColors.dangerSoftLight;
+    final danger = isDark ? AppColors.dangerDark : AppColors.dangerLight;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEdit ? 'Ubah habit' : 'Habit baru'),
+        title: Text(isEdit ? 'Ubah Habit' : 'Tambah Habit'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Judul',
-                style: AppText.body(13, color: muted,
-                    weight: FontWeight.w800)),
-            const SizedBox(height: 6),
+            _FieldLabel('Judul habit'),
             TextField(
               controller: _title,
               decoration: const InputDecoration(
                 hintText: 'cth: Minum air 8 gelas',
               ),
             ),
+            const SizedBox(height: 6),
+            Text('Minimal 3 karakter',
+                style: AppText.body(11.5, color: muted)),
             const SizedBox(height: 18),
-            Text('Kategori',
-                style: AppText.body(13, color: muted,
-                    weight: FontWeight.w800)),
+
+            _FieldLabel('Ikon habit'),
             const SizedBox(height: 8),
-            Wrap(
-              spacing: 8,
-              children: [
-                for (final c in _categories)
-                  ChoiceChip(
-                    label: Text(categoryLabel(c)),
-                    selected: _category == c,
-                    onSelected: (_) =>
-                        setState(() => _category = c),
+            // Preview ikon terpilih.
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              decoration: BoxDecoration(
+                color: primarySoft,
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 54,
+                    height: 54,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: isDark
+                              ? Colors.black.withValues(alpha: 0.35)
+                              : const Color(0xFF1E1B2E)
+                                  .withValues(alpha: 0.08),
+                          blurRadius: 30,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: Text(_icon ?? '🥗',
+                        style: const TextStyle(fontSize: 28)),
                   ),
-              ],
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Ikon terpilih',
+                            style: AppText.body(14.4,
+                                color: text,
+                                weight: FontWeight.w800,
+                                height: 1.25)),
+                        Text('Tampil di checklist & daftar habit',
+                            style: AppText.body(11.5,
+                                color: isDark
+                                    ? AppColors.darkMuted
+                                    : AppColors.lightMuted,
+                                height: 1.3)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 18),
-            Row(
-              children: [
-                Text('Bobot',
-                    style: AppText.body(13, color: muted,
-                        weight: FontWeight.w800)),
-                const Spacer(),
-                Text('${_weight.round()}',
-                    style: AppText.display(18, color: text)),
-              ],
-            ),
-            Slider(
-              value: _weight,
-              min: 1,
-              max: 100,
-              divisions: 99,
-              label: _weight.round().toString(),
-              onChanged: (v) => setState(() => _weight = v),
-            ),
+            const SizedBox(height: 12),
+            // Grid 64 emoji per grup.
+            for (final (group, emojis) in _emojiGroups) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 6, bottom: 7),
+                child: Text(
+                  group.toUpperCase(),
+                  style: AppText.body(10.72,
+                      color: muted,
+                      weight: FontWeight.w800,
+                      height: 1.2),
+                ),
+              ),
+              GridView.count(
+                crossAxisCount: 8,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                mainAxisSpacing: 7,
+                crossAxisSpacing: 7,
+                childAspectRatio: 1,
+                children: [
+                  for (final e in emojis)
+                    GestureDetector(
+                      onTap: () => setState(() => _icon = e),
+                      child: Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: _icon == e
+                              ? primarySoft
+                              : theme.colorScheme.surface,
+                          borderRadius: BorderRadius.circular(13),
+                          border: Border.all(
+                            color: _icon == e
+                                ? AppColors.primary
+                                : line,
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Text(e,
+                            style: const TextStyle(fontSize: 19)),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+            const SizedBox(height: 7),
             Text(
-              'Bobot = prioritas. Skor = bobot selesai ÷ bobot aktif.',
+              '64 emoji tersedia — ketuk untuk memilih, tampil sebagai ikon habit.',
               style: AppText.body(11.5, color: muted),
             ),
             const SizedBox(height: 18),
-            Text('Ikon habit',
-                style: AppText.body(13, color: muted,
-                    weight: FontWeight.w800)),
+
+            _FieldLabel('Kategori'),
             const SizedBox(height: 8),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 6,
-              ),
-              itemCount: _emojiChoices.length,
-              itemBuilder: (ctx, i) {
-                final e = _emojiChoices[i];
-                final on = _icon == e;
-                return GestureDetector(
-                  onTap: () => setState(() => _icon = e),
-                  child: Container(
-                    margin: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: on
-                          ? theme.colorScheme.primaryContainer
-                          : theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: on
-                            ? theme.colorScheme.primary
-                            : theme.colorScheme.outline,
-                        width: on ? 2 : 1,
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(e,
-                        style: const TextStyle(fontSize: 22)),
+            Row(
+              children: [
+                for (final c in _categories) ...[
+                  _CatChip(
+                    label: categoryLabel(c),
+                    icon: categoryIcon(c),
+                    on: _category == c,
+                    onTap: () => setState(() => _category = c),
                   ),
-                );
-              },
+                  if (c != _categories.last) const SizedBox(width: 8),
+                ],
+              ],
+            ),
+            const SizedBox(height: 18),
+
+            _FieldLabel('Bobot (1–100)'),
+            const SizedBox(height: 8),
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: line),
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 64,
+                    child: Text('${_weight.round()}',
+                        style: AppText.display(41.6, color: primaryInk)),
+                  ),
+                  Expanded(
+                    child: Slider(
+                      value: _weight,
+                      min: 1,
+                      max: 100,
+                      divisions: 99,
+                      label: _weight.round().toString(),
+                      onChanged: (v) => setState(() => _weight = v),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              'Bobot relatif — total semua habit tidak harus 100. '
+              'Skor = bobot selesai ÷ bobot aktif.',
+              style: AppText.body(11.5, color: muted),
+            ),
+            const SizedBox(height: 18),
+
+            // Habit aktif.
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: line),
+                boxShadow: [
+                  BoxShadow(
+                    color: isDark
+                        ? Colors.black.withValues(alpha: 0.35)
+                        : const Color(0xFF1E1B2E)
+                            .withValues(alpha: 0.07),
+                    blurRadius: 30,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  const IcoChip(icon: 'i-check', tone: IcoTone.green),
+                  const SizedBox(width: 13),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Habit aktif',
+                            style: AppText.body(14.4,
+                                color: text,
+                                weight: FontWeight.w800,
+                                height: 1.25)),
+                        Text('Muncul di checklist harian & dihitung ke skor',
+                            style: AppText.body(12.16,
+                                color: muted, height: 1.3)),
+                      ],
+                    ),
+                  ),
+                  Switch(
+                    value: _active,
+                    onChanged: (v) => setState(() => _active = v),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: _save,
+              child: const Text('Simpan habit'),
+            ),
+            const SizedBox(height: 10),
+            OutlinedButton(
+              onPressed: () => context.pop(),
+              child: const Text('Batal'),
             ),
             if (isEdit) ...[
               const SizedBox(height: 14),
-              SwitchListTile(
-                value: _active,
-                onChanged: (v) => setState(() => _active = v),
-                title: Text('Habit aktif',
-                    style: AppText.body(14,
-                        color: text,
-                        weight: FontWeight.w700)),
-                subtitle: Text(
-                    'Nonaktif = tak masuk skor & checklist.',
-                    style: AppText.body(12, color: muted)),
-                contentPadding: EdgeInsets.zero,
-              ),
-            ],
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _save,
-              child: Text(isEdit ? 'Simpan' : 'Tambah habit'),
-            ),
-            if (isEdit) ...[
-              const SizedBox(height: 10),
-              OutlinedButton(
+              ElevatedButton(
                 onPressed: _delete,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: theme.colorScheme.error,
-                  side: BorderSide(color: theme.colorScheme.error),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: dangerSoft,
+                  foregroundColor: danger,
                 ),
                 child: const Text('Hapus habit'),
               ),
             ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FieldLabel extends StatelessWidget {
+  const _FieldLabel(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: AppText.body(13.5,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+          weight: FontWeight.w800),
+    );
+  }
+}
+
+/// Chip kategori bergaya mockup (pill + ikon SVG).
+class _CatChip extends StatelessWidget {
+  const _CatChip({
+    required this.label,
+    required this.icon,
+    required this.on,
+    required this.onTap,
+  });
+
+  final String label;
+  final String icon;
+  final bool on;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final primaryInk =
+        isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+    final primarySoft =
+        isDark ? AppColors.primarySoftDark : AppColors.primarySoftLight;
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: on
+              ? primarySoft
+              : (isDark
+                  ? AppColors.darkSurface2
+                  : AppColors.lightSurface2),
+          borderRadius: BorderRadius.circular(99),
+          border: on ? Border.all(color: AppColors.primary) : null,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgIcon(icon, size: 14, color: on ? primaryInk : Theme.of(context).colorScheme.onSurfaceVariant),
+            const SizedBox(width: 6),
+            Text(
+              label,
+              style: AppText.body(12.48,
+                  color: on ? primaryInk : theme.colorScheme.onSurfaceVariant,
+                  weight: FontWeight.w800,
+                  height: 1.2),
+            ),
           ],
         ),
       ),

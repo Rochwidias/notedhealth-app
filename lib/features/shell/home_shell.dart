@@ -26,7 +26,7 @@ class HomeShell extends StatelessWidget {
           NavigationDestination(
             icon: SvgIcon('i-list'),
             selectedIcon: SvgIcon('i-list'),
-            label: 'Checklist',
+            label: 'Habit',
           ),
           NavigationDestination(
             icon: SvgIcon('i-scale'),

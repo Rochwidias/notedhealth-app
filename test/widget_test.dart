@@ -42,7 +42,7 @@ void main() {
   testWidgets('layar login tampil dan tamu masuk ke Beranda asli', (tester) async {
     await pumpApp(tester);
 
-    expect(find.text('NotedHealth'), findsOneWidget);
+    expect(find.text('Halo lagi!'), findsOneWidget);
     expect(find.text('Masuk dengan Google'), findsOneWidget);
     expect(find.text('Masuk sebagai Tamu'), findsOneWidget);
 
@@ -58,9 +58,10 @@ void main() {
     await pumpApp(tester);
     await loginAsGuest(tester);
 
-    await tester.tap(find.text('Checklist'));
+    await tester.tap(find.text('Habit'));
     await tester.pumpAndSettle();
-    expect(find.text('+ Tambah habit'), findsOneWidget);
+    expect(find.text('Checklist Hari Ini'), findsOneWidget);
+    expect(find.text('Buat habit pertama'), findsOneWidget);
 
     await tester.tap(find.text('Berat'));
     await tester.pumpAndSettle();

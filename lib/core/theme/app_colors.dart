@@ -30,7 +30,14 @@ abstract final class AppColors {
   static const accentSoftDark = Color(0xFF4A3F1A);
   static const successLight = Color(0xFF12855B);
   static const successDark = Color(0xFF4FD6A0);
+  static const successSoftLight = Color(0xFFDEF7EC);
+  static const successSoftDark = Color(0xFF143B2C);
   static const dangerLight = Color(0xFFD13A40);
   static const dangerDark = Color(0xFFFF8A8F);
+  static const dangerSoftLight = Color(0xFFFFEBEB);
+  static const dangerSoftDark = Color(0xFF4A1F24);
   static const info = Color(0xFF0E9BD8);
+  static const infoSoftLight = Color(0xFFE2F4FD);
+  static const infoSoftDark = Color(0xFF123A4D);
+  static const amberTextLight = Color(0xFFA37B00);
 }

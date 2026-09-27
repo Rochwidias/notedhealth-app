@@ -115,13 +115,14 @@ abstract final class AppTheme {
         ),
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: surface,
+        backgroundColor: bg,
         foregroundColor: text,
         elevation: 0,
         scrolledUnderElevation: 0,
-        titleTextStyle: baseText.copyWith(
-          fontSize: 18,
-          fontWeight: FontWeight.w800,
+        titleTextStyle: AppText.display(
+          21,
+          color: text,
+          weight: FontWeight.w600,
           height: 1.2,
         ),
       ),
@@ -130,9 +131,9 @@ abstract final class AppTheme {
           backgroundColor: primaryInk,
           foregroundColor: Colors.white,
           elevation: 0,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(18),
           ),
           textStyle: const TextStyle(
             fontSize: 15,
@@ -145,9 +146,9 @@ abstract final class AppTheme {
         style: OutlinedButton.styleFrom(
           foregroundColor: text,
           side: BorderSide(color: line, width: 1.5),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 15),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(18),
           ),
           textStyle: const TextStyle(
             fontSize: 15,
@@ -181,7 +182,7 @@ abstract final class AppTheme {
         elevation: 0,
         indicatorColor: primarySoft,
         labelTextStyle: WidgetStatePropertyAll(
-          baseText.copyWith(fontSize: 11, fontWeight: FontWeight.w700),
+          baseText.copyWith(fontSize: 11, fontWeight: FontWeight.w800),
         ),
         iconTheme: WidgetStateProperty.resolveWith(
           (states) => IconThemeData(
@@ -199,15 +200,25 @@ abstract final class AppTheme {
           color: bg,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(18),
         ),
       ),
       dividerTheme: DividerThemeData(color: line, thickness: 1),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: surface,
         surfaceTintColor: Colors.transparent,
+        showDragHandle: false,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+          borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+        ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryInk,
+        foregroundColor: Colors.white,
+        elevation: 0,
+        highlightElevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22),
         ),
       ),
       switchTheme: SwitchThemeData(

@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/format.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../widgets/ico_chip.dart';
 import '../../widgets/score_ring.dart';
 import '../../widgets/svg_icon.dart';
 import '../habits/daily_log_store.dart';
@@ -29,7 +31,9 @@ class DashboardScreen extends ConsumerWidget {
     final completions = ref.watch(completionsProvider);
     final score = ref.watch(todayScoreProvider);
     final streak = ref.watch(streakProvider);
-    final latest = ref.watch(latestWeightProvider);
+    final history = ref.watch(weightHistoryProvider);
+    final latest = history.isEmpty ? null : history.first;
+    final prev = history.length > 1 ? history[1] : null;
 
     final firstName =
         prefs.name.isEmpty ? 'Teman Sehat' : prefs.name.split(' ').first;
@@ -37,86 +41,129 @@ class DashboardScreen extends ConsumerWidget {
         DateFormat('EEEE, d MMM yyyy', 'id_ID').format(DateTime.now());
     final doneCount = habits.where((h) => completions[h.id] == true).length;
 
+    final caption = habits.isEmpty
+        ? 'Belum ada habit hari ini — buat satu dulu ya.'
+        : doneCount == habits.length
+            ? 'Semua habit selesai — skor $score% dari total bobot aktif. Mantap!'
+            : '$score% dari total bobot aktif hari ini — tinggal ${habits.length - doneCount} lagi!';
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 12, 20, 96),
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 96),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Appbar ala mockup: avatar + salam + lonceng.
               Row(
                 children: [
+                  Container(
+                    width: 46,
+                    height: 46,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      firstName.isEmpty ? 'N' : firstName.characters.first.toUpperCase(),
+                      style: AppText.display(22,
+                          color: theme.colorScheme.primary),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text('Halo, $firstName 👋',
-                            style: AppText.display(22, color: text)),
+                            style: AppText.body(15,
+                                color: text, weight: FontWeight.w800,
+                                height: 1.2)),
                         const SizedBox(height: 2),
                         Text(dateStr,
-                            style: AppText.body(12.5, color: muted)),
+                            style: AppText.body(11.5, color: muted,
+                                height: 1.3)),
                       ],
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                              'Pengingat aktif 07:00 & 21:00 — atur di Profil.'),
-                        ),
-                      );
-                    },
-                    icon: SvgIcon('i-bell', size: 22, color: text),
-                  ),
+                  _BellButton(),
                 ],
               ),
               const SizedBox(height: 14),
-              // Kartu skor.
+              // Kartu skor — gradient + lingkaran dekor ala mockup.
               Container(
-                padding: const EdgeInsets.all(18),
+                clipBehavior: Clip.antiAlias,
+                padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      theme.colorScheme.primary,
-                      theme.colorScheme.primary.withValues(alpha: 0.72),
-                    ],
+                  gradient: const LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.primaryInkLight,
+                      Color(0xFF8F74FF),
+                      Color(0xFFB39BFF),
+                    ],
+                    stops: [0, 0.65, 1],
                   ),
-                  borderRadius: BorderRadius.circular(28),
+                  borderRadius: BorderRadius.circular(24),
                 ),
-                child: Row(
+                child: Stack(
                   children: [
-                    ScoreRing(score: score),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('SKOR HARI INI',
-                              style: AppText.body(11,
-                                  color: Colors.white70,
-                                  weight: FontWeight.w800)),
-                          Text('$doneCount dari ${habits.length} habit',
-                              style: AppText.body(13.5,
-                                  color: Colors.white,
-                                  weight: FontWeight.w600)),
-                          const SizedBox(height: 8),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.22),
-                              borderRadius: BorderRadius.circular(99),
-                            ),
-                            child: Text('🔥 $streak hari beruntun',
-                                style: AppText.body(12,
-                                    color: Colors.white,
-                                    weight: FontWeight.w800)),
-                          ),
-                        ],
+                    Positioned(
+                      right: -40,
+                      top: -50,
+                      child: Container(
+                        width: 160,
+                        height: 160,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white.withValues(alpha: 0.14),
+                        ),
                       ),
+                    ),
+                    Positioned(
+                      right: 46,
+                      bottom: -60,
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              AppColors.accent.withValues(alpha: 0.28),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        ScoreRing(score: score),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('SKOR HARIAN',
+                                  style: AppText.body(12.5,
+                                      color: Colors.white
+                                          .withValues(alpha: 0.85),
+                                      weight: FontWeight.w800,
+                                      height: 1.2)),
+                              const SizedBox(height: 4),
+                              Text(
+                                  '$doneCount dari ${habits.length} habit',
+                                  style: AppText.display(25.6,
+                                      color: Colors.white)),
+                              const SizedBox(height: 6),
+                              Text(caption,
+                                  style: AppText.body(13.5,
+                                      color: Colors.white
+                                          .withValues(alpha: 0.92),
+                                      height: 1.35)),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -127,21 +174,39 @@ class DashboardScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: _StatCard(
-                      icon: 'i-sparkle',
-                      title: '$streak hari',
-                      subtitle: 'Streak',
+                      emoji: '🔥',
+                      label: 'Streak',
+                      big: '$streak hari',
+                      sub: 'berturut-turut',
+                      subColor: theme.brightness == Brightness.dark
+                          ? AppColors.successDark
+                          : AppColors.successLight,
                     ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: _StatCard(
                       icon: 'i-scale',
-                      title: latest == null
-                          ? '—'
+                      iconTone: IcoTone.violet,
+                      label: 'Berat terakhir',
+                      big: latest == null
+                          ? '— kg'
                           : '${fmtKg(latest.valueKg)} kg',
-                      subtitle: latest == null
+                      sub: latest == null
                           ? 'Belum timbang'
-                          : 'Timbangan terakhir',
+                          : prev == null
+                              ? 'catatan pertamamu'
+                              : _deltaCaption(
+                                  latest.valueKg, prev.valueKg),
+                      subColor: latest == null || prev == null
+                          ? muted
+                          : latest.valueKg <= prev.valueKg
+                              ? (theme.brightness == Brightness.dark
+                                  ? AppColors.successDark
+                                  : AppColors.successLight)
+                              : (theme.brightness == Brightness.dark
+                                  ? AppColors.dangerDark
+                                  : AppColors.dangerLight),
                       onTap: () => context.go('/weight'),
                     ),
                   ),
@@ -152,17 +217,57 @@ class DashboardScreen extends ConsumerWidget {
               if (prefs.targetKg != null && latest != null)
                 Container(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 13),
+                      horizontal: 16, vertical: 14),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(18),
+                    borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Text(
-                    '🎯 Target ${fmtKg(prefs.targetKg!)} kg · '
-                    '${targetCaption(latest.valueKg, prefs.targetKg!)}',
-                    style: AppText.body(13,
-                        color: theme.colorScheme.onPrimaryContainer,
-                        weight: FontWeight.w700),
+                  child: Row(
+                    children: [
+                      IcoChip(icon: 'i-target', tone: IcoTone.violet),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('TARGET BERAT',
+                                style: AppText.body(12.16,
+                                    color: theme
+                                        .colorScheme.onPrimaryContainer,
+                                    weight: FontWeight.w800,
+                                    height: 1.2)),
+                            const SizedBox(height: 2),
+                            Text(
+                              '${fmtKg(prefs.targetKg!)} kg — '
+                              '${targetCaption(latest.valueKg, prefs.targetKg!)}',
+                              style: AppText.display(20,
+                                  color: theme
+                                      .colorScheme.onPrimaryContainer),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12, vertical: 5),
+                        decoration: BoxDecoration(
+                          color: theme.brightness == Brightness.dark
+                              ? AppColors.successSoftDark
+                              : AppColors.successSoftLight,
+                          borderRadius: BorderRadius.circular(99),
+                        ),
+                        child: Text(
+                          _onTarget(latest.valueKg, prefs.targetKg!)
+                              ? 'Tepat jalur'
+                              : 'Menuju target',
+                          style: AppText.body(11.84,
+                              color: theme.brightness == Brightness.dark
+                                  ? AppColors.successDark
+                                  : AppColors.successLight,
+                              weight: FontWeight.w800),
+                        ),
+                      ),
+                    ],
                   ),
                 )
               else
@@ -171,17 +276,10 @@ class DashboardScreen extends ConsumerWidget {
                   child: const Text('Atur target berat di Profil'),
                 ),
               const SizedBox(height: 18),
-              Row(
-                children: [
-                  Expanded(
-                    child: Text('Habit hari ini',
-                        style: AppText.display(17, color: text)),
-                  ),
-                  TextButton(
-                    onPressed: () => context.go('/checklist'),
-                    child: const Text('Lihat semua'),
-                  ),
-                ],
+              _SectionHeader(
+                title: 'Habit hari ini',
+                link: 'Lihat semua',
+                onLink: () => context.go('/checklist'),
               ),
               const SizedBox(height: 6),
               if (habits.isEmpty)
@@ -198,45 +296,24 @@ class DashboardScreen extends ConsumerWidget {
                         context.push('/habit-form?id=${habit.id}'),
                   ),
               const SizedBox(height: 14),
-              // Katalog sehat.
-              GestureDetector(
-                onTap: () => context.push('/catalog'),
-                child: Container(
-                  clipBehavior: Clip.antiAlias,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surface,
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: theme.colorScheme.outline),
-                  ),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/food/food-salad.jpg',
-                        width: 96,
-                        height: 84,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(width: 14),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Katalog sehat',
-                                style: AppText.body(14.5,
-                                    color: text,
-                                    weight: FontWeight.w800)),
-                            Text('12 menu makan & minum',
-                                style: AppText.body(12, color: muted)),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 12),
-                        child: SvgIcon('i-next', size: 20, color: muted),
-                      ),
-                    ],
-                  ),
-                ),
+              // Menu sehat — dua row-btn ala mockup.
+              _SectionHeader(title: 'Menu sehat', link: 'Katalog',
+                  onLink: () => context.push('/catalog')),
+              const SizedBox(height: 6),
+              _MenuRow(
+                icon: 'i-leaf',
+                tone: IcoTone.green,
+                title: 'Makanan Sehat',
+                desc: '6 menu + kalori per porsi',
+                onTap: () => context.push('/catalog?tab=0'),
+              ),
+              const SizedBox(height: 10),
+              _MenuRow(
+                icon: 'i-droplet',
+                tone: IcoTone.blue,
+                title: 'Minuman Sehat',
+                desc: '6 minuman rendah kalori',
+                onTap: () => context.push('/catalog?tab=1'),
               ),
             ],
           ),
@@ -247,17 +324,159 @@ class DashboardScreen extends ConsumerWidget {
   }
 }
 
-class _StatCard extends StatelessWidget {
-  const _StatCard({
+String _deltaCaption(double now, double before) {
+  final d = now - before;
+  if (d == 0) return 'tanpa perubahan';
+  final sign = d < 0 ? '▼' : '▲';
+  return '$sign ${fmtKg(d.abs())} kg sejak catatan lalu';
+}
+
+bool _onTarget(double now, double target) => (now - target).abs() <= 2;
+
+class _BellButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return GestureDetector(
+      onTap: () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content:
+                Text('Pengingat aktif 07:00 & 21:00 — atur di Profil.'),
+          ),
+        );
+      },
+      child: Container(
+        width: 42,
+        height: 42,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: theme.colorScheme.outline),
+        ),
+        child: SvgIcon('i-bell', size: 20,
+            color: theme.colorScheme.onSurface),
+      ),
+    );
+  }
+}
+
+class _SectionHeader extends StatelessWidget {
+  const _SectionHeader(
+      {required this.title, required this.link, required this.onLink});
+
+  final String title;
+  final String link;
+  final VoidCallback onLink;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      children: [
+        Expanded(
+          child: Text(title,
+              style: AppText.body(16.32,
+                  color: theme.colorScheme.onSurface,
+                  weight: FontWeight.w800)),
+        ),
+        GestureDetector(
+          onTap: onLink,
+          child: Text(link,
+              style: AppText.body(13.12,
+                  color: theme.colorScheme.primary,
+                  weight: FontWeight.w800)),
+        ),
+      ],
+    );
+  }
+}
+
+class _MenuRow extends StatelessWidget {
+  const _MenuRow({
     required this.icon,
+    required this.tone,
     required this.title,
-    required this.subtitle,
-    this.onTap,
+    required this.desc,
+    required this.onTap,
   });
 
   final String icon;
+  final IcoTone tone;
   final String title;
-  final String subtitle;
+  final String desc;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: theme.colorScheme.outline),
+          boxShadow: [
+            BoxShadow(
+              color: theme.brightness == Brightness.dark
+                  ? Colors.black.withValues(alpha: 0.35)
+                  : const Color(0xFF1E1B2E).withValues(alpha: 0.08),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            IcoChip(icon: icon, tone: tone),
+            const SizedBox(width: 13),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style: AppText.body(14.4,
+                          color: theme.colorScheme.onSurface,
+                          weight: FontWeight.w800,
+                          height: 1.25)),
+                  Text(desc,
+                      style: AppText.body(12.16,
+                          color: theme.colorScheme.onSurfaceVariant,
+                          height: 1.3)),
+                ],
+              ),
+            ),
+            SvgIcon('i-next', size: 20,
+                color: theme.colorScheme.onSurfaceVariant),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  const _StatCard({
+    this.icon,
+    this.emoji,
+    this.iconTone = IcoTone.amber,
+    required this.label,
+    required this.big,
+    required this.sub,
+    required this.subColor,
+    this.onTap,
+  });
+
+  final String? icon;
+  final String? emoji;
+  final IcoTone iconTone;
+  final String label;
+  final String big;
+  final String sub;
+  final Color subColor;
   final VoidCallback? onTap;
 
   @override
@@ -266,24 +485,55 @@ class _StatCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(24),
           border: Border.all(color: theme.colorScheme.outline),
+          boxShadow: [
+            BoxShadow(
+              color: theme.brightness == Brightness.dark
+                  ? Colors.black.withValues(alpha: 0.35)
+                  : const Color(0xFF1E1B2E).withValues(alpha: 0.08),
+              blurRadius: 30,
+              offset: const Offset(0, 10),
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgIcon(icon,
-                size: 22, color: theme.colorScheme.primary),
+            Row(
+              children: [
+                IcoChip(
+                  icon: icon ?? 'i-sparkle',
+                  tone: iconTone,
+                  emoji: emoji,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(label,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppText.body(12.16,
+                          color: theme.colorScheme.onSurfaceVariant,
+                          weight: FontWeight.w800,
+                          height: 1.2)),
+                ),
+              ],
+            ),
             const SizedBox(height: 8),
-            Text(title,
-                style: AppText.display(19,
+            Text(big,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppText.display(27.2,
                     color: theme.colorScheme.onSurface)),
-            Text(subtitle,
-                style: AppText.body(11.5,
-                    color: theme.colorScheme.onSurfaceVariant)),
+            const SizedBox(height: 2),
+            Text(sub,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppText.body(12.16,
+                    color: subColor, weight: FontWeight.w700)),
           ],
         ),
       ),
@@ -343,7 +593,6 @@ class _QuickFabState extends State<_QuickFab> {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.end,
@@ -360,7 +609,7 @@ class _QuickFabState extends State<_QuickFab> {
           const SizedBox(height: 10),
           _FabAction(
             icon: 'i-list',
-            label: 'Checklist',
+            label: 'Centang habit',
             onTap: () {
               setState(() => _open = false);
               context.go('/checklist');
@@ -378,8 +627,6 @@ class _QuickFabState extends State<_QuickFab> {
           const SizedBox(height: 10),
         ],
         FloatingActionButton(
-          backgroundColor: scheme.primary,
-          foregroundColor: Colors.white,
           onPressed: () => setState(() => _open = !_open),
           child: Transform.rotate(
             angle: _open ? 0.785 : 0,
@@ -405,33 +652,47 @@ class _FabAction extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(99),
           border: Border.all(color: theme.colorScheme.outline),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.08),
-              blurRadius: 12,
-              offset: const Offset(0, 4),
+              color: isDark
+                  ? Colors.black.withValues(alpha: 0.4)
+                  : const Color(0xFF1E1B2E).withValues(alpha: 0.12),
+              blurRadius: 28,
+              offset: const Offset(0, 10),
             ),
           ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgIcon(icon,
-                size: 18, color: theme.colorScheme.primary),
-            const SizedBox(width: 8),
+            Container(
+              width: 30,
+              height: 30,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: isDark
+                    ? AppColors.primarySoftDark
+                    : AppColors.primarySoftLight,
+                shape: BoxShape.circle,
+              ),
+              child: SvgIcon(icon,
+                  size: 16,
+                  color: theme.colorScheme.primary),
+            ),
+            const SizedBox(width: 10),
             Text(label,
-                style: AppText.body(13,
+                style: AppText.body(13.5,
                     color: theme.colorScheme.onSurface,
-                    weight: FontWeight.w700)),
+                    weight: FontWeight.w800)),
           ],
         ),
       ),

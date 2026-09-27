@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../core/format.dart';
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../widgets/svg_icon.dart';
 import '../profile/prefs_store.dart';
 import 'weight_repository.dart';
 
@@ -63,80 +66,152 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final prefs = ref.watch(prefsProvider);
     final previewKg = parseKg(_ctrl.text);
     final bmi = prefs.bmi(
         previewKg ?? ref.watch(latestWeightProvider)?.valueKg);
+    final primarySoft = isDark
+        ? AppColors.primarySoftDark
+        : AppColors.primarySoftLight;
+    final primaryInk = isDark
+        ? AppColors.primaryInkDark
+        : AppColors.primaryInkLight;
+    final successSoft =
+        isDark ? AppColors.successSoftDark : AppColors.successSoftLight;
+    final success =
+        isDark ? AppColors.successDark : AppColors.successLight;
+    final today =
+        DateFormat('EEEE, d MMM yyyy', 'id_ID').format(DateTime.now());
 
     return Padding(
       padding: EdgeInsets.only(
-        left: 24,
-        right: 24,
-        top: 12,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 24,
+        left: 22,
+        right: 22,
+        top: 14,
+        bottom: MediaQuery.of(context).viewInsets.bottom + 26,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 44,
-            height: 4,
+            width: 46,
+            height: 5,
             decoration: BoxDecoration(
-              color: theme.colorScheme.outline,
+              color: isDark
+                  ? AppColors.darkSurface3
+                  : AppColors.lightSurface3,
               borderRadius: BorderRadius.circular(99),
             ),
           ),
           const SizedBox(height: 16),
-          Text('Catat berat hari ini',
-              style: AppText.display(19,
+          Text('Catat berat',
+              style: AppText.display(20,
                   color: theme.colorScheme.onSurface)),
+          const SizedBox(height: 4),
+          Text(
+            'Sekali per tanggal — input ulang tanggal sama = update.',
+            textAlign: TextAlign.center,
+            style: AppText.body(11.5,
+                color: theme.colorScheme.onSurfaceVariant),
+          ),
           const SizedBox(height: 14),
+          // Chip tanggal hari ini.
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: primarySoft,
+              borderRadius: BorderRadius.circular(99),
+              border: Border.all(color: AppColors.primary),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgIcon('i-calendar', size: 15, color: primaryInk),
+                const SizedBox(width: 7),
+                Text(today,
+                    style: AppText.body(12.48,
+                        color: primaryInk,
+                        weight: FontWeight.w800,
+                        height: 1.2)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SizedBox(
-                width: 140,
+                width: 170,
                 child: TextField(
                   controller: _ctrl,
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                   textAlign: TextAlign.center,
-                  style: AppText.display(44,
+                  style: AppText.display(57.6,
+                      weight: FontWeight.w600,
                       color: theme.colorScheme.onSurface),
-                  decoration: const InputDecoration(hintText: '0,0'),
+                  decoration: const InputDecoration(
+                    hintText: '0,0',
+                    filled: false,
+                    border: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                  ),
                   onChanged: (_) => setState(() {}),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 12, left: 6),
                 child: Text('kg',
-                    style: AppText.body(16,
+                    style: AppText.body(17.6,
                         color: theme.colorScheme.onSurfaceVariant,
-                        weight: FontWeight.w700)),
+                        weight: FontWeight.w800)),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 10),
           if (bmi != null)
-            Container(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: theme.colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(99),
-              ),
-              child: Text(
-                'BMI ${bmi.toStringAsFixed(1).replaceAll('.', ',')} · ${bmiCategory(bmi)}',
-                style: AppText.body(12.5,
-                    color: theme.colorScheme.onPrimaryContainer,
-                    weight: FontWeight.w800),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 7),
+                  decoration: BoxDecoration(
+                    color: successSoft,
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                  child: Text(
+                    'BMI ${bmi.toStringAsFixed(1).replaceAll('.', ',')}'
+                    ' · ${bmiCategory(bmi)}',
+                    style: AppText.body(12.48,
+                        color: success, weight: FontWeight.w800),
+                  ),
+                ),
+                if (prefs.heightCm != null) ...[
+                  const SizedBox(width: 8),
+                  Text('dari tinggi ${prefs.heightCm} cm',
+                      style: AppText.body(11.5,
+                          color: theme.colorScheme.onSurfaceVariant)),
+                ],
+              ],
             )
           else
             Text('Isi tinggi di Profil untuk lihat BMI.',
                 style: AppText.body(12,
                     color: theme.colorScheme.onSurfaceVariant)),
+          const SizedBox(height: 16),
+          Text(
+            'Rentang valid 20–300 kg · tanggal tidak boleh '
+            'jauh ke masa depan',
+            textAlign: TextAlign.center,
+            style: AppText.body(11,
+                color: theme.colorScheme.onSurfaceVariant),
+          ),
           const SizedBox(height: 18),
           Row(
             children: [
@@ -148,6 +223,7 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
               ),
               const SizedBox(width: 12),
               Expanded(
+                flex: 2,
                 child: ElevatedButton(
                   onPressed: _save,
                   child: const Text('Simpan'),

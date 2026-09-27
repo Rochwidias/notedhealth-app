@@ -47,7 +47,13 @@ GoRouter buildRouter() {
         path: '/habit-form',
         builder: (ctx, st) => HabitFormScreen(habitId: st.uri.queryParameters['id']),
       ),
-      GoRoute(path: '/catalog', builder: (ctx, st) => const CatalogScreen()),
+      GoRoute(
+        path: '/catalog',
+        builder: (ctx, st) => CatalogScreen(
+          initialTab:
+              int.tryParse(st.uri.queryParameters['tab'] ?? '0') ?? 0,
+        ),
+      ),
       GoRoute(
         path: '/food/:id',
         builder: (ctx, st) => FoodDetailScreen(id: st.pathParameters['id'] ?? ''),

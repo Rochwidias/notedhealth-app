@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/svg_icon.dart';
 import 'auth_repository.dart';
@@ -54,10 +55,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final muted = theme.colorScheme.onSurfaceVariant;
     final line = theme.colorScheme.outline;
 
+    final isDark = theme.brightness == Brightness.dark;
+    // Chip ikon 3 warna sesuai mockup: violet / amber / hijau.
+    final chipVioletBg =
+        isDark ? AppColors.primarySoftDark : AppColors.primarySoftLight;
+    final chipAmberBg =
+        isDark ? AppColors.accentSoftDark : AppColors.accentSoftLight;
+    final chipAmberFg = isDark ? AppColors.accent : AppColors.amberTextLight;
+    final chipGreenBg =
+        isDark ? AppColors.successSoftDark : AppColors.successSoftLight;
+    final chipGreenFg = isDark ? AppColors.successDark : AppColors.successLight;
+
     final previewItems = [
-      ('i-list', 'Skor harian 0–100 dari habit'),
-      ('i-scale', 'Timbang berat — grafik 7 & 30 hari'),
-      ('i-leaf', 'Katalog sehat — menu makan & minum'),
+      ('i-target', 'Skor harian', '0–100 dari habit', chipVioletBg,
+          theme.colorScheme.primary),
+      ('i-scale', 'Timbang berat', 'grafik 7 & 30 hari', chipAmberBg,
+          chipAmberFg),
+      ('i-leaf', 'Katalog sehat', 'menu makan & minum', chipGreenBg,
+          chipGreenFg),
     ];
 
     return Scaffold(
@@ -71,15 +86,40 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Center(
-                    child: SvgIcon(
-                      'i-logo',
-                      size: 76,
-                      color: theme.colorScheme.primary,
+                    child: Container(
+                      width: 78,
+                      height: 78,
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            AppColors.primary,
+                            AppColors.primaryInkLight,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(26),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppColors.primaryInkLight
+                                .withValues(alpha: 0.4),
+                            blurRadius: 28,
+                            offset: const Offset(0, 12),
+                          ),
+                        ],
+                      ),
+                      child: const Center(
+                        child: SvgIcon(
+                          'i-logo',
+                          size: 40,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 18),
                   Text(
-                    'NotedHealth',
+                    'Halo lagi!',
                     textAlign: TextAlign.center,
                     style: AppText.display(30, color: text),
                   ),
@@ -112,24 +152,37 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             child: Row(
                               children: [
                                 Container(
-                                  width: 36,
-                                  height: 36,
+                                  width: 34,
+                                  height: 34,
                                   decoration: BoxDecoration(
-                                    color: theme.colorScheme.primaryContainer,
+                                    color: item.$4,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                   child: SvgIcon(
                                     item.$1,
-                                    size: 19,
-                                    color: theme.colorScheme.primary,
+                                    size: 18,
+                                    color: item.$5,
                                   ),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
-                                  child: Text(
-                                    item.$2,
-                                    style: AppText.body(13.5,
-                                        color: text, weight: FontWeight.w600),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item.$2,
+                                        style: AppText.body(14,
+                                            color: text,
+                                            weight: FontWeight.w800,
+                                            height: 1.25),
+                                      ),
+                                      Text(
+                                        item.$3,
+                                        style: AppText.body(11.5,
+                                            color: muted, height: 1.3),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -155,7 +208,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         const SizedBox(width: 10),
                         Text(
                           _busy ? 'Memproses…' : 'Masuk dengan Google',
-                          style: AppText.body(15,
+                          style: AppText.body(16,
                               color: text, weight: FontWeight.w800),
                         ),
                       ],
