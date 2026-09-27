@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NotedHealth — Mockup Desain Aplikasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ================= SVG SPRITE (ikon custom, bukan emoji) ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="s" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></g>
+    <symbol id="i-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 20.5S4 15.4 4 9.8A4.3 4.3 0 0 1 12 7a4.3 4.3 0 0 1 8 2.8c0 5.6-8 10.7-8 10.7z"/>
+      <path d="M5.5 12.5h3l1.7-2.6 2 4.4 1.6-3 1.2 1.7h3.5"/>
+    </symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3.5 11 12 3.5 20.5 11"/><path d="M5.5 9.8V20h4.5v-5.5h4V20h4.5V9.8"/>
+    </symbol>
+    <symbol id="i-list" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M13 6h7M13 12h7M13 18h7"/>
+      <path d="M3.2 6.2 4.6 7.6 7 5M3.2 12.2l1.4 1.4L7 11M3.2 18.2l1.4 1.4L7 17"/>
+    </symbol>
+    <symbol id="i-scale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="5"/>
+      <rect x="9" y="7.5" width="6" height="4" rx="1.5"/>
+      <path d="M8 16.5h8"/>
+    </symbol>
+    <symbol id="i-height" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 4.5v15M4.5 7 7 4.5 9.5 7M4.5 17 7 19.5 9.5 17"/>
+      <path d="M13 6.5h7M13 12h5M13 17.5h7"/>
+    </symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="8" r="4"/><path d="M4.5 20c.7-3.6 3.8-5.5 7.5-5.5s6.8 1.9 7.5 5.5"/>
+    </symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 9.5a6 6 0 0 1 12 0c0 4.6 1.8 5.8 1.8 5.8H4.2S6 14.1 6 9.5z"/><path d="M10 19a2.2 2.2 0 0 0 4 0"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+      <path d="M12 5v14M5 12h14"/>
+    </symbol>
+    <symbol id="i-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M15 5l-7 7 7 7"/>
+    </symbol>
+    <symbol id="i-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 5l7 7-7 7"/>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="5" width="18" height="14" rx="3.5"/><path d="M4 8l8 5.2L20 8"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="5" y="10.5" width="14" height="9.5" rx="3"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>
+    </symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/>
+    </symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3.5" y="5" width="17" height="15.5" rx="3.5"/><path d="M3.5 10h17M8.5 3v4M15.5 3v4"/>
+    </symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 20l1.2-4.4L16.8 4a2.1 2.1 0 0 1 3 3L8.4 18.8z"/>
+    </symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 7h16M9.5 7V5.2A1.7 1.7 0 0 1 11.2 3.5h1.6a1.7 1.7 0 0 1 1.7 1.7V7M6.5 7l1 13h9l1-13"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M5 12.5l4.5 4.5L19 7.5"/>
+    </symbol>
+    <symbol id="i-wifi-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 3l18 18"/><path d="M4.5 10.5a13 13 0 0 1 4.3-2.8M19.5 10.5a13 13 0 0 0-6.7-3.4"/>
+      <path d="M7.8 14.2a8 8 0 0 1 2.7-1.6M16.2 14.2a8 8 0 0 0-1.6-1.1"/><path d="M12 18.5h.01"/>
+    </symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V13M12 16.4h.01"/>
+    </symbol>
+    <symbol id="i-droplet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3.5s6.2 6.4 6.2 10.3a6.2 6.2 0 1 1-12.4 0C5.8 9.9 12 3.5 12 3.5z"/>
+    </symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="13.5" cy="4.5" r="2.1"/><path d="M13 8.5 10 10.2 8.6 14M13 8.5l1.9 3 2.6 1.2M13 8.5l-.6 5.2L11 21M12.4 13.7 15.5 21"/>
+    </symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 6.5C10.2 4.8 7.6 4.2 4 4.5v13.7c3.6-.3 6.2.3 8 2 1.8-1.7 4.4-2.3 8-2V4.5c-3.6-.3-6.2.3-8 2z"/><path d="M12 6.5v13.7"/>
+    </symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M19.5 4.5C10 4.5 5 9.2 5 14.8a4.7 4.7 0 0 0 4.7 4.7c5.6 0 9.8-6 9.8-15z"/><path d="M5.5 19.5c2.4-4.4 6-7.3 10-9"/>
+    </symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 3.4l7 2.6v5.5c0 4.6-3 7.7-7 9.1-4-1.4-7-4.5-7-9.1V6z"/>
+      <path d="M9 11.8l2.2 2.2 4-4.2"/>
+    </symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9"/>
+      <path d="M3 12h18"/>
+      <path d="M12 3c2.6 2.5 3.9 5.6 3.9 9s-1.3 6.5-3.9 9c-2.6-2.5-3.9-5.6-3.9-9S9.4 5.5 12 3z"/>
+    </symbol>
+    <symbol id="i-dots" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <circle cx="6" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="18" cy="12" r="1.8"/>
+    </symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4 7 7 0 0 0 20 14.5z"/>
+    </symbol>
+    <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 5v14M6 13l6 6 6-6"/>
+    </symbol>
+    <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 19V5M6 11l6-6 6 6"/>
+    </symbol>
+    <symbol id="i-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 4l1.9 5.1L19 11l-5.1 1.9L12 18l-1.9-5.1L5 11l5.1-1.9z"/><path d="M19 17.5v3M17.5 19h3"/>
+    </symbol>
+    <symbol id="i-signal" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <rect x="3" y="14" width="3.4" height="6" rx="1.2"/><rect x="8.2" y="10.5" width="3.4" height="9.5" rx="1.2"/>
+      <rect x="13.4" y="7" width="3.4" height="13" rx="1.2"/><rect x="18.6" y="4" width="3.4" height="16" rx="1.2" opacity=".35"/>
+    </symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <path d="M3 9.5a13.5 13.5 0 0 1 18 0M6.3 13a8.7 8.7 0 0 1 11.4 0M9.5 16.4a4.2 4.2 0 0 1 5 0M12 19.8h.01"/>
+    </symbol>
+    <symbol id="i-battery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2.5" y="7.5" width="17" height="9" rx="2.6"/><path d="M22 10.5v3"/><rect x="4.8" y="9.8" width="11" height="4.4" rx="1.2" fill="currentColor" stroke="none"/>
+    </symbol>
+    <symbol id="i-google" viewBox="0 0 24 24">
+      <path fill="#4285F4" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47a5.6 5.6 0 0 1-2.46 3.68v3.07h3.96c2.31-2.14 3.66-5.29 3.66-9.11z"/>
+      <path fill="#34A853" d="M12.24 24c3.24 0 5.96-1.07 7.94-2.91l-3.96-3.07c-1.1.74-2.52 1.18-3.98 1.18-3.07 0-5.67-2.07-6.6-4.86H1.57v3.18A11.99 11.99 0 0 0 12.24 24z"/>
+      <path fill="#FBBC05" d="M5.64 14.34a7.2 7.2 0 0 1 0-4.6V6.56H1.57a12 12 0 0 0 0 10.88l4.07-3.1z"/>
+      <path fill="#EA4335" d="M12.24 4.74c1.77 0 3.36.61 4.61 1.81l3.44-3.44C18.19 1.19 15.47 0 12.24 0 7.3 0 3.03 2.83 1.57 6.56l4.07 3.18c.93-2.79 3.53-4.76 6.6-4.76z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="stage">
+
+  <!-- ================= HEADER GALERI ================= -->
+  <header class="stage-head">
+    <span class="brand-mark" aria-hidden="true">
+      <svg class="ico-lg" style="color:#fff"><use href="#i-logo"/></svg>
+    </span>
+    <div>
+      <h1>NotedHealth — Mockup Desain</h1>
+      <p class="sub">Aplikasi kesehatan: skor harian, habit berbobot, timbang berat, katalog makanan &amp; minuman sehat</p>
+    </div>
+    <span class="spacer"></span>
+    <button class="theme-toggle" id="themeToggle" aria-pressed="false">
+      <svg class="ico" aria-hidden="true"><use href="#i-moon"/></svg>
+      <span id="themeLabel">Mode gelap</span>
+    </button>
+    <button class="theme-toggle" id="langToggle" aria-pressed="false">
+      <span aria-hidden="true" style="font-size:1.05rem;line-height:1">🌐</span>
+      <span id="langLabel">English</span>
+    </button>
+  </header>
+
+  <div class="legend" aria-label="Catatan desain">
+    <span>Palet: ungu #7C5CFF + kuning #FFD64A</span>
+    <span>Font: Plus Jakarta Sans + Fredoka</span>
+    <span>Ikon: SVG custom</span>
+    <span>Foto: Pexels (bebas lisensi)</span>
+    <span>390 × 844 px</span>
+  </div>
+
+  <main class="gallery">
+
+    <!-- ============ 01 LOGIN ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">01</span><span class="name">Login</span><span class="hint">Google &amp; Tamu</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="login-wrap">
+            <span class="logo-lg" aria-hidden="true">
+              <svg style="width:40px;height:40px;color:#fff"><use href="#i-logo"/></svg>
+            </span>
+            <h2>Halo lagi!</h2>
+            <p class="muted" style="margin:0 0 28px">Masuk dengan Google, atau coba sebagai Tamu dulu.</p>
+
+            <div class="login-preview" aria-hidden="true">
+              <div class="lp-item">
+                <span class="ico-chip violet"><svg class="ico-sm"><use href="#i-target"/></svg></span>
+                <div><b>Skor harian</b><span class="tiny">0–100 dari habit</span></div>
+              </div>
+              <div class="lp-item">
+                <span class="ico-chip amber"><svg class="ico-sm"><use href="#i-scale"/></svg></span>
+                <div><b>Timbang berat</b><span class="tiny">grafik 7 &amp; 30 hari</span></div>
+              </div>
+              <div class="lp-item">
+                <span class="ico-chip green"><svg class="ico-sm"><use href="#i-leaf"/></svg></span>
+                <div><b>Katalog sehat</b><span class="tiny">menu makan &amp; minum</span></div>
+              </div>
+            </div>
+
+            <button class="btn btn-google" type="button" style="margin-top:auto" aria-label="Masuk dengan Google">
+              <svg class="ico" aria-hidden="true"><use href="#i-google"/></svg>
+              Masuk dengan Google
+            </button>
+            <div class="divider" style="margin:14px 0 10px">atau</div>
+            <button class="btn btn-ghost" type="button" style="padding:15px 22px;font-size:1rem" aria-label="Masuk sebagai Tamu">
+              <svg class="ico" aria-hidden="true"><use href="#i-user"/></svg>
+              Masuk sebagai Tamu
+            </button>
+
+            <p class="login-foot" style="margin-top:14px">Google: tersimpan aman di akunmu · Tamu: lokal di perangkat ini.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 02 DASHBOARD ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">02</span><span class="name">Dashboard</span><span class="hint tap">FAB bisa diklik ↑</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="scroll">
+            <div class="appbar" style="padding-left:0;padding-right:0">
+              <span class="avatar" style="width:46px;height:46px;border-radius:16px;font-size:1.2rem;margin:0" aria-hidden="true">R</span>
+              <div style="flex:1">
+                <div style="font-weight:800;font-size:.95rem">Halo, Rina! 👋</div>
+                <div class="tiny">Minggu, 27 Sep 2026</div>
+              </div>
+              <button class="icon-btn" type="button" aria-label="Notifikasi">
+                <svg class="ico"><use href="#i-bell"/></svg>
+              </button>
+            </div>
+
+            <!-- kartu skor -->
+            <section class="card score-card" aria-label="Skor harian 75 dari 100">
+              <div class="score-row">
+                <svg class="ring" viewBox="0 0 116 116" aria-hidden="true">
+                  <circle class="track" cx="58" cy="58" r="48"/>
+                  <circle class="fill" cx="58" cy="58" r="48"/>
+                  <text class="val" x="58" y="60">75</text>
+                  <text class="cap" x="58" y="78">SKOR</text>
+                </svg>
+                <div class="score-meta">
+                  <div class="lbl">Skor harian</div>
+                  <div class="big">3 dari 4 habit</div>
+                  <div class="sm">75% dari total bobot aktif hari ini — tinggal satu lagi!</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- statistik -->
+            <div class="stat-grid">
+              <div class="stat">
+                <div class="cap"><span class="ico-chip amber" aria-hidden="true">🔥</span> Streak</div>
+                <div class="big">5 <small>hari</small></div>
+                <div class="sub" style="color:var(--success)">berturut-turut</div>
+              </div>
+              <div class="stat">
+                <div class="cap"><span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-scale"/></svg></span> Berat terakhir</div>
+                <div class="big">72,5 <small>kg</small></div>
+                <div class="sub" style="color:var(--success)">▼ 0,8 kg minggu ini</div>
+              </div>
+            </div>
+
+            <div class="target-strip">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-target"/></svg></span>
+              <div style="flex:1">
+                <div class="cap">TARGET BERAT</div>
+                <div class="val">68 kg — kurang 4,5 kg lagi</div>
+              </div>
+              <span class="badge down">Tepat jalur</span>
+            </div>
+
+            <!-- habit hari ini -->
+            <div class="h-sec"><h3>Habit hari ini</h3><span class="link">Lihat semua</span></div>
+
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Minum air 8 gelas"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-droplet"/></svg></span>
+              <div class="body">
+                <div class="title">Minum air 8 gelas</div>
+                <div class="meta"><span class="chip static weight">bobot 20</span><span class="tiny">Kesehatan</span></div>
+              </div>
+            </div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Jalan kaki 30 menit"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip green" aria-hidden="true"><svg class="ico-sm"><use href="#i-walk"/></svg></span>
+              <div class="body">
+                <div class="title">Jalan kaki 30 menit</div>
+                <div class="meta"><span class="chip static weight">bobot 30</span><span class="tiny">Kesehatan</span></div>
+              </div>
+            </div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Belajar Flutter 1 jam"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-book"/></svg></span>
+              <div class="body">
+                <div class="title">Belajar Flutter 1 jam</div>
+                <div class="meta"><span class="chip static weight">bobot 25</span><span class="tiny">Belajar</span></div>
+              </div>
+            </div>
+            <div class="habit">
+              <button class="check" role="checkbox" aria-checked="false" aria-label="Centang Tidur sebelum 23.00"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip red" aria-hidden="true"><svg class="ico-sm"><use href="#i-dots"/></svg></span>
+              <div class="body">
+                <div class="title">Tidur sebelum 23.00</div>
+                <div class="meta"><span class="chip static weight">bobot 25</span><span class="tiny">Lainnya</span></div>
+              </div>
+            </div>
+
+            <!-- menu sehat -->
+            <div class="h-sec"><h3>Menu sehat</h3><span class="link">Katalog</span></div>
+            <button class="row-btn" type="button">
+              <span class="ico-chip green" aria-hidden="true"><svg class="ico-sm"><use href="#i-leaf"/></svg></span>
+              <span class="body"><span class="lbl">Makanan Sehat</span><span class="desc">6 menu + kalori per porsi</span></span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+            <button class="row-btn" type="button">
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-droplet"/></svg></span>
+              <span class="body"><span class="lbl">Minuman Sehat</span><span class="desc">6 minuman rendal kalori</span></span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+          </div>
+
+          <!-- FAB interaktif -->
+          <div class="fab-menu" id="fabMenu2" hidden>
+            <button class="act" type="button"><span class="dot"><svg class="ico-sm"><use href="#i-scale"/></svg></span> Catat berat</button>
+            <button class="act" type="button"><span class="dot"><svg class="ico-sm"><use href="#i-check"/></svg></span> Centang habit</button>
+            <button class="act" type="button"><span class="dot"><svg class="ico-sm"><use href="#i-plus"/></svg></span> Tambah habit</button>
+          </div>
+          <div class="scrim" hidden></div>
+          <button class="fab" type="button" data-fab="fabMenu2" aria-expanded="false" aria-label="Aksi cepat">
+            <svg class="ico"><use href="#i-plus"/></svg>
+          </button>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 03 FAB MENU TERBUKA ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">03</span><span class="name">Aksi Cepat (FAB)</span><span class="hint">state terbuka</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="scroll">
+            <div class="appbar" style="padding-left:0;padding-right:0">
+              <span class="avatar" style="width:46px;height:46px;border-radius:16px;font-size:1.2rem;margin:0" aria-hidden="true">R</span>
+              <div style="flex:1">
+                <div style="font-weight:800;font-size:.95rem">Halo, Rina! 👋</div>
+                <div class="tiny">Minggu, 27 Sep 2026</div>
+              </div>
+              <button class="icon-btn" type="button" aria-label="Notifikasi"><svg class="ico"><use href="#i-bell"/></svg></button>
+            </div>
+            <section class="card score-card" aria-label="Skor harian 75">
+              <div class="score-row">
+                <svg class="ring" viewBox="0 0 116 116" aria-hidden="true">
+                  <circle class="track" cx="58" cy="58" r="48"/>
+                  <circle class="fill" cx="58" cy="58" r="48"/>
+                  <text class="val" x="58" y="60">75</text>
+                  <text class="cap" x="58" y="78">SKOR</text>
+                </svg>
+                <div class="score-meta">
+                  <div class="lbl">Skor harian</div>
+                  <div class="big">3 dari 4 habit</div>
+                  <div class="sm">75% dari total bobot aktif hari ini</div>
+                </div>
+              </div>
+            </section>
+            <div class="stat-grid">
+              <div class="stat">
+                <div class="cap"><span class="ico-chip amber" aria-hidden="true">🔥</span> Streak</div>
+                <div class="big">5 <small>hari</small></div>
+              </div>
+              <div class="stat">
+                <div class="cap"><span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-scale"/></svg></span> Berat</div>
+                <div class="big">72,5 <small>kg</small></div>
+              </div>
+            </div>
+            <div class="h-sec"><h3>Habit hari ini</h3></div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Minum air 8 gelas"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <div class="body"><div class="title">Minum air 8 gelas</div><div class="meta"><span class="chip static weight">bobot 20</span></div></div>
+            </div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Jalan kaki 30 menit"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <div class="body"><div class="title">Jalan kaki 30 menit</div><div class="meta"><span class="chip static weight">bobot 30</span></div></div>
+            </div>
+          </div>
+
+          <!-- state TERBUKA: menu + scrim tampil -->
+          <div class="fab-menu" id="fabMenu3">
+            <button class="act" type="button"><span class="dot"><svg class="ico-sm"><use href="#i-scale"/></svg></span> Catat berat</button>
+            <button class="act" type="button"><span class="dot"><svg class="ico-sm"><use href="#i-check"/></svg></span> Centang habit</button>
+            <button class="act" type="button"><span class="dot"><svg class="ico-sm"><use href="#i-plus"/></svg></span> Tambah habit</button>
+          </div>
+          <div class="scrim"></div>
+          <button class="fab" type="button" data-fab="fabMenu3" aria-expanded="true" aria-label="Tutup aksi cepat">
+            <svg class="ico"><use href="#i-plus"/></svg>
+          </button>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 04 CHECKLIST HARIAN ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">04</span><span class="name">Checklist Harian</span><span class="hint tap">centang bisa diklik</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Checklist Hari Ini</h2>
+            <button class="icon-btn" type="button" aria-label="Pilih tanggal"><svg class="ico"><use href="#i-calendar"/></svg></button>
+          </div>
+          <div class="scroll">
+            <section class="card tight" aria-label="Progres 75 persen">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px">
+                <span style="font-weight:800;font-size:.9rem">Progres skor</span>
+                <span class="num" style="font-size:1.35rem;color:var(--primary-ink)">75%</span>
+              </div>
+              <div class="bar"><i style="width:75%"></i></div>
+              <p class="tiny" style="margin:9px 0 0">75 poin dari total bobot 100 — selesai sebelum jam 23.00 ya!</p>
+            </section>
+
+            <div class="cat-label"><svg class="ico-sm"><use href="#i-leaf"/></svg> Kesehatan</div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Minum air 8 gelas"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-droplet"/></svg></span>
+              <div class="body">
+                <div class="title">Minum air 8 gelas</div>
+                <div class="meta"><span class="chip static weight">bobot 20</span><span class="badge ok">+20 poin</span></div>
+              </div>
+            </div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Jalan kaki 30 menit"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip green" aria-hidden="true"><svg class="ico-sm"><use href="#i-walk"/></svg></span>
+              <div class="body">
+                <div class="title">Jalan kaki 30 menit</div>
+                <div class="meta"><span class="chip static weight">bobot 30</span><span class="badge ok">+30 poin</span></div>
+              </div>
+            </div>
+
+            <div class="cat-label"><svg class="ico-sm"><use href="#i-book"/></svg> Belajar</div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Belajar Flutter 1 jam"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-book"/></svg></span>
+              <div class="body">
+                <div class="title">Belajar Flutter 1 jam</div>
+                <div class="meta"><span class="chip static weight">bobot 25</span><span class="badge ok">+25 poin</span></div>
+              </div>
+            </div>
+
+            <div class="cat-label"><svg class="ico-sm"><use href="#i-dots"/></svg> Lainnya</div>
+            <div class="habit">
+              <button class="check" role="checkbox" aria-checked="false" aria-label="Centang Tidur sebelum 23.00"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip red" aria-hidden="true"><svg class="ico-sm"><use href="#i-clock"/></svg></span>
+              <div class="body">
+                <div class="title">Tidur sebelum 23.00</div>
+                <div class="meta"><span class="chip static weight">bobot 25</span><span class="tiny">Belum selesai</span></div>
+              </div>
+            </div>
+            <p class="tiny" style="text-align:center;margin:18px 0 4px">Streak harianmu aman selama skor &gt; 0</p>
+          </div>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 05 FORM HABIT ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">05</span><span class="name">Tambah / Edit Habit</span><span class="hint tap">ikon emoji, kategori &amp; bobot</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Tambah Habit</h2>
+          </div>
+          <div class="scroll">
+            <div class="field">
+              <label for="h-title">Judul habit</label>
+              <input class="input" id="h-title" type="text" value="Makan sayur 2 porsi" minlength="3">
+              <p class="hint">Minimal 3 karakter</p>
+            </div>
+
+            <div class="field">
+              <label id="lbl-ikon">Ikon habit</label>
+              <div class="emoji-hero">
+                <span class="emoji-big" aria-hidden="true">🥗</span>
+                <div>
+                  <div style="font-weight:800;font-size:.9rem">Ikon terpilih</div>
+                  <div class="tiny">Tampil di checklist &amp; daftar habit</div>
+                </div>
+              </div>
+              <div class="emoji-grid" data-single role="group" aria-labelledby="lbl-ikon">
+                <div class="emoji-cat">Kesehatan &amp; olahraga</div>
+                <button class="emoji" type="button" aria-pressed="false">💧</button>
+                <button class="emoji" type="button" aria-pressed="false">🏃</button>
+                <button class="emoji" type="button" aria-pressed="false">🚶</button>
+                <button class="emoji" type="button" aria-pressed="false">🧘</button>
+                <button class="emoji" type="button" aria-pressed="false">💪</button>
+                <button class="emoji" type="button" aria-pressed="false">🏋️</button>
+                <button class="emoji" type="button" aria-pressed="false">⚽</button>
+                <button class="emoji" type="button" aria-pressed="false">🏀</button>
+                <button class="emoji" type="button" aria-pressed="false">🚴</button>
+                <button class="emoji" type="button" aria-pressed="false">🏐</button>
+                <button class="emoji" type="button" aria-pressed="false">🏸</button>
+                <button class="emoji" type="button" aria-pressed="false">🏊</button>
+                <button class="emoji" type="button" aria-pressed="false">🥊</button>
+                <button class="emoji" type="button" aria-pressed="false">🤸</button>
+                <button class="emoji" type="button" aria-pressed="false">🧗</button>
+                <button class="emoji" type="button" aria-pressed="false">🩺</button>
+
+                <div class="emoji-cat">Makanan &amp; minuman</div>
+                <button class="emoji on" type="button" aria-pressed="true">🥗</button>
+                <button class="emoji" type="button" aria-pressed="false">🍎</button>
+                <button class="emoji" type="button" aria-pressed="false">🍌</button>
+                <button class="emoji" type="button" aria-pressed="false">🥦</button>
+                <button class="emoji" type="button" aria-pressed="false">🥕</button>
+                <button class="emoji" type="button" aria-pressed="false">🍲</button>
+                <button class="emoji" type="button" aria-pressed="false">🍚</button>
+                <button class="emoji" type="button" aria-pressed="false">🍗</button>
+                <button class="emoji" type="button" aria-pressed="false">🐟</button>
+                <button class="emoji" type="button" aria-pressed="false">🥚</button>
+                <button class="emoji" type="button" aria-pressed="false">🥑</button>
+                <button class="emoji" type="button" aria-pressed="false">🥪</button>
+                <button class="emoji" type="button" aria-pressed="false">🍜</button>
+                <button class="emoji" type="button" aria-pressed="false">🥛</button>
+                <button class="emoji" type="button" aria-pressed="false">🥤</button>
+                <button class="emoji" type="button" aria-pressed="false">🍵</button>
+
+                <div class="emoji-cat">Tidur &amp; relaksasi</div>
+                <button class="emoji" type="button" aria-pressed="false">😴</button>
+                <button class="emoji" type="button" aria-pressed="false">🌙</button>
+                <button class="emoji" type="button" aria-pressed="false">🛏️</button>
+                <button class="emoji" type="button" aria-pressed="false">🛌</button>
+                <button class="emoji" type="button" aria-pressed="false">😌</button>
+                <button class="emoji" type="button" aria-pressed="false">🧖</button>
+                <button class="emoji" type="button" aria-pressed="false">🎵</button>
+                <button class="emoji" type="button" aria-pressed="false">☕</button>
+
+                <div class="emoji-cat">Belajar &amp; kerja</div>
+                <button class="emoji" type="button" aria-pressed="false">📚</button>
+                <button class="emoji" type="button" aria-pressed="false">✏️</button>
+                <button class="emoji" type="button" aria-pressed="false">💻</button>
+                <button class="emoji" type="button" aria-pressed="false">📝</button>
+                <button class="emoji" type="button" aria-pressed="false">🎯</button>
+                <button class="emoji" type="button" aria-pressed="false">🧠</button>
+                <button class="emoji" type="button" aria-pressed="false">⏰</button>
+                <button class="emoji" type="button" aria-pressed="false">✅</button>
+                <button class="emoji" type="button" aria-pressed="false">📈</button>
+                <button class="emoji" type="button" aria-pressed="false">🎓</button>
+                <button class="emoji" type="button" aria-pressed="false">🔬</button>
+                <button class="emoji" type="button" aria-pressed="false">🗓️</button>
+                <button class="emoji" type="button" aria-pressed="false">✍️</button>
+                <button class="emoji" type="button" aria-pressed="false">🖊️</button>
+                <button class="emoji" type="button" aria-pressed="false">📱</button>
+                <button class="emoji" type="button" aria-pressed="false">⌨️</button>
+
+                <div class="emoji-cat">Lainnya</div>
+                <button class="emoji" type="button" aria-pressed="false">❤️</button>
+                <button class="emoji" type="button" aria-pressed="false">😊</button>
+                <button class="emoji" type="button" aria-pressed="false">🌱</button>
+                <button class="emoji" type="button" aria-pressed="false">✨</button>
+                <button class="emoji" type="button" aria-pressed="false">🎮</button>
+                <button class="emoji" type="button" aria-pressed="false">🐶</button>
+                <button class="emoji" type="button" aria-pressed="false">🎬</button>
+                <button class="emoji" type="button" aria-pressed="false">🛒</button>
+              </div>
+              <p class="hint">64 emoji tersedia — ketuk untuk memilih, tampil sebagai ikon habit.</p>
+            </div>
+
+            <div class="field">
+              <label id="lbl-kat">Kategori</label>
+              <div class="chips-row" data-single role="group" aria-labelledby="lbl-kat">
+                <button class="chip on" type="button" aria-pressed="true"><svg class="ico-sm" style="width:14px;height:14px"><use href="#i-leaf"/></svg> Kesehatan</button>
+                <button class="chip" type="button" aria-pressed="false"><svg class="ico-sm" style="width:14px;height:14px"><use href="#i-book"/></svg> Belajar</button>
+                <button class="chip" type="button" aria-pressed="false"><svg class="ico-sm" style="width:14px;height:14px"><use href="#i-dots"/></svg> Lainnya</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="h-weight">Bobot (1–100)</label>
+              <div class="card tight" style="display:flex;align-items:center;gap:16px;margin-bottom:6px">
+                <span class="num" style="font-size:2.6rem;color:var(--primary-ink)" id="wval">40</span>
+                <input class="range" id="h-weight" type="range" min="1" max="100" value="40" style="flex:1">
+              </div>
+              <p class="hint">Bobot relatif — total semua habit tidak harus 100. Skor = bobot selesai ÷ bobot aktif.</p>
+            </div>
+
+            <div class="row-btn" style="cursor:default">
+              <span class="ico-chip green" aria-hidden="true"><svg class="ico-sm"><use href="#i-check"/></svg></span>
+              <span class="body">
+                <span class="lbl">Habit aktif</span>
+                <span class="desc">Muncul di checklist harian &amp; dihitung ke skor</span>
+              </span>
+              <button class="switch" role="switch" aria-checked="true" aria-label="Habit aktif"></button>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+              <button class="btn btn-primary" type="button">Simpan habit</button>
+              <button class="btn btn-ghost" type="button">Batal</button>
+            </div>
+            <button class="btn btn-danger" type="button" style="margin-top:14px">
+              <svg class="ico-sm"><use href="#i-trash"/></svg> Hapus habit
+            </button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 06 SHEET INPUT BERAT ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">06</span><span class="name">Input Berat (Sheet)</span><span class="hint">bottom sheet</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="scroll" aria-hidden="true">
+            <div class="appbar" style="padding-left:0;padding-right:0">
+              <span class="avatar" style="width:46px;height:46px;border-radius:16px;font-size:1.2rem;margin:0">R</span>
+              <div style="flex:1"><div style="font-weight:800;font-size:.95rem">Halo, Rina! 👋</div><div class="tiny">Minggu, 27 Sep 2026</div></div>
+            </div>
+            <section class="card score-card">
+              <div class="score-row">
+                <svg class="ring" viewBox="0 0 116 116">
+                  <circle class="track" cx="58" cy="58" r="48"/><circle class="fill" cx="58" cy="58" r="48"/>
+                  <text class="val" x="58" y="60">75</text><text class="cap" x="58" y="78">SKOR</text>
+                </svg>
+                <div class="score-meta"><div class="lbl">Skor harian</div><div class="big">3 dari 4 habit</div></div>
+              </div>
+            </section>
+            <div class="stat-grid">
+              <div class="stat"><div class="cap">Streak</div><div class="big">5 <small>hari</small></div></div>
+              <div class="stat"><div class="cap">Berat</div><div class="big">72,5 <small>kg</small></div></div>
+            </div>
+          </div>
+
+          <div class="scrim"></div>
+
+          <div class="sheet" id="sheetBerat" role="dialog" aria-label="Catat berat badan">
+            <div class="grab" aria-hidden="true"></div>
+            <h3>Catat berat</h3>
+            <p class="tiny" style="margin:0 0 8px">Sekali per tanggal — input ulang tanggal sama = update.</p>
+
+            <button class="chip static on" type="button" style="margin:0 auto 4px;display:flex">
+              <svg class="ico-sm" style="width:14px;height:14px"><use href="#i-calendar"/></svg> Minggu, 27 Sep 2026
+            </button>
+
+            <div class="big-input">
+              <span class="val">72,5</span><span class="unit">kg</span>
+            </div>
+
+            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin:0 0 12px">
+              <span class="chip static ok">BMI 24,5 · Normal</span>
+              <span class="tiny">dari tinggi 172 cm</span>
+            </div>
+
+            <div class="field" style="margin-top:6px">
+              <label class="visually-hidden" for="w-note" style="position:absolute;left:-9999px">Catatan</label>
+              <input class="input" id="w-note" type="text" placeholder="Catatan (opsional): turun 0,8 minggu ini">
+              <p class="hint">Rentang valid 20–300 kg · tanggal tidak boleh jauh ke masa depan</p>
+            </div>
+
+            <div style="display:flex;gap:10px">
+              <button class="btn btn-ghost" type="button" style="flex:1" data-sheet-close="sheetBerat">Batal</button>
+              <button class="btn btn-primary" type="button" style="flex:2">Simpan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 07 RIWAYAT + GRAFIK ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">07</span><span class="name">Berat: Riwayat &amp; Grafik</span><span class="hint tap">segmen 7/30 bisa diklik</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Berat Badan</h2>
+          </div>
+          <div class="scroll">
+            <div class="stat-grid" style="margin-top:0">
+              <div class="stat">
+                <div class="cap">Sekarang</div>
+                <div class="big">72,5 <small>kg</small></div>
+                <div class="sub" style="color:var(--success)">▼ 0,1 sejak kemarin</div>
+              </div>
+              <div class="stat">
+                <div class="cap">Target</div>
+                <div class="big">68 <small>kg</small></div>
+                <div class="sub muted">estimasi 9 minggu lagi</div>
+              </div>
+            </div>
+
+            <div class="target-strip">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-target"/></svg></span>
+              <div style="flex:1">
+                <div class="cap">SELISIH KE TARGET</div>
+                <div class="val">Kurang 4,5 kg</div>
+              </div>
+              <span class="badge down">▼ Turun</span>
+            </div>
+
+            <section class="card" style="margin-top:14px" aria-label="BMI 24,5 masuk kategori normal">
+              <div style="display:flex;align-items:center;gap:13px">
+                <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-height"/></svg></span>
+                <div style="flex:1">
+                  <div class="cap" style="font-size:.7rem;letter-spacing:.04em;white-space:nowrap">BMI — INDEKS MASSA TUBUH</div>
+                  <div style="display:flex;align-items:baseline;gap:9px;margin-top:2px">
+                    <span class="num" style="font-size:2rem">24,5</span>
+                    <span class="badge ok">Normal</span>
+                  </div>
+                </div>
+                <span class="tiny" style="text-align:right">72,5 kg<br>÷ 1,72 m²</span>
+              </div>
+              <div class="bmi-scale" role="img" aria-label="Skala BMI: posisi 24,5 di zona normal">
+                <div class="bmi-bar"><span class="bmi-marker" style="left:47.5%"></span></div>
+                <div class="bmi-legend tiny" aria-hidden="true">
+                  <span>15</span><span style="color:#0e9bd8">18,5</span><span style="color:var(--success)">25</span><span style="color:#c98a00">30</span><span>35</span>
+                </div>
+              </div>
+              <p class="tiny" style="margin:8px 2px 0">Kurus &lt;18,5 · Normal 18,5–24,9 · Berlebih 25–29,9 · Obesitas ≥30 · tinggi dari Profil</p>
+            </section>
+
+            <div class="h-sec"><h3>Grafik</h3></div>
+            <div class="seg" role="group" aria-label="Rentang waktu grafik">
+              <button type="button" aria-pressed="true">7 hari</button>
+              <button type="button" aria-pressed="false">30 hari</button>
+            </div>
+
+            <section class="card chart-card" aria-label="Grafik berat 7 hari terakhir, tren turun dari 73,3 ke 72,5 kg">
+              <svg viewBox="0 0 320 170" role="img">
+                <defs>
+                  <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#7c5cff"/>
+                    <stop offset="100%" stop-color="#7c5cff" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <g class="chart-grid">
+                  <line x1="16" y1="40" x2="304" y2="40"/>
+                  <line x1="16" y1="70" x2="304" y2="70"/>
+                  <line x1="16" y1="100" x2="304" y2="100"/>
+                  <line x1="16" y1="130" x2="304" y2="130"/>
+                </g>
+                <polygon class="chart-area" points="24,50 70,70 116,80 162,100 208,90 254,120 296,130 296,150 24,150"/>
+                <polyline class="chart-line" points="24,50 70,70 116,80 162,100 208,90 254,120 296,130"/>
+                <g>
+                  <circle class="chart-dot" cx="24" cy="50" r="5"/>
+                  <circle class="chart-dot" cx="70" cy="70" r="5"/>
+                  <circle class="chart-dot" cx="116" cy="80" r="5"/>
+                  <circle class="chart-dot" cx="162" cy="100" r="5"/>
+                  <circle class="chart-dot" cx="208" cy="90" r="5"/>
+                  <circle class="chart-dot" cx="254" cy="120" r="5"/>
+                  <circle class="chart-dot hi" cx="296" cy="130" r="6"/>
+                </g>
+                <g class="chart-label" text-anchor="middle">
+                  <text x="24" y="166">21</text><text x="70" y="166">22</text><text x="116" y="166">23</text>
+                  <text x="162" y="166">24</text><text x="208" y="166">25</text><text x="254" y="166">26</text>
+                  <text x="296" y="166">27</text>
+                </g>
+              </svg>
+              <p class="tiny" style="margin:2px 4px 8px">Satuan kg · puncak 73,3 (21 Sep) → 72,5 (hari ini)</p>
+            </section>
+
+            <div class="h-sec"><h3>Riwayat</h3><span class="link">Semua</span></div>
+            <section class="card tight">
+              <div class="hist"><span class="date">27 Sep 2026</span><span style="color:var(--success);font-weight:800;font-size:.8rem">▼ 0,1</span><span class="kg">72,5</span></div>
+              <div class="hist"><span class="date">26 Sep 2026</span><span style="color:var(--success);font-weight:800;font-size:.8rem">▼ 0,3</span><span class="kg">72,6</span></div>
+              <div class="hist"><span class="date">25 Sep 2026</span><span style="color:var(--danger);font-weight:800;font-size:.8rem">▲ 0,1</span><span class="kg">72,9</span></div>
+              <div class="hist"><span class="date">24 Sep 2026</span><span style="color:var(--success);font-weight:800;font-size:.8rem">▼ 0,2</span><span class="kg">72,8</span></div>
+              <div class="hist"><span class="date">23 Sep 2026</span><span style="color:var(--success);font-weight:800;font-size:.8rem">▼ 0,1</span><span class="kg">73,0</span></div>
+            </section>
+          </div>
+
+          <button class="fab" type="button" aria-label="Catat berat baru">
+            <svg class="ico"><use href="#i-plus"/></svg>
+          </button>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 08 PROFIL & SETTING ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">08</span><span class="name">Profil &amp; Pengaturan</span><span class="hint tap">toggle &amp; sheet bisa diklik</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar"><h2>Profil</h2></div>
+          <div class="scroll">
+            <div class="profile-hero">
+              <span class="avatar" aria-hidden="true">R
+                <span class="edit"><svg class="ico-sm" style="width:14px;height:14px"><use href="#i-pencil"/></svg></span>
+              </span>
+              <div style="font-weight:800;font-size:1.1rem">Rina Wijaya</div>
+              <div class="tiny">rina@email.com · anggota sejak Jul 2026</div>
+            </div>
+
+            <div class="h-sec"><h3>Data diri</h3></div>
+            <button class="row-btn" type="button">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-pencil"/></svg></span>
+              <span class="body"><span class="lbl">Nama</span><span class="desc">Tampil di dashboard</span></span>
+              <span class="val">Rina Wijaya</span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+            <button class="row-btn" type="button">
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-target"/></svg></span>
+              <span class="body"><span class="lbl">Target berat</span><span class="desc">Dipakai hitung selisih</span></span>
+              <span class="val">68 kg</span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+            <button class="row-btn" type="button" data-sheet-open="sheetTinggi">
+              <span class="ico-chip green" aria-hidden="true"><svg class="ico-sm"><use href="#i-height"/></svg></span>
+              <span class="body"><span class="lbl">Tinggi badan</span><span class="desc">Untuk hitung BMI</span></span>
+              <span class="val">172 cm</span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+
+            <div class="h-sec"><h3>Pengingat harian</h3></div>
+            <div class="time-card">
+              <span class="ico-chip amber" aria-hidden="true"><svg class="ico-sm"><use href="#i-clock"/></svg></span>
+              <span class="body">
+                <span class="hh">07:00</span>
+                <span class="lbl" style="display:block">Pagi — cek checklist</span>
+                <span class="desc">Notifikasi lokal tiap hari</span>
+              </span>
+              <button class="switch" role="switch" aria-checked="true" aria-label="Pengingat pagi jam 07:00"></button>
+            </div>
+            <div class="time-card">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-moon"/></svg></span>
+              <span class="body">
+                <span class="hh">21:00</span>
+                <span class="lbl" style="display:block">Malam — catat berat &amp; skor</span>
+                <span class="desc">Notifikasi lokal tiap hari</span>
+              </span>
+              <button class="switch" role="switch" aria-checked="true" aria-label="Pengingat malam jam 21:00"></button>
+            </div>
+
+            <div class="h-sec"><h3>Aplikasi</h3></div>
+            <div class="row-btn" style="cursor:default">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-moon"/></svg></span>
+              <span class="body"><span class="lbl">Mode gelap</span><span class="desc">Sementara ikuti preferensi sistem</span></span>
+              <button class="switch" role="switch" aria-checked="false" aria-label="Mode gelap" data-dark></button>
+            </div>
+            <div class="row-btn" style="cursor:default">
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-globe"/></svg></span>
+              <span class="body"><span class="lbl">Bahasa</span><span class="desc">Ganti bahasa aplikasi</span></span>
+              <span class="lang-seg" role="group" aria-label="Pilih bahasa">
+                <button type="button" class="on" data-lang="id" aria-pressed="true">ID</button>
+                <button type="button" data-lang="en" aria-pressed="false">EN</button>
+              </span>
+            </div>
+            <button class="row-btn" type="button">
+              <span class="ico-chip green" aria-hidden="true"><svg class="ico-sm"><use href="#i-leaf"/></svg></span>
+              <span class="body"><span class="lbl">Katalog menu sehat</span><span class="desc">Makanan &amp; minuman favorit</span></span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+            <button class="row-btn" type="button">
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-shield"/></svg></span>
+              <span class="body"><span class="lbl">Privasi &amp; Legal</span><span class="desc">Kebijakan, syarat layanan &amp; kredit</span></span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+
+            <button class="btn btn-danger" type="button" style="margin-top:14px">
+              <svg class="ico-sm"><use href="#i-trash"/></svg> Hapus akun &amp; data
+            </button>
+            <p class="tiny" style="text-align:center;margin-top:14px">NotedHealth v0.1.0 · mockup desain</p>
+          </div>
+
+          <div class="scrim" hidden></div>
+
+          <div class="sheet" id="sheetTinggi" role="dialog" aria-label="Atur tinggi badan" hidden>
+            <div class="grab" aria-hidden="true"></div>
+            <h3>Tinggi badan</h3>
+            <p class="tiny" style="margin:0 0 8px">Cukup diisi sekali — dipakai hitung BMI.</p>
+
+            <div class="big-input">
+              <span class="val">172</span><span class="unit">cm</span>
+            </div>
+
+            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin:0 0 12px">
+              <span class="chip static ok">BMI 24,5 · Normal</span>
+              <span class="tiny">dengan berat 72,5 kg</span>
+            </div>
+
+            <p class="hint" style="margin:0 0 14px">Rentang valid 100–250 cm</p>
+
+            <div style="display:flex;gap:10px">
+              <button class="btn btn-ghost" type="button" style="flex:1" data-sheet-close="sheetTinggi">Batal</button>
+              <button class="btn btn-primary" type="button" style="flex:2">Simpan</button>
+            </div>
+          </div>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 09 KATALOG MAKANAN ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">09</span><span class="name">Katalog Makanan Sehat</span><span class="hint">foto Pexels</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Makanan Sehat</h2>
+          </div>
+          <div class="scroll">
+            <div class="searchbar">
+              <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+              Cari menu…
+            </div>
+            <div class="chips-row" data-single role="group" aria-label="Filter kategori">
+              <button class="chip on" type="button" aria-pressed="true">Semua</button>
+              <button class="chip" type="button" aria-pressed="false">Sarapan</button>
+              <button class="chip" type="button" aria-pressed="false">Makan malam</button>
+              <button class="chip" type="button" aria-pressed="false">Cemilan</button>
+            </div>
+
+            <div class="food-grid">
+              <article class="food">
+                <img src="assets/food-salad.jpg" alt="Semangkuk salad sayur segar berwarna-warni">
+                <div class="info">
+                  <div class="nm">Salad Sayur Segar</div>
+                  <div class="row"><span class="chip static kal">120 kkal</span><span class="tiny">250 g</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/food-poke.jpg" alt="Dua poke bowl dengan tahu dan alpukat">
+                <div class="info">
+                  <div class="nm">Poke Bowl Tahu</div>
+                  <div class="row"><span class="chip static kal">320 kkal</span><span class="tiny">350 g</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/food-fruit.jpg" alt="Mangkuk buah potong berwarna-warni">
+                <div class="info">
+                  <div class="nm">Buah Potong Segar</div>
+                  <div class="row"><span class="chip static kal">95 kkal</span><span class="tiny">200 g</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/food-granola.jpg" alt="Granola dengan yogurt dan buah">
+                <div class="info">
+                  <div class="nm">Granola Yogurt</div>
+                  <div class="row"><span class="chip static kal">210 kkal</span><span class="tiny">180 g</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/food-salmon.jpg" alt="Salmon panggang dengan sayuran">
+                <div class="info">
+                  <div class="nm">Salmon Panggang</div>
+                  <div class="row"><span class="chip static kal">350 kkal</span><span class="tiny">300 g</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/food-chicken.jpg" alt="Ayam bakar dengan sayuran panggang">
+                <div class="info">
+                  <div class="nm">Ayam Bakar &amp; Sayur</div>
+                  <div class="row"><span class="chip static kal">290 kkal</span><span class="tiny">320 g</span></div>
+                </div>
+              </article>
+            </div>
+            <p class="tiny" style="text-align:center;margin-top:16px">Foto: Pexels — bebas lisensi komersial</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 10 KATALOG MINUMAN ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">10</span><span class="name">Katalog Minuman Sehat</span><span class="hint">foto Pexels</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Minuman Sehat</h2>
+          </div>
+          <div class="scroll">
+            <div class="searchbar">
+              <svg class="ico" aria-hidden="true"><use href="#i-search"/></svg>
+              Cari minuman…
+            </div>
+            <div class="chips-row" data-single role="group" aria-label="Filter kategori">
+              <button class="chip on" type="button" aria-pressed="true">Semua</button>
+              <button class="chip" type="button" aria-pressed="false">Dingin</button>
+              <button class="chip" type="button" aria-pressed="false">Hangat</button>
+              <button class="chip" type="button" aria-pressed="false">&lt; 50 kkal</button>
+            </div>
+
+            <div class="food-grid">
+              <article class="food">
+                <img src="assets/drink-matcha.jpg" alt="Segelas matcha latte hijau">
+                <div class="info">
+                  <div class="nm">Matcha Latte</div>
+                  <div class="row"><span class="chip static kal">120 kkal</span><span class="tiny">250 ml</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/drink-smoothie.jpg" alt="Dua gelas smoothie buah">
+                <div class="info">
+                  <div class="nm">Smoothie Hijau</div>
+                  <div class="row"><span class="chip static kal">150 kkal</span><span class="tiny">300 ml</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/drink-juice.jpg" alt="Segelas jus jeruk segar">
+                <div class="info">
+                  <div class="nm">Jus Jeruk Segar</div>
+                  <div class="row"><span class="chip static kal">90 kkal</span><span class="tiny">250 ml</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/drink-water.jpg" alt="Air putih dengan irisan lemon">
+                <div class="info">
+                  <div class="nm">Air Detoks Lemon</div>
+                  <div class="row"><span class="chip static kal">5 kkal</span><span class="tiny">500 ml</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/drink-tea.jpg" alt="Secangkir teh herbal hangat">
+                <div class="info">
+                  <div class="nm">Teh Herbal Hangat</div>
+                  <div class="row"><span class="chip static kal">2 kkal</span><span class="tiny">200 ml</span></div>
+                </div>
+              </article>
+              <article class="food">
+                <img src="assets/drink-juices.jpg" alt="Beberapa gelas jus buah berwarna-warni">
+                <div class="info">
+                  <div class="nm">Jus Campur Buah</div>
+                  <div class="row"><span class="chip static kal">110 kkal</span><span class="tiny">250 ml</span></div>
+                </div>
+              </article>
+            </div>
+            <p class="tiny" style="text-align:center;margin-top:16px">Foto: Pexels — bebas lisensi komersial</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 11 DETAIL MENU ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">11</span><span class="name">Detail Menu</span><span class="hint">katalog → detail</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="scroll" style="padding-top:0">
+            <img class="food-detail-img" src="assets/food-poke.jpg" alt="Dua poke bowl dengan tahu, alpukat dan sayur">
+            <div style="display:flex;align-items:flex-start;gap:10px;margin-top:16px">
+              <div style="flex:1">
+                <h2 style="font-family:var(--font-display);font-weight:600;font-size:1.5rem;margin:0 0 6px">Poke Bowl Tahu</h2>
+                <div style="display:flex;gap:7px;flex-wrap:wrap">
+                  <span class="chip static kal">320 kkal</span>
+                  <span class="chip static ok">Vegan</span>
+                  <span class="chip static">350 g</span>
+                </div>
+              </div>
+              <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            </div>
+
+            <p style="font-size:.9rem;color:var(--muted);margin:14px 0 0">
+              Mangkuk nasi merah dengan tahu panggang, alpukat, dan sayur rebus — kaya protein nabati,
+              cocok jadi makan siang setelah jalan kaki.
+            </p>
+
+            <div class="h-sec"><h3>Bahan utama</h3></div>
+            <section class="card tight">
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Tahu potong panggang — 100 g</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Alpukat — ½ buah</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Nasi merah — 100 g</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Sayur rebus &amp; wortel — secukupnya</div>
+            </section>
+
+            <div class="h-sec"><h3>Tips sehat</h3></div>
+            <section class="card tight" style="background:var(--accent-soft);border-color:transparent;display:flex;gap:12px;align-items:flex-start">
+              <span class="ico-chip amber" aria-hidden="true"><svg class="ico-sm"><use href="#i-sparkle"/></svg></span>
+              <p style="margin:0;font-size:.85rem;font-weight:600">Potong kecap asin jadi setengah porsi untuk menurunkan sodium tanpa mengurangi rasa.</p>
+            </section>
+
+            <div style="display:flex;flex-direction:column;gap:10px;margin-top:20px">
+              <button class="btn btn-primary" type="button">Tandai: saya makan ini</button>
+              <p class="tiny" style="text-align:center;margin:0">Catatan ringan untuk riwayat hari ini (opsional)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 12 EMPTY STATE ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">12</span><span class="name">Empty State</span><span class="hint">belum ada habit</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Habit</h2>
+            <button class="icon-btn" type="button" aria-label="Tambah habit"><svg class="ico"><use href="#i-plus"/></svg></button>
+          </div>
+          <div class="scroll">
+            <div class="empty">
+              <svg class="illus" viewBox="0 0 160 160" aria-hidden="true">
+                <circle cx="80" cy="80" r="62" fill="none" stroke="var(--primary)" stroke-width="3" stroke-dasharray="10 12" opacity=".55"/>
+                <circle cx="80" cy="80" r="44" fill="var(--primary-soft)"/>
+                <path d="M80 62v36M62 80h36" stroke="var(--primary-ink)" stroke-width="5" stroke-linecap="round"/>
+                <path d="M126 34l2.6 6.4L135 43l-6.4 2.6L126 52l-2.6-6.4L117 43l6.4-2.6z" fill="var(--accent)" stroke="none"/>
+                <path d="M34 112l1.8 4.2L40 118l-4.2 1.8L34 124l-1.8-4.2L28 118l4.2-1.8z" fill="var(--primary)" stroke="none" opacity=".7"/>
+              </svg>
+              <h3>Belum ada habit</h3>
+              <p>Mulai dari satu kebiasaan kecil — bobotnya yang menentukan seberapa penting bagi skor harianmu.</p>
+              <button class="btn btn-primary" type="button">Buat habit pertama</button>
+              <p class="tiny" style="margin-top:14px">Contoh: “Minum air 8 gelas · bobot 20”</p>
+            </div>
+          </div>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 13 OFFLINE + ERROR ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">13</span><span class="name">Offline &amp; Error</span><span class="hint tap">tombol coba lagi bisa diklik</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="offline-strip" role="status">
+            <svg class="ico-sm" aria-hidden="true"><use href="#i-wifi-off"/></svg>
+            Offline — perubahan akan disinkronkan
+          </div>
+          <div class="scroll">
+            <div class="appbar" style="padding-left:0;padding-right:0">
+              <span class="avatar" style="width:46px;height:46px;border-radius:16px;font-size:1.2rem;margin:0" aria-hidden="true">R</span>
+              <div style="flex:1">
+                <div style="font-weight:800;font-size:.95rem">Halo, Rina! 👋</div>
+                <div class="tiny">Minggu, 27 Sep 2026 · tersimpan lokal</div>
+              </div>
+            </div>
+
+            <section class="card score-card" aria-label="Skor harian 75 dari 100, data lokal">
+              <div class="score-row">
+                <svg class="ring" viewBox="0 0 116 116" aria-hidden="true">
+                  <circle class="track" cx="58" cy="58" r="48"/>
+                  <circle class="fill" cx="58" cy="58" r="48"/>
+                  <text class="val" x="58" y="60">75</text>
+                  <text class="cap" x="58" y="78">SKOR</text>
+                </svg>
+                <div class="score-meta">
+                  <div class="lbl">Skor harian</div>
+                  <div class="big">Dari cache lokal</div>
+                  <div class="sm">Firestore offline persistence aktif</div>
+                </div>
+              </div>
+            </section>
+
+            <section class="card warn-card" style="margin-top:14px;display:flex;gap:12px;align-items:flex-start" role="alert">
+              <span class="ico-chip red" aria-hidden="true"><svg class="ico-sm"><use href="#i-alert"/></svg></span>
+              <div>
+                <div style="font-weight:800;font-size:.9rem">Gagal memuat riwayat</div>
+                <p class="tiny" style="margin:3px 0 0">Periksa koneksi internetmu. Data lama tetap aman di perangkat.</p>
+              </div>
+            </section>
+
+            <div class="h-sec"><h3>Habit hari ini</h3></div>
+            <div class="habit done">
+              <button class="check" role="checkbox" aria-checked="true" aria-label="Centang Minum air 8 gelas"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip blue" aria-hidden="true"><svg class="ico-sm"><use href="#i-droplet"/></svg></span>
+              <div class="body">
+                <div class="title">Minum air 8 gelas</div>
+                <div class="meta"><span class="chip static weight">bobot 20</span><span class="badge offline">menunggu sync</span></div>
+              </div>
+            </div>
+            <div class="habit">
+              <button class="check" role="checkbox" aria-checked="false" aria-label="Centang Tidur sebelum 23.00"><svg class="ico-sm"><use href="#i-check"/></svg></button>
+              <span class="ico-chip red" aria-hidden="true"><svg class="ico-sm"><use href="#i-clock"/></svg></span>
+              <div class="body">
+                <div class="title">Tidur sebelum 23.00</div>
+                <div class="meta"><span class="chip static weight">bobot 25</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="snackbar" role="status">
+            <svg class="ico-sm" aria-hidden="true" style="color:var(--accent)"><use href="#i-alert"/></svg>
+            Gagal menyimpan — periksa koneksi
+            <button class="retry" type="button">COBA LAGI</button>
+          </div>
+
+          <nav class="bottomnav" aria-label="Navigasi utama">
+            <button class="nav-item active" type="button"><span class="pillbox"><svg class="ico"><use href="#i-home"/></svg></span>Beranda</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-list"/></svg></span>Habit</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-scale"/></svg></span>Berat</button>
+            <button class="nav-item" type="button"><span class="pillbox"><svg class="ico"><use href="#i-user"/></svg></span>Profil</button>
+          </nav>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============ 14 PRIVASI & KREDIT ============ -->
+    <article class="frame-wrap">
+      <p class="frame-label"><span class="num">14</span><span class="name">Privasi &amp; Kredit</span><span class="hint">legal &amp; credit</span></p>
+      <div class="phone">
+        <div class="statusbar"><span>09:41</span>
+          <span class="glyphs" aria-hidden="true">
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-signal"/></svg>
+            <svg class="ico-sm" style="width:15px;height:15px"><use href="#i-wifi"/></svg>
+            <svg class="ico-sm" style="width:20px;height:15px"><use href="#i-battery"/></svg>
+          </span>
+        </div>
+        <div class="screen">
+          <div class="appbar">
+            <button class="icon-btn" type="button" aria-label="Kembali"><svg class="ico"><use href="#i-back"/></svg></button>
+            <h2>Privasi &amp; Legal</h2>
+          </div>
+          <div class="scroll">
+            <section class="card tight" style="display:flex;gap:12px;align-items:flex-start;background:var(--primary-soft);border-color:transparent">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-shield"/></svg></span>
+              <p style="margin:0;font-size:.86rem;font-weight:600">Datamu milikmu. Ringkasan singkat cara NotedHealth menangani data:</p>
+            </section>
+
+            <div class="h-sec"><h3>Kebijakan privasi</h3></div>
+            <section class="card tight">
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Email &amp; nama hanya diambil dari Google Sign-In — untuk login, bukan untuk iklan</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Berat badan, habit, &amp; skor harian tersimpan di Cloud Firestore atas nama akunmu</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Hanya kamu yang bisa membaca datanya — aturan keamanan Firestore menolak akses siapa pun selain pemilik akun</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Tidak dibagikan ke pihak ketiga, tidak ada tracking atau analytics iklan</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Hapus akun di Profil = seluruh data ikut terhapus permanen</div>
+              <div class="ingr"><span class="dot-ok" aria-hidden="true"></span> Pengingat 07.00 &amp; 21.00 adalah notifikasi lokal di perangkat, tanpa server</div>
+            </section>
+            <p class="tiny" style="margin:9px 4px 0">Versi lengkap kebijakan privasi akan tersedia di URL publik saat rilis (wajib untuk Google Play).</p>
+
+            <div class="h-sec"><h3>Syarat layanan</h3></div>
+            <button class="row-btn" type="button">
+              <span class="ico-chip violet" aria-hidden="true"><svg class="ico-sm"><use href="#i-book"/></svg></span>
+              <span class="body"><span class="lbl">Ketentuan penggunaan</span><span class="desc">Tanggung jawab pengguna &amp; batasan aplikasi</span></span>
+              <svg class="ico muted"><use href="#i-next"/></svg>
+            </button>
+            <p class="tiny" style="margin:0 4px">NotedHealth adalah pencatat kebiasaan, bukan alat medis — tidak memberi diagnosis atau saran medis.</p>
+
+            <div class="h-sec"><h3>Kredit</h3></div>
+            <section class="card" style="text-align:center">
+              <span class="ico-chip violet" style="margin:0 auto 10px" aria-hidden="true"><svg class="ico-sm"><use href="#i-sparkle"/></svg></span>
+              <p class="tiny" style="margin:0">Desain &amp; pengembangan oleh</p>
+              <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--primary-ink);margin-top:2px">@rochwidias</div>
+            </section>
+            <p class="tiny" style="text-align:center;margin-top:14px">
+              Foto: Pexels (Pexels License) · Font: Plus Jakarta Sans &amp; Fredoka (SIL OFL 1.1) · Ikon SVG buatan sendiri
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="stage-foot">
+    <span><b>14 layar</b> · light/dark lewat tombol di atas</span>
+    <span>© 2026 <b>@rochwidias</b> — desain &amp; kode</span>
+    <span><b>Rumus skor:</b> Σ bobot selesai ÷ Σ bobot aktif × 100</span>
+    <span><b>Streak:</b> hari berturut skor &gt; 0</span>
+    <span>Buka <b>index.html</b> langsung di browser</span>
+  </footer>
+</div>
+
+  <script src="app.js"></script>
+  <script src="i18n.js"></script>
+</body>
+</html>

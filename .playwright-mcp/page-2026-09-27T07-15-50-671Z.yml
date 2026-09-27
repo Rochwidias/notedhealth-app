@@ -1,0 +1,475 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - navigation [ref=e6]:
+      - link [ref=e8] [cursor=pointer]:
+        - /url: /
+      - search [ref=e13]:
+        - generic [ref=e14]:
+          - button "Photos" [ref=e16] [cursor=pointer]
+          - searchbox "Search for free photos" [ref=e24]: healthy food bowl
+          - button [ref=e26] [cursor=pointer]
+      - generic [ref=e30]:
+        - link "Explore" [ref=e32] [cursor=pointer]:
+          - /url: /discover/
+        - link "License" [ref=e36] [cursor=pointer]:
+          - /url: /license/
+        - button [ref=e39] [cursor=pointer]
+        - button "Join" [ref=e42] [cursor=pointer]
+    - main [ref=e45]:
+      - generic [ref=e46]:
+        - generic [ref=e50]:
+          - paragraph [ref=e52] [cursor=pointer]: Any
+          - paragraph [ref=e57] [cursor=pointer]: Horizontal
+          - paragraph [ref=e62] [cursor=pointer]: Vertical
+          - paragraph [ref=e67] [cursor=pointer]: Square
+        - generic [ref=e71]:
+          - paragraph [ref=e73] [cursor=pointer]: Any
+          - paragraph [ref=e75] [cursor=pointer]: "0"
+          - paragraph [ref=e80] [cursor=pointer]: "1"
+          - paragraph [ref=e85] [cursor=pointer]: "2"
+          - paragraph [ref=e90] [cursor=pointer]: 3+
+        - generic [ref=e94]:
+          - paragraph [ref=e96] [cursor=pointer]: Any
+          - paragraph [ref=e101] [cursor=pointer]: Baby
+          - paragraph [ref=e106] [cursor=pointer]: Child
+          - paragraph [ref=e111] [cursor=pointer]: Teenager
+          - paragraph [ref=e116] [cursor=pointer]: Adult
+          - paragraph [ref=e121] [cursor=pointer]: Senior adult
+        - generic [ref=e124]:
+          - generic [ref=e125]:
+            - generic [ref=e126] [cursor=pointer]
+            - slider [ref=e128] [cursor=pointer]
+            - slider [ref=e129] [cursor=pointer]
+          - generic [ref=e130]:
+            - generic [ref=e131]:
+              - paragraph [ref=e132]: Minimum
+              - paragraph [ref=e133]: 1,080px
+            - generic [ref=e134]:
+              - paragraph [ref=e135]: Maximum
+              - paragraph [ref=e136]: 20,000px+
+        - generic [ref=e139]:
+          - generic [ref=e140]:
+            - generic [ref=e141] [cursor=pointer]
+            - slider [ref=e143] [cursor=pointer]
+            - slider [ref=e144] [cursor=pointer]
+          - generic [ref=e145]:
+            - generic [ref=e146]:
+              - paragraph [ref=e147]: Minimum
+              - paragraph [ref=e148]: 1,080px
+            - generic [ref=e149]:
+              - paragraph [ref=e150]: Maximum
+              - paragraph [ref=e151]: 20,000px+
+        - generic [ref=e155]:
+          - button [ref=e156] [cursor=pointer]:
+            - textbox [ref=e162]:
+              - /placeholder: Enter hex code
+          - button [ref=e165] [cursor=pointer]:
+            - textbox [ref=e171]: "#000000"
+        - generic [ref=e175]:
+          - paragraph [ref=e177] [cursor=pointer]: Any
+          - paragraph [ref=e182] [cursor=pointer]: Last 24 hours
+          - paragraph [ref=e187] [cursor=pointer]: Last week
+          - paragraph [ref=e192] [cursor=pointer]: Last month
+          - paragraph [ref=e197] [cursor=pointer]: Last year
+        - main "main-content" [ref=e198]:
+          - generic [ref=e199]:
+            - heading "Free Healthy Food Bowl Photos" [level=1] [ref=e202]
+            - generic [ref=e205]:
+              - link "Photos 272.8K" [ref=e207] [cursor=pointer]:
+                - /url: /search/healthy%20food%20bowl/
+                - text: Photos
+                - generic [ref=e208]: 272.8K
+              - link "Videos 56.3K" [ref=e209] [cursor=pointer]:
+                - /url: /search/videos/healthy%20food%20bowl/
+                - text: Videos
+                - generic [ref=e210]: 56.3K
+              - link "Users 7.8K" [ref=e211] [cursor=pointer]:
+                - /url: /search/users/healthy%20food%20bowl/
+                - text: Users
+                - generic [ref=e212]: 7.8K
+            - generic [ref=e214]:
+              - button "Filters" [ref=e216] [cursor=pointer]
+              - separator [ref=e223]
+              - generic [ref=e227]:
+                - link [ref=e229] [cursor=pointer]:
+                  - /url: /search/healthy%20meal/
+                  - img "healthy meal" [ref=e230]
+                  - generic [ref=e231]:
+                    - paragraph [ref=e232]: healthy meal
+                    - paragraph [ref=e233]: 179K
+                - link [ref=e234] [cursor=pointer]:
+                  - /url: /search/healthy%20food/
+                  - img "healthy food" [ref=e235]
+                  - generic [ref=e236]:
+                    - paragraph [ref=e237]: healthy food
+                    - paragraph [ref=e238]: 264K
+                - link [ref=e239] [cursor=pointer]:
+                  - /url: /search/healthy%20foods/
+                  - img "healthy foods" [ref=e240]
+                  - generic [ref=e241]:
+                    - paragraph [ref=e242]: healthy foods
+                    - paragraph [ref=e243]: 266K
+                - link [ref=e244] [cursor=pointer]:
+                  - /url: /search/salad%20bowl/
+                  - img "salad bowl" [ref=e245]
+                  - generic [ref=e246]:
+                    - paragraph [ref=e247]: salad bowl
+                    - paragraph [ref=e248]: 41K
+                - link [ref=e249] [cursor=pointer]:
+                  - /url: /search/eating%20healthy%20food/
+                  - img "eating healthy food" [ref=e250]
+                  - generic [ref=e251]:
+                    - paragraph [ref=e252]: eating healthy food
+                    - paragraph [ref=e253]: 273K
+                - link [ref=e254] [cursor=pointer]:
+                  - /url: /search/food%20plate/
+                  - img "food plate" [ref=e255]
+                  - generic [ref=e256]:
+                    - paragraph [ref=e257]: food plate
+                    - paragraph [ref=e258]: 220K
+                - link [ref=e259] [cursor=pointer]:
+                  - /url: /search/fruit%20bowl/
+                  - img "fruit bowl" [ref=e260]
+                  - generic [ref=e261]:
+                    - paragraph [ref=e262]: fruit bowl
+                    - paragraph [ref=e263]: 93K
+                - link [ref=e264] [cursor=pointer]:
+                  - /url: /search/healthy%20eating/
+                  - img "healthy eating" [ref=e265]
+                  - generic [ref=e266]:
+                    - paragraph [ref=e267]: healthy eating
+                    - paragraph [ref=e268]: 156K
+                - link [ref=e269] [cursor=pointer]:
+                  - /url: /search/healthy%20diet/
+                  - img "healthy diet" [ref=e270]
+                  - generic [ref=e271]:
+                    - paragraph [ref=e272]: healthy diet
+                    - paragraph [ref=e273]: 135K
+                - link [ref=e274] [cursor=pointer]:
+                  - /url: /search/health%20food/
+                  - img "health food" [ref=e275]
+                  - generic [ref=e276]:
+                    - paragraph [ref=e277]: health food
+                    - paragraph [ref=e278]: 298K
+                - link [ref=e279] [cursor=pointer]:
+                  - /url: /search/diet%20food/
+                  - img "diet food" [ref=e280]
+                  - generic [ref=e281]:
+                    - paragraph [ref=e282]: diet food
+                    - paragraph [ref=e283]: 202K
+                - link [ref=e284] [cursor=pointer]:
+                  - /url: /search/eat%20healthy/
+                  - img "eat healthy" [ref=e285]
+                  - generic [ref=e286]:
+                    - paragraph [ref=e287]: eat healthy
+                    - paragraph [ref=e288]: 155K
+                - link [ref=e289] [cursor=pointer]:
+                  - /url: /search/bowl/
+                  - img "bowl" [ref=e290]
+                  - generic [ref=e291]:
+                    - paragraph [ref=e292]: bowl
+                    - paragraph [ref=e293]: 5K
+                - link [ref=e294] [cursor=pointer]:
+                  - /url: /search/organic%20food/
+                  - img "organic food" [ref=e295]
+                  - generic [ref=e296]:
+                    - paragraph [ref=e297]: organic food
+                    - paragraph [ref=e298]: 359K
+                - link [ref=e299] [cursor=pointer]:
+                  - /url: /search/mediterranean%20food/
+                  - img "mediterranean food" [ref=e300]
+                  - generic [ref=e301]:
+                    - paragraph [ref=e302]: mediterranean food
+                    - paragraph [ref=e303]: 309K
+                - link [ref=e304] [cursor=pointer]:
+                  - /url: /search/protein%20food/
+                  - img "protein food" [ref=e305]
+                  - generic [ref=e306]:
+                    - paragraph [ref=e307]: protein food
+                    - paragraph [ref=e308]: 199K
+                - img [ref=e309] [cursor=pointer]
+            - generic [ref=e312]:
+              - generic [ref=e314]:
+                - generic [ref=e315]:
+                  - article [ref=e318]:
+                    - link [ref=e319] [cursor=pointer]:
+                      - /url: /photo/a-person-holding-a-ceramic-bowl-with-assorted-food-13803823/
+                      - img "Free Woman savoring a nutritious avocado salad with a refreshing green drink on a sunny day. Stock Photo" [ref=e320]
+                  - article [ref=e325]:
+                    - link [ref=e326] [cursor=pointer]:
+                      - /url: /photo/people-eating-mixed-vegetables-7660436/
+                      - img "Free Two people using chopsticks to enjoy fresh vegetable bowls on a white table. Stock Photo" [ref=e327]
+                  - article [ref=e332]:
+                    - link [ref=e333] [cursor=pointer]:
+                      - /url: /photo/cooked-food-on-white-ceramic-plate-6065181/
+                      - img "Free Top view of vegetarian bowls with avocado, corn, beans, and cheese for a delicious meal. Stock Photo" [ref=e334]
+                  - article [ref=e339]:
+                    - link [ref=e340] [cursor=pointer]:
+                      - /url: /photo/bowls-with-snack-and-salad-13788174/
+                      - img "Free Colorful fresh salads with crunchy bread slices served in vibrant blue bowls, perfect for catering events. Stock Photo" [ref=e341]
+                  - article [ref=e346]:
+                    - link [ref=e347] [cursor=pointer]:
+                      - /url: /photo/delicious-dessert-bowl-with-fresh-strawberries-28935569/
+                      - img "Free A delightful dessert bowl topped with fresh strawberries, perfect for a sweet treat. Stock Photo" [ref=e348]
+                  - article [ref=e353]:
+                    - link [ref=e354] [cursor=pointer]:
+                      - /url: /photo/photo-of-poke-bowls-with-tofu-and-avocado-cubes-4828098/
+                      - img "Free Two nutritious poke bowls with tofu, avocado, and vibrant vegetables on a light background. Stock Photo" [ref=e355]
+                  - article [ref=e360]:
+                    - link [ref=e361] [cursor=pointer]:
+                      - /url: /photo/bowls-with-salads-19150338/
+                      - img "Free Vibrant vegan Buddha bowl filled with fresh vegetables and healthy ingredients. Stock Photo" [ref=e362]
+                  - article [ref=e367]:
+                    - link [ref=e368] [cursor=pointer]:
+                      - /url: /photo/photograph-of-bowls-with-hawaiian-food-4828105/
+                      - img "Free Three colorful Hawaiian poke bowls with fresh ingredients in bright lighting. Stock Photo" [ref=e369]
+                - generic [ref=e372]:
+                  - article [ref=e375]:
+                    - link [ref=e376] [cursor=pointer]:
+                      - /url: /photo/assorted-fruits-in-bowls-1652312/
+                      - img "Free A colorful assortment of fresh fruit bowls featuring mixed berries and citrus slices, perfect for healthy eating inspiration. Stock Photo" [ref=e377]
+                  - article [ref=e382]:
+                    - link [ref=e383] [cursor=pointer]:
+                      - /url: /photo/photo-of-fruits-and-smoothie-on-a-bowl-4099238/
+                      - img "Free Top view of berry smoothie bowls with granola on a rustic wooden board, perfect vegan breakfast. Stock Photo" [ref=e384]
+                  - article [ref=e389]:
+                    - link [ref=e390] [cursor=pointer]:
+                      - /url: /photo/person-holding-white-ceramic-bowl-with-vegetable-salad-7660443/
+                      - img "Free Top view of hands holding healthy vegetable salad bowls with chopsticks, featuring fresh ingredients. Stock Photo" [ref=e391]
+                  - article [ref=e396]:
+                    - link [ref=e397] [cursor=pointer]:
+                      - /url: /photo/close-up-photo-of-a-smoothie-bowl-13222801/
+                      - img "Free Overhead view of vibrant smoothie bowls with star fruit, kiwi, mango, and avocado on a light background. Stock Photo" [ref=e398]
+                  - article [ref=e403]:
+                    - link [ref=e404] [cursor=pointer]:
+                      - /url: /photo/close-up-of-breakfast-bowls-with-fruits-and-grains-4099231/
+                      - img "Free Delicious berry smoothie bowl topped with raspberries, blueberries, nuts, and seeds, accompanied by golden spoons. Stock Photo" [ref=e405]
+                  - article [ref=e410]:
+                    - link [ref=e411] [cursor=pointer]:
+                      - /url: /photo/food-on-ceramic-plate-5337689/
+                      - img "Free Colorful poke bowl with fresh vegetables and proteins on wooden table, emphasizing healthy eating. Stock Photo" [ref=e412]
+                  - article [ref=e417]:
+                    - link [ref=e418] [cursor=pointer]:
+                      - /url: /photo/a-bowl-with-vegetables-and-an-egg-15611222/
+                      - img "Free A delicious and colorful poke bowl featuring eggs, vegetables, and fresh produce, perfect for a healthy meal. Stock Photo" [ref=e419]
+                  - article [ref=e424]:
+                    - link [ref=e425] [cursor=pointer]:
+                      - /url: /photo/a-salad-in-a-bowl-12814860/
+                      - img "Free Close-up of a vibrant poke bowl with fresh veggies, salmon, and seaweed on a neutral background. Stock Photo" [ref=e426]
+                  - article [ref=e431]:
+                    - link [ref=e432] [cursor=pointer]:
+                      - /url: /photo/a-person-mixing-a-salad-on-a-glass-bowl-7601411/
+                      - img "Free A fresh zucchini and onion salad being mixed in a glass bowl with wooden spoons indoors. Stock Photo" [ref=e433]
+                - generic [ref=e436]:
+                  - generic [ref=e438]:
+                    - generic [ref=e440]:
+                      - link [ref=e441] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20healthy%20food%20bowl%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own healthy food bowl content with Canva" [ref=e442]
+                      - link [ref=e443] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20healthy%20food%20bowl%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own healthy food bowl content with Canva" [ref=e444]
+                      - link [ref=e445] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20healthy%20food%20bowl%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own healthy food bowl content with Canva" [ref=e446]
+                      - link [ref=e447] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20healthy%20food%20bowl%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own healthy food bowl content with Canva" [ref=e448]
+                    - link [ref=e449] [cursor=pointer]:
+                      - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20healthy%20food%20bowl%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                      - paragraph [ref=e452]: Bring your ideas to life with Canva AI
+                    - link "Get started for free" [ref=e453] [cursor=pointer]:
+                      - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20healthy%20food%20bowl%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                  - article [ref=e458]:
+                    - link [ref=e459] [cursor=pointer]:
+                      - /url: /photo/close-up-photo-of-mixed-vegetables-in-bowls-7660437/
+                      - img "Free Top view of three healthy salad bowls featuring fresh mixed vegetables, perfect for a nutritious meal. Stock Photo" [ref=e460]
+                  - article [ref=e465]:
+                    - link [ref=e466] [cursor=pointer]:
+                      - /url: /photo/round-stainless-steel-bowl-with-cooked-meat-and-vegetables-842545/
+                      - img "Free Delicious bowl of salad with fresh greens and grilled chicken served on a wooden platter. Stock Photo" [ref=e467]
+                  - article [ref=e472]:
+                    - link [ref=e473] [cursor=pointer]:
+                      - /url: /photo/overhead-shot-of-a-person-s-hands-holding-a-poke-bowl-4828100/
+                      - img "Free Overhead shot of assorted poke bowls with fresh ingredients like salmon, avocado, and tofu. Stock Photo" [ref=e474]
+                  - article [ref=e479]:
+                    - link [ref=e480] [cursor=pointer]:
+                      - /url: /photo/breakfast-servings-on-table-in-outdoor-cafe-13350112/
+                      - img "Free A nutritious outdoor breakfast setting with bowls of fresh fruits and oatmeal. Stock Photo" [ref=e481]
+                  - link [ref=e485] [cursor=pointer]:
+                    - /url: /collections/eat-healthy-ivp2tug/
+                    - article [ref=e486]:
+                      - list [ref=e488]:
+                        - listitem [ref=e489]
+                        - listitem [ref=e491]
+                        - listitem [ref=e493]
+                      - generic [ref=e495]:
+                        - heading "Eat Healthy" [level=4] [ref=e496]
+                        - paragraph [ref=e500]: "89"
+                  - article [ref=e503]:
+                    - link [ref=e504] [cursor=pointer]:
+                      - /url: /photo/acai-bowl-with-mixed-berries-566564/
+                      - img "Free Close-up of fresh blueberries and strawberries on yogurt with granola. Stock Photo" [ref=e505]
+                  - article [ref=e510]:
+                    - link [ref=e511] [cursor=pointer]:
+                      - /url: /photo/sliced-raspeberries-and-blue-berries-461334/
+                      - img "Free Top view of fresh berry and almond bowls with sugar on dark slate. Stock Photo" [ref=e512]
+                  - article [ref=e517]:
+                    - link [ref=e518] [cursor=pointer]:
+                      - /url: /photo/person-holding-a-bowl-with-food-5182123/
+                      - img "Free Healthy vegan bowl with chickpeas, kale, carrots, and lemon served fresh. Stock Photo" [ref=e519]
+              - button "Load More" [ref=e523] [cursor=pointer]
+            - navigation [ref=e526]:
+              - generic [ref=e528]:
+                - link "1" [ref=e530]:
+                  - /url: /search/healthy%20food%20bowl/
+                - link "2" [ref=e533] [cursor=pointer]:
+                  - /url: /search/healthy%20food%20bowl/?page=2
+                - link "3" [ref=e536] [cursor=pointer]:
+                  - /url: /search/healthy%20food%20bowl/?page=3
+                - link "4" [ref=e539] [cursor=pointer]:
+                  - /url: /search/healthy%20food%20bowl/?page=4
+                - link "5" [ref=e542] [cursor=pointer]:
+                  - /url: /search/healthy%20food%20bowl/?page=5
+                - link "6" [ref=e545] [cursor=pointer]:
+                  - /url: /search/healthy%20food%20bowl/?page=6
+                - link "Next" [ref=e548] [cursor=pointer]:
+                  - /url: /search/healthy%20food%20bowl/?page=2
+    - contentinfo [ref=e552]:
+      - separator [ref=e553]
+      - generic [ref=e554]:
+        - generic [ref=e555]:
+          - heading "Where stories come together." [level=2] [ref=e556]
+          - generic [ref=e557]:
+            - link "Download on iOS" [ref=e558] [cursor=pointer]:
+              - /url: https://itunes.apple.com/us/app/pexels/id1434330413/
+            - link "Download on Android" [ref=e561] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=com.pexels.app
+          - list [ref=e564]:
+            - listitem [ref=e565]:
+              - link "Instagram" [ref=e566] [cursor=pointer]:
+                - /url: https://www.instagram.com/pexels/
+            - listitem [ref=e569]:
+              - link "Threads" [ref=e570] [cursor=pointer]:
+                - /url: https://www.threads.net/@pexels/
+            - listitem [ref=e573]:
+              - link "YouTube" [ref=e574] [cursor=pointer]:
+                - /url: https://www.youtube.com/pexelsphotos/
+            - listitem [ref=e577]:
+              - link "TikTok" [ref=e578] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@pexels/
+            - listitem [ref=e581]:
+              - link "LinkedIn" [ref=e582] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/pexels/
+            - listitem [ref=e585]:
+              - link "X" [ref=e586] [cursor=pointer]:
+                - /url: https://x.com/pexels/
+        - generic [ref=e589]:
+          - list [ref=e590]:
+            - heading "Pexels" [level=3] [ref=e591]
+            - listitem [ref=e592]:
+              - link "Free Stock Photos" [ref=e593] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=e594]:
+              - link "Free Videos" [ref=e595] [cursor=pointer]:
+                - /url: /videos/
+            - listitem [ref=e596]:
+              - link "Popular searches" [ref=e597] [cursor=pointer]:
+                - /url: /popular-searches/
+            - listitem [ref=e598]:
+              - link "Collections" [ref=e599] [cursor=pointer]:
+                - /url: /discover/
+            - listitem [ref=e600]:
+              - link "Challenges" [ref=e601] [cursor=pointer]:
+                - /url: /challenges/
+            - listitem [ref=e602]:
+              - link "Leaderboard" [ref=e603] [cursor=pointer]:
+                - /url: /leaderboard/
+            - listitem [ref=e604]:
+              - link "Other plugins & apps" [ref=e605] [cursor=pointer]:
+                - /url: /pro/
+          - list [ref=e606]:
+            - heading "Company" [level=3] [ref=e607]
+            - listitem [ref=e608]:
+              - link "About" [ref=e609] [cursor=pointer]:
+                - /url: /about/
+            - listitem [ref=e610]:
+              - link "Blog" [ref=e611] [cursor=pointer]:
+                - /url: /blog/
+            - listitem [ref=e612]:
+              - link "Help Center" [ref=e613] [cursor=pointer]:
+                - /url: https://help.pexels.com/hc/en-us
+            - listitem [ref=e614]:
+              - link "Report content" [ref=e615] [cursor=pointer]:
+                - /url: /report/
+            - listitem [ref=e616]:
+              - link "Become a Hero" [ref=e617] [cursor=pointer]:
+                - /url: /hero/
+            - listitem [ref=e618]:
+              - link "Partner with Pexels" [ref=e619] [cursor=pointer]:
+                - /url: /become-a-partner/
+            - listitem [ref=e620]:
+              - link "Image & Video API" [ref=e621] [cursor=pointer]:
+                - /url: /api/
+            - listitem [ref=e622]: Sign Up
+        - list [ref=e623]:
+          - listitem [ref=e624]:
+            - heading "Free Stock Photos" [level=3] [ref=e625]
+          - listitem [ref=e626]:
+            - generic [ref=e628]:
+              - link "Black and white photography" [ref=e630] [cursor=pointer]:
+                - /url: /search/black%20and%20white/
+              - link "Happy birthday images" [ref=e631] [cursor=pointer]:
+                - /url: /search/happy%20birthday/
+              - link "Free business videos" [ref=e632] [cursor=pointer]:
+                - /url: /search/videos/business/
+              - link "Happy new year images" [ref=e633] [cursor=pointer]:
+                - /url: /search/happy%20new%20year/
+              - link "Cool wallpapers" [ref=e634] [cursor=pointer]:
+                - /url: /search/cool%20wallpaper/
+              - link "Best HD wallpapers" [ref=e635] [cursor=pointer]:
+                - /url: /search/hd%20wallpaper/
+              - link "Galaxy wallpaper" [ref=e636] [cursor=pointer]:
+                - /url: /search/galaxy%20wallpaper/
+              - link "Lock screen wallpaper" [ref=e637] [cursor=pointer]:
+                - /url: /search/lock%20screen%20wallpaper/
+              - link "iPhone wallpaper" [ref=e638] [cursor=pointer]:
+                - /url: /search/iphone%20wallpaper/
+              - link "4K wallpaper" [ref=e639] [cursor=pointer]:
+                - /url: /search/4k%20wallpaper/
+              - link "Samsung wallpaper" [ref=e640] [cursor=pointer]:
+                - /url: /search/samsung%20wallpaper/
+              - link "Love wallpaper" [ref=e641] [cursor=pointer]:
+                - /url: /search/love%20wallpaper/
+              - link "Mobile wallpaper" [ref=e642] [cursor=pointer]:
+                - /url: /search/mobile%20wallpaper/
+      - generic [ref=e644]:
+        - generic [ref=e645]: © 2026 Pexels
+        - generic [ref=e647]:
+          - link "Terms of Use" [ref=e649] [cursor=pointer]:
+            - /url: /terms-of-service/
+          - link "Privacy Policy" [ref=e650] [cursor=pointer]:
+            - /url: /privacy-policy/
+          - link "License" [ref=e651] [cursor=pointer]:
+            - /url: /license/
+          - link "Imprint" [ref=e652] [cursor=pointer]:
+            - /url: /imprint/
+          - link "Cookies Policy" [ref=e653] [cursor=pointer]:
+            - /url: /cookies/
+        - button "English" [ref=e656] [cursor=pointer]
+      - separator [ref=e661]
+  - region "Cookie banner" [ref=e662]:
+    - alertdialog "But first, cookies &#127850;" [ref=e663]:
+      - generic [ref=e665]:
+        - generic [ref=e667]:
+          - heading "But first, cookies 🍪" [level=2] [ref=e668]
+          - paragraph [ref=e669]:
+            - text: We use essential cookies to make Pexels work. We'd like to use other cookies to improve and personalize your visit, tailor ads you see from us on Pexels and partner sites, and to analyze our website's performance, but only if you accept. Learn more about your choices in
+            - link "our cookie policy" [active] [ref=e670] [cursor=pointer]:
+              - /url: https://www.pexels.com/cookies/
+            - text: .
+        - generic [ref=e672]:
+          - button "Cookies Settings" [ref=e673] [cursor=pointer]
+          - button "Accept All Cookies" [ref=e674] [cursor=pointer]
+  - alert [ref=e675]
+  - status [ref=e676]: "[object Object] has been selected."

@@ -1,0 +1,483 @@
+- generic [ref=f16e1]:
+  - generic [ref=f16e3]:
+    - navigation [ref=f16e6]:
+      - link [ref=f16e8] [cursor=pointer]:
+        - /url: /
+      - search [ref=f16e13]:
+        - generic [ref=f16e14]:
+          - button "Photos" [ref=f16e16] [cursor=pointer]
+          - searchbox "Search for free photos" [ref=f16e24]: grilled salmon plate
+          - button [ref=f16e26] [cursor=pointer]
+      - generic [ref=f16e30]:
+        - link "Explore" [ref=f16e32] [cursor=pointer]:
+          - /url: /discover/
+        - link "License" [ref=f16e36] [cursor=pointer]:
+          - /url: /license/
+        - button [ref=f16e39] [cursor=pointer]
+        - button "Join" [ref=f16e42] [cursor=pointer]
+    - main [ref=f16e45]:
+      - generic [ref=f16e46]:
+        - generic [ref=f16e50]:
+          - paragraph [ref=f16e52] [cursor=pointer]: Any
+          - paragraph [ref=f16e57] [cursor=pointer]: Horizontal
+          - paragraph [ref=f16e62] [cursor=pointer]: Vertical
+          - paragraph [ref=f16e67] [cursor=pointer]: Square
+        - generic [ref=f16e71]:
+          - paragraph [ref=f16e73] [cursor=pointer]: Any
+          - paragraph [ref=f16e75] [cursor=pointer]: "0"
+          - paragraph [ref=f16e80] [cursor=pointer]: "1"
+          - paragraph [ref=f16e85] [cursor=pointer]: "2"
+          - paragraph [ref=f16e90] [cursor=pointer]: 3+
+        - generic [ref=f16e94]:
+          - paragraph [ref=f16e96] [cursor=pointer]: Any
+          - paragraph [ref=f16e101] [cursor=pointer]: Baby
+          - paragraph [ref=f16e106] [cursor=pointer]: Child
+          - paragraph [ref=f16e111] [cursor=pointer]: Teenager
+          - paragraph [ref=f16e116] [cursor=pointer]: Adult
+          - paragraph [ref=f16e121] [cursor=pointer]: Senior adult
+        - generic [ref=f16e124]:
+          - generic [ref=f16e125]:
+            - generic [ref=f16e126] [cursor=pointer]
+            - slider [ref=f16e128] [cursor=pointer]
+            - slider [ref=f16e129] [cursor=pointer]
+          - generic [ref=f16e130]:
+            - generic [ref=f16e131]:
+              - paragraph [ref=f16e132]: Minimum
+              - paragraph [ref=f16e133]: 1,080px
+            - generic [ref=f16e134]:
+              - paragraph [ref=f16e135]: Maximum
+              - paragraph [ref=f16e136]: 20,000px+
+        - generic [ref=f16e139]:
+          - generic [ref=f16e140]:
+            - generic [ref=f16e141] [cursor=pointer]
+            - slider [ref=f16e143] [cursor=pointer]
+            - slider [ref=f16e144] [cursor=pointer]
+          - generic [ref=f16e145]:
+            - generic [ref=f16e146]:
+              - paragraph [ref=f16e147]: Minimum
+              - paragraph [ref=f16e148]: 1,080px
+            - generic [ref=f16e149]:
+              - paragraph [ref=f16e150]: Maximum
+              - paragraph [ref=f16e151]: 20,000px+
+        - generic [ref=f16e155]:
+          - button [ref=f16e156] [cursor=pointer]:
+            - textbox [ref=f16e162]:
+              - /placeholder: Enter hex code
+          - button [ref=f16e165] [cursor=pointer]:
+            - textbox [ref=f16e171]: "#000000"
+        - generic [ref=f16e175]:
+          - paragraph [ref=f16e177] [cursor=pointer]: Any
+          - paragraph [ref=f16e182] [cursor=pointer]: Last 24 hours
+          - paragraph [ref=f16e187] [cursor=pointer]: Last week
+          - paragraph [ref=f16e192] [cursor=pointer]: Last month
+          - paragraph [ref=f16e197] [cursor=pointer]: Last year
+        - main "main-content" [ref=f16e198]:
+          - generic [ref=f16e199]:
+            - heading "Free Grilled Salmon Plate Photos" [level=1] [ref=f16e202]
+            - generic [ref=f16e205]:
+              - link "Photos 91.4K" [ref=f16e207] [cursor=pointer]:
+                - /url: /search/grilled%20salmon%20plate/
+                - text: Photos
+                - generic [ref=f16e208]: 91.4K
+              - link "Videos 11.4K" [ref=f16e209] [cursor=pointer]:
+                - /url: /search/videos/grilled%20salmon%20plate/
+                - text: Videos
+                - generic [ref=f16e210]: 11.4K
+              - link "Users 1.5K" [ref=f16e211] [cursor=pointer]:
+                - /url: /search/users/grilled%20salmon%20plate/
+                - text: Users
+                - generic [ref=f16e212]: 1.5K
+            - generic [ref=f16e214]:
+              - button "Filters" [ref=f16e216] [cursor=pointer]
+              - separator [ref=f16e223]
+              - generic [ref=f16e227]:
+                - link [ref=f16e229] [cursor=pointer]:
+                  - /url: /search/grilled%20fish/
+                  - img "grilled fish" [ref=f16e230]
+                  - generic [ref=f16e231]:
+                    - paragraph [ref=f16e232]: grilled fish
+                    - paragraph [ref=f16e233]: 64K
+                - link [ref=f16e234] [cursor=pointer]:
+                  - /url: /search/salmon%20fish/
+                  - img "salmon fish" [ref=f16e235]
+                  - generic [ref=f16e236]:
+                    - paragraph [ref=f16e237]: salmon fish
+                    - paragraph [ref=f16e238]: 49K
+                - link [ref=f16e239] [cursor=pointer]:
+                  - /url: /search/salmon/
+                  - img "salmon" [ref=f16e240]
+                  - generic [ref=f16e241]:
+                    - paragraph [ref=f16e242]: salmon
+                    - paragraph [ref=f16e243]: 8K
+                - link [ref=f16e244] [cursor=pointer]:
+                  - /url: /search/fish%20dish/
+                  - img "fish dish" [ref=f16e245]
+                  - generic [ref=f16e246]:
+                    - paragraph [ref=f16e247]: fish dish
+                    - paragraph [ref=f16e248]: 90K
+                - link [ref=f16e249] [cursor=pointer]:
+                  - /url: /search/grilled%20chicken/
+                  - img "grilled chicken" [ref=f16e250]
+                  - generic [ref=f16e251]:
+                    - paragraph [ref=f16e252]: grilled chicken
+                    - paragraph [ref=f16e253]: 28K
+                - link [ref=f16e254] [cursor=pointer]:
+                  - /url: /search/fried%20fish/
+                  - img "fried fish" [ref=f16e255]
+                  - generic [ref=f16e256]:
+                    - paragraph [ref=f16e257]: fried fish
+                    - paragraph [ref=f16e258]: 57K
+                - link [ref=f16e259] [cursor=pointer]:
+                  - /url: /search/clown%20fish/
+                  - img "clown fish" [ref=f16e260]
+                  - generic [ref=f16e261]:
+                    - paragraph [ref=f16e262]: clown fish
+                    - paragraph [ref=f16e263]: 10K
+                - link [ref=f16e264] [cursor=pointer]:
+                  - /url: /search/tuna%20fish/
+                  - img "tuna fish" [ref=f16e265]
+                  - generic [ref=f16e266]:
+                    - paragraph [ref=f16e267]: tuna fish
+                    - paragraph [ref=f16e268]: 47K
+                - link [ref=f16e269] [cursor=pointer]:
+                  - /url: /search/fish%20and%20chips/
+                  - img "fish and chips" [ref=f16e270]
+                  - generic [ref=f16e271]:
+                    - paragraph [ref=f16e272]: fish and chips
+                    - paragraph [ref=f16e273]: 55K
+                - link [ref=f16e274] [cursor=pointer]:
+                  - /url: /search/trout/
+                  - img "trout" [ref=f16e275]
+                  - generic [ref=f16e276]:
+                    - paragraph [ref=f16e277]: trout
+                    - paragraph [ref=f16e278]: 5K
+                - link [ref=f16e279] [cursor=pointer]:
+                  - /url: /search/fresh%20fish/
+                  - img "fresh fish" [ref=f16e280]
+                  - generic [ref=f16e281]:
+                    - paragraph [ref=f16e282]: fresh fish
+                    - paragraph [ref=f16e283]: 348K
+                - link [ref=f16e284] [cursor=pointer]:
+                  - /url: /search/koi%20fish/
+                  - img "koi fish" [ref=f16e285]
+                  - generic [ref=f16e286]:
+                    - paragraph [ref=f16e287]: koi fish
+                    - paragraph [ref=f16e288]: 47K
+                - link [ref=f16e289] [cursor=pointer]:
+                  - /url: /search/fish/
+                  - img "fish" [ref=f16e290]
+                  - generic [ref=f16e291]:
+                    - paragraph [ref=f16e292]: fish
+                    - paragraph [ref=f16e293]: 48K
+                - link [ref=f16e294] [cursor=pointer]:
+                  - /url: /search/fish%20fry/
+                  - img "fish fry" [ref=f16e295]
+                  - generic [ref=f16e296]:
+                    - paragraph [ref=f16e297]: fish fry
+                    - paragraph [ref=f16e298]: 50K
+                - link [ref=f16e299] [cursor=pointer]:
+                  - /url: /search/food%20plate/
+                  - img "food plate" [ref=f16e300]
+                  - generic [ref=f16e301]:
+                    - paragraph [ref=f16e302]: food plate
+                    - paragraph [ref=f16e303]: 220K
+                - link [ref=f16e304] [cursor=pointer]:
+                  - /url: /search/lasagna/
+                  - img "lasagna" [ref=f16e305]
+                  - generic [ref=f16e306]:
+                    - paragraph [ref=f16e307]: lasagna
+                    - paragraph [ref=f16e308]: 5K
+                - img [ref=f16e309] [cursor=pointer]
+            - generic [ref=f16e312]:
+              - generic [ref=f16e314]:
+                - generic [ref=f16e315]:
+                  - article [ref=f16e318]:
+                    - link [ref=f16e319] [cursor=pointer]:
+                      - /url: /photo/delicious-grilled-salmon-with-vegetables-and-lime-31890213/
+                      - img "Free Grilled salmon served with roasted vegetables and lime on a wooden board. Stock Photo" [ref=f16e320]
+                  - article [ref=f16e325]:
+                    - link [ref=f16e326] [cursor=pointer]:
+                      - /url: /photo/toast-and-rice-on-dish-10506640/
+                      - img "Free A gourmet dish featuring grilled salmon, rice, greens, and toast on a dark table setting. Stock Photo" [ref=f16e327]
+                  - generic [ref=f16e331]:
+                    - generic [ref=f16e332]:
+                      - heading "‌‌S‌‌p‌‌‌o‌n‌‌s‌‌o‌r‌e‌d‌‌‌ ‌‌P‌‌‌h‌‌o‌t‌o‌‌‌s‌" [level=4] [ref=f16e333]
+                      - link [ref=f16e334] [cursor=pointer]:
+                        - /url: https://www.pexels.com/r/eyJkZXN0IjoiaHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3Rvcy9ncmlsbGVkJTIwc2FsbW9uJTIwcGxhdGU_dXRtX3NvdXJjZT1wZXhlbHMmdXRtX21lZGl1bT1hZmZpbGlhdGUmdXRtX2NhbXBhaWduPXNwb25zb3JlZF9waG90byZ1dG1fY29udGVudD1zcnBfaW5saW5lX2xvZ28mdXRtX3Rlcm09Z3JpbGxlZCUyMHNhbG1vbiUyMHBsYXRlIiwiZGF0YSI6eyJleHBlcmltZW50cyI6e30sInBhZ2VfbG9jYWxlIjoiZW4tVVMiLCJsb2NhdGlvbiI6ImdyaWQiLCJhZF9wYXJ0bmVyIjoiZ2V0dHkiLCJhZF9mb3JtYXQiOiJpbmxpbmUiLCJhZF9wbGFjZW1lbnQiOiIxMCIsImFkX2NyZWF0aXZlIjoicGhvdG9fc2VhcmNoXzQiLCJhZF9hY3Rpb24iOiJjbGljayIsImFkX2ltcHJlc3Npb25faWQiOiJiOTk0ZjA4NC1jYTRhLTQ4NmMtYmU2Ny04MWZhN2I1YTY2YTkiLCJtZWRpYV90eXBlIjoicGhvdG8iLCJxdWVyeSI6ImdyaWxsZWQgc2FsbW9uIHBsYXRlIn19/
+                    - generic [ref=f16e338]:
+                      - link [ref=f16e339] [cursor=pointer]:
+                        - /url: https://www.pexels.com/r/eyJkZXN0IjoiaHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3RvL2JhcmJlY3VlZC1zYWxtb24tZnJpZWQtcG90YXRvZXMtYW5kLXZlZ2V0YWJsZXMtb24td29vZGVuLWJhY2tncm91bmQtZ20xMjE0NDE2NDE0LTM1MzMxNDI3MD91dG1fc291cmNlPXBleGVscyZ1dG1fbWVkaXVtPWFmZmlsaWF0ZSZ1dG1fY2FtcGFpZ249c3BvbnNvcmVkX3Bob3RvJnV0bV9jb250ZW50PXNycF9pbmxpbmVfbWVkaWEmdXRtX3Rlcm09Z3JpbGxlZCUyMHNhbG1vbiUyMHBsYXRlIiwiZGF0YSI6eyJleHBlcmltZW50cyI6e30sInBhZ2VfbG9jYWxlIjoiZW4tVVMiLCJsb2NhdGlvbiI6ImdyaWQiLCJhZF9wYXJ0bmVyIjoiZ2V0dHkiLCJhZF9mb3JtYXQiOiJpbmxpbmUiLCJhZF9wbGFjZW1lbnQiOiIxMCIsImFkX2NyZWF0aXZlIjoicGhvdG9fc2VhcmNoXzQiLCJhZF9hY3Rpb24iOiJjbGljayIsImFkX2ltcHJlc3Npb25faWQiOiJiOTk0ZjA4NC1jYTRhLTQ4NmMtYmU2Ny04MWZhN2I1YTY2YTkiLCJtZWRpYV90eXBlIjoicGhvdG8iLCJxdWVyeSI6ImdyaWxsZWQgc2FsbW9uIHBsYXRlIn19/
+                      - link [ref=f16e340] [cursor=pointer]:
+                        - /url: https://www.pexels.com/r/eyJkZXN0IjoiaHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3RvL2ZyaWVkLXNhbG1vbi1zdGVhay1hbmQtZ2FybGljLWJydXNzZWxzLXNwcm91dHMtYW5kLWxlbW9uLXNlcnZlZC1vbi13b29kZW4tdGFibGUtZ20xOTM5MTQ0MTE0LTU1NjQ3OTI0Mj91dG1fc291cmNlPXBleGVscyZ1dG1fbWVkaXVtPWFmZmlsaWF0ZSZ1dG1fY2FtcGFpZ249c3BvbnNvcmVkX3Bob3RvJnV0bV9jb250ZW50PXNycF9pbmxpbmVfbWVkaWEmdXRtX3Rlcm09Z3JpbGxlZCUyMHNhbG1vbiUyMHBsYXRlIiwiZGF0YSI6eyJleHBlcmltZW50cyI6e30sInBhZ2VfbG9jYWxlIjoiZW4tVVMiLCJsb2NhdGlvbiI6ImdyaWQiLCJhZF9wYXJ0bmVyIjoiZ2V0dHkiLCJhZF9mb3JtYXQiOiJpbmxpbmUiLCJhZF9wbGFjZW1lbnQiOiIxMCIsImFkX2NyZWF0aXZlIjoicGhvdG9fc2VhcmNoXzQiLCJhZF9hY3Rpb24iOiJjbGljayIsImFkX2ltcHJlc3Npb25faWQiOiJiOTk0ZjA4NC1jYTRhLTQ4NmMtYmU2Ny04MWZhN2I1YTY2YTkiLCJtZWRpYV90eXBlIjoicGhvdG8iLCJxdWVyeSI6ImdyaWxsZWQgc2FsbW9uIHBsYXRlIn19/
+                      - link [ref=f16e341] [cursor=pointer]:
+                        - /url: https://www.pexels.com/r/eyJkZXN0IjoiaHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3RvL2dyaWxsZWQtc2FsbW9uLWZpbGxldC1vbi1wbGF0ZS13aXRoLWFzcGFyYWd1cy1nbTEyMDQ0ODk2MzctMzQ2NjA1MTMzP3V0bV9zb3VyY2U9cGV4ZWxzJnV0bV9tZWRpdW09YWZmaWxpYXRlJnV0bV9jYW1wYWlnbj1zcG9uc29yZWRfcGhvdG8mdXRtX2NvbnRlbnQ9c3JwX2lubGluZV9tZWRpYSZ1dG1fdGVybT1ncmlsbGVkJTIwc2FsbW9uJTIwcGxhdGUiLCJkYXRhIjp7ImV4cGVyaW1lbnRzIjp7fSwicGFnZV9sb2NhbGUiOiJlbi1VUyIsImxvY2F0aW9uIjoiZ3JpZCIsImFkX3BhcnRuZXIiOiJnZXR0eSIsImFkX2Zvcm1hdCI6ImlubGluZSIsImFkX3BsYWNlbWVudCI6IjEwIiwiYWRfY3JlYXRpdmUiOiJwaG90b19zZWFyY2hfNCIsImFkX2FjdGlvbiI6ImNsaWNrIiwiYWRfaW1wcmVzc2lvbl9pZCI6ImI5OTRmMDg0LWNhNGEtNDg2Yy1iZTY3LTgxZmE3YjVhNjZhOSIsIm1lZGlhX3R5cGUiOiJwaG90byIsInF1ZXJ5IjoiZ3JpbGxlZCBzYWxtb24gcGxhdGUifX0/
+                      - link [ref=f16e342] [cursor=pointer]:
+                        - /url: https://www.pexels.com/r/eyJkZXN0IjoiaHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3RvL2Zpc2gtZGlzaC1ncmlsbGVkLXNhbG1vbi1hbmQtYXNwYXJhZ3VzLWdtOTEzMDM0MTA4LTI1MTM0Mjk3Nj91dG1fc291cmNlPXBleGVscyZ1dG1fbWVkaXVtPWFmZmlsaWF0ZSZ1dG1fY2FtcGFpZ249c3BvbnNvcmVkX3Bob3RvJnV0bV9jb250ZW50PXNycF9pbmxpbmVfbWVkaWEmdXRtX3Rlcm09Z3JpbGxlZCUyMHNhbG1vbiUyMHBsYXRlIiwiZGF0YSI6eyJleHBlcmltZW50cyI6e30sInBhZ2VfbG9jYWxlIjoiZW4tVVMiLCJsb2NhdGlvbiI6ImdyaWQiLCJhZF9wYXJ0bmVyIjoiZ2V0dHkiLCJhZF9mb3JtYXQiOiJpbmxpbmUiLCJhZF9wbGFjZW1lbnQiOiIxMCIsImFkX2NyZWF0aXZlIjoicGhvdG9fc2VhcmNoXzQiLCJhZF9hY3Rpb24iOiJjbGljayIsImFkX2ltcHJlc3Npb25faWQiOiJiOTk0ZjA4NC1jYTRhLTQ4NmMtYmU2Ny04MWZhN2I1YTY2YTkiLCJtZWRpYV90eXBlIjoicGhvdG8iLCJxdWVyeSI6ImdyaWxsZWQgc2FsbW9uIHBsYXRlIn19/
+                    - link [ref=f16e343] [cursor=pointer]:
+                      - /url: https://www.pexels.com/r/eyJkZXN0IjoiaHR0cHM6Ly93d3cuaXN0b2NrcGhvdG8uY29tL3Bob3Rvcy9ncmlsbGVkJTIwc2FsbW9uJTIwcGxhdGU_dXRtX3NvdXJjZT1wZXhlbHMmdXRtX21lZGl1bT1hZmZpbGlhdGUmdXRtX2NhbXBhaWduPXNwb25zb3JlZF9waG90byZ1dG1fY29udGVudD1zcnBfaW5saW5lX2NvdXBvbmNvZGUmdXRtX3Rlcm09Z3JpbGxlZCUyMHNhbG1vbiUyMHBsYXRlIiwiZGF0YSI6eyJleHBlcmltZW50cyI6e30sInBhZ2VfbG9jYWxlIjoiZW4tVVMiLCJsb2NhdGlvbiI6ImdyaWQiLCJhZF9wYXJ0bmVyIjoiZ2V0dHkiLCJhZF9mb3JtYXQiOiJpbmxpbmUiLCJhZF9wbGFjZW1lbnQiOiIxMCIsImFkX2NyZWF0aXZlIjoicGhvdG9fc2VhcmNoXzQiLCJhZF9hY3Rpb24iOiJjbGljayIsImFkX2ltcHJlc3Npb25faWQiOiJiOTk0ZjA4NC1jYTRhLTQ4NmMtYmU2Ny04MWZhN2I1YTY2YTkiLCJtZWRpYV90eXBlIjoicGhvdG8iLCJxdWVyeSI6ImdyaWxsZWQgc2FsbW9uIHBsYXRlIn19/
+                      - img [ref=f16e346]:
+                        - generic [ref=f16e347]: Get 20% off with code PEXELS20 »
+                  - article [ref=f16e350]:
+                    - link [ref=f16e351] [cursor=pointer]:
+                      - /url: /photo/a-slice-of-grilled-fish-and-lime-on-a-square-ceramic-plate-8964280/
+                      - img "Free A delectable grilled salmon fillet served with lime wedge and fresh dill on a ceramic plate. Stock Photo" [ref=f16e352]
+                  - article [ref=f16e357]:
+                    - link [ref=f16e358] [cursor=pointer]:
+                      - /url: /photo/cooked-fish-fillet-beside-mixed-vegetable-12431192/
+                      - img "Free Delicious grilled salmon served with vibrant mixed vegetables, perfect for a healthy meal. Stock Photo" [ref=f16e359]
+                  - article [ref=f16e364]:
+                    - link [ref=f16e365] [cursor=pointer]:
+                      - /url: /photo/grilled-salmon-with-lemon-and-rice-on-plate-33706292/
+                      - img "Free Delicious grilled salmon served with lemon slice and creamy rice. Stock Photo" [ref=f16e366]
+                  - article [ref=f16e371]:
+                    - link [ref=f16e372] [cursor=pointer]:
+                      - /url: /photo/fried-salmon-and-fried-aubergine-on-a-plate-15382828/
+                      - img "Free Delicious grilled salmon served with zucchini, lemon, and sauce on a checkered tablecloth. Stock Photo" [ref=f16e373]
+                  - article [ref=f16e378]:
+                    - link [ref=f16e379] [cursor=pointer]:
+                      - /url: /photo/fish-salad-dish-262959/
+                      - img "Free Delicious grilled salmon steak served with avocado, lettuce, cherry tomatoes, and lemon slice on a white plate. Stock Photo" [ref=f16e380]
+                  - article [ref=f16e385]:
+                    - link [ref=f16e386] [cursor=pointer]:
+                      - /url: /photo/food-on-plate-17849251/
+                      - img "Free Delicious grilled salmon with herbs served alongside smooth mashed potatoes on a blue plate. Stock Photo" [ref=f16e387]
+                - generic [ref=f16e390]:
+                  - article [ref=f16e393]:
+                    - link [ref=f16e394] [cursor=pointer]:
+                      - /url: /photo/grilled-vegetables-and-fish-served-on-white-plate-14537684/
+                      - img "Free Gourmet grilled salmon served with roasted vegetables and lemon slice on a white plate. Stock Photo" [ref=f16e395]
+                  - article [ref=f16e400]:
+                    - link [ref=f16e401] [cursor=pointer]:
+                      - /url: /photo/salmon-dish-with-vegetables-on-patterned-plate-39193006/
+                      - img "Free Delicious grilled salmon served with broccoli and gourmet sauce in cozy restaurant setting. Stock Photo" [ref=f16e402]
+                  - article [ref=f16e407]:
+                    - link [ref=f16e408] [cursor=pointer]:
+                      - /url: /photo/cooked-fish-with-green-vegetable-on-white-ceramic-plate-4663250/
+                      - img "Free Savor this gourmet salmon served with quinoa, spinach, and a rich sauce on a white plate. Stock Photo" [ref=f16e409]
+                  - article [ref=f16e414]:
+                    - link [ref=f16e415] [cursor=pointer]:
+                      - /url: /photo/grilled-salmon-with-bell-peppers-and-lemon-garnish-34297472/
+                      - img "Free Delicious grilled salmon on vibrant sauces, garnished with bell peppers and lemon. Stock Photo" [ref=f16e416]
+                  - article [ref=f16e421]:
+                    - link [ref=f16e422] [cursor=pointer]:
+                      - /url: /photo/delicious-salmon-meal-with-vegetables-33277586/
+                      - img "Free Tasty salmon fillet with creamy sauce, paired with fresh vegetables. Stock Photo" [ref=f16e423]
+                  - article [ref=f16e428]:
+                    - link [ref=f16e429] [cursor=pointer]:
+                      - /url: /photo/gourmet-salmon-dish-with-vegetables-and-sauce-36701472/
+                      - img "Free A beautifully plated salmon dish with vegetables and sauce served al fresco, highlighting vibrant culinary presentation. Stock Photo" [ref=f16e430]
+                  - article [ref=f16e435]:
+                    - link [ref=f16e436] [cursor=pointer]:
+                      - /url: /photo/chef-plating-grilled-salmon-with-vegetables-29145279/
+                      - img "Free Chef carefully plating grilled salmon with vegetables, showcasing culinary art. Stock Photo" [ref=f16e437]
+                  - article [ref=f16e442]:
+                    - link [ref=f16e443] [cursor=pointer]:
+                      - /url: /photo/salmon-on-plate-16064365/
+                      - img "Free Top view of a grilled salmon fillet with lime and sauce on a white plate. Stock Photo" [ref=f16e444]
+                  - article [ref=f16e449]:
+                    - link [ref=f16e450] [cursor=pointer]:
+                      - /url: /photo/elegant-gourmet-dish-with-grilled-salmon-and-edible-flowers-29149762/
+                      - img "Free A gourmet dish featuring grilled salmon topped with arugula and edible flowers. Stock Photo" [ref=f16e451]
+                - generic [ref=f16e454]:
+                  - generic [ref=f16e456]:
+                    - generic [ref=f16e458]:
+                      - link [ref=f16e459] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20grilled%20salmon%20plate%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own grilled salmon plate content with Canva" [ref=f16e460]
+                      - link [ref=f16e461] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20grilled%20salmon%20plate%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own grilled salmon plate content with Canva" [ref=f16e462]
+                      - link [ref=f16e463] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20grilled%20salmon%20plate%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own grilled salmon plate content with Canva" [ref=f16e464]
+                      - link [ref=f16e465] [cursor=pointer]:
+                        - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20grilled%20salmon%20plate%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                        - img "Create your own grilled salmon plate content with Canva" [ref=f16e466]
+                    - link [ref=f16e467] [cursor=pointer]:
+                      - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20grilled%20salmon%20plate%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                      - paragraph [ref=f16e470]: Bring your ideas to life with Canva AI
+                    - link "Get started for free" [ref=f16e471] [cursor=pointer]:
+                      - /url: https://www.canva.com/features/ai-image-generator/?prompt=High%20quality%20stock%20photo%20of%20grilled%20salmon%20plate%2C%20professional%20lighting%2C%20sharp%20focus%2C%20natural%20colors%2C%20realistic%20detail%2C%20modern%20composition%2C%20commercial%20use%20standard%2C%20editorial%20style%2C%20ultra%20HD%2C%20clean%20background&utm_source=pexels&utm_campaign=aigc_pexelscampaign&utm_medium=partner
+                  - article [ref=f16e476]:
+                    - link [ref=f16e477] [cursor=pointer]:
+                      - /url: /photo/fish-dinner-on-a-plate-16845479/
+                      - img "Free A beautifully plated salmon dish with vibrant vegetables and sauce, perfect for a gourmet dining experience. Stock Photo" [ref=f16e478]
+                  - article [ref=f16e483]:
+                    - link [ref=f16e484] [cursor=pointer]:
+                      - /url: /photo/plate-of-grilled-salmon-and-rice-on-a-blue-background-19725453/
+                      - img "Free Deliciously grilled salmon served with rice, vegetables, and sauce on a white plate. Stock Photo" [ref=f16e485]
+                  - article [ref=f16e490]:
+                    - link [ref=f16e491] [cursor=pointer]:
+                      - /url: /photo/meals-on-plates-12687480/
+                      - img "Free Tasty grilled salmon with lemon, served with noodles and fresh broccolini. Stock Photo" [ref=f16e492]
+                  - article [ref=f16e497]:
+                    - link [ref=f16e498] [cursor=pointer]:
+                      - /url: /photo/overhead-shot-of-a-dish-with-fish-8862746/
+                      - img "Free Delicious grilled salmon served with fresh salad and fried potatoes on a white plate. Stock Photo" [ref=f16e499]
+                  - article [ref=f16e504]:
+                    - link [ref=f16e505] [cursor=pointer]:
+                      - /url: /photo/salmon-dish-on-a-ceramic-plate-14515103/
+                      - img "Free Delicious grilled salmon served with colorful roasted vegetables. Perfect for healthy dining. Stock Photo" [ref=f16e506]
+                  - article [ref=f16e511]:
+                    - link [ref=f16e512] [cursor=pointer]:
+                      - /url: /photo/fish-and-vegetables-16845473/
+                      - img "Free Delicious grilled salmon served with fresh vegetables in an elegant setting. Stock Photo" [ref=f16e513]
+                  - article [ref=f16e518]:
+                    - link [ref=f16e519] [cursor=pointer]:
+                      - /url: /photo/delicious-grilled-salmon-with-fresh-vegetables-28899084/
+                      - img "Free Grilled salmon fillet served with vibrant fresh vegetables, perfect for a healthy meal. Stock Photo" [ref=f16e520]
+              - button "Load More" [ref=f16e524] [cursor=pointer]
+            - navigation [ref=f16e527]:
+              - generic [ref=f16e529]:
+                - link "1" [ref=f16e531]:
+                  - /url: /search/grilled%20salmon%20plate/
+                - link "2" [ref=f16e534] [cursor=pointer]:
+                  - /url: /search/grilled%20salmon%20plate/?page=2
+                - link "3" [ref=f16e537] [cursor=pointer]:
+                  - /url: /search/grilled%20salmon%20plate/?page=3
+                - link "4" [ref=f16e540] [cursor=pointer]:
+                  - /url: /search/grilled%20salmon%20plate/?page=4
+                - link "5" [ref=f16e543] [cursor=pointer]:
+                  - /url: /search/grilled%20salmon%20plate/?page=5
+                - link "6" [ref=f16e546] [cursor=pointer]:
+                  - /url: /search/grilled%20salmon%20plate/?page=6
+                - link "Next" [ref=f16e549] [cursor=pointer]:
+                  - /url: /search/grilled%20salmon%20plate/?page=2
+    - contentinfo [ref=f16e553]:
+      - separator [ref=f16e554]
+      - generic [ref=f16e555]:
+        - generic [ref=f16e556]:
+          - heading "Where stories come together." [level=2] [ref=f16e557]
+          - generic [ref=f16e558]:
+            - link "Download on iOS" [ref=f16e559] [cursor=pointer]:
+              - /url: https://itunes.apple.com/us/app/pexels/id1434330413/
+            - link "Download on Android" [ref=f16e562] [cursor=pointer]:
+              - /url: https://play.google.com/store/apps/details?id=com.pexels.app
+          - list [ref=f16e565]:
+            - listitem [ref=f16e566]:
+              - link "Instagram" [ref=f16e567] [cursor=pointer]:
+                - /url: https://www.instagram.com/pexels/
+            - listitem [ref=f16e570]:
+              - link "Threads" [ref=f16e571] [cursor=pointer]:
+                - /url: https://www.threads.net/@pexels/
+            - listitem [ref=f16e574]:
+              - link "YouTube" [ref=f16e575] [cursor=pointer]:
+                - /url: https://www.youtube.com/pexelsphotos/
+            - listitem [ref=f16e578]:
+              - link "TikTok" [ref=f16e579] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@pexels/
+            - listitem [ref=f16e582]:
+              - link "LinkedIn" [ref=f16e583] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/pexels/
+            - listitem [ref=f16e586]:
+              - link "X" [ref=f16e587] [cursor=pointer]:
+                - /url: https://x.com/pexels/
+        - generic [ref=f16e590]:
+          - list [ref=f16e591]:
+            - heading "Pexels" [level=3] [ref=f16e592]
+            - listitem [ref=f16e593]:
+              - link "Free Stock Photos" [ref=f16e594] [cursor=pointer]:
+                - /url: /
+            - listitem [ref=f16e595]:
+              - link "Free Videos" [ref=f16e596] [cursor=pointer]:
+                - /url: /videos/
+            - listitem [ref=f16e597]:
+              - link "Popular searches" [ref=f16e598] [cursor=pointer]:
+                - /url: /popular-searches/
+            - listitem [ref=f16e599]:
+              - link "Collections" [ref=f16e600] [cursor=pointer]:
+                - /url: /discover/
+            - listitem [ref=f16e601]:
+              - link "Challenges" [ref=f16e602] [cursor=pointer]:
+                - /url: /challenges/
+            - listitem [ref=f16e603]:
+              - link "Leaderboard" [ref=f16e604] [cursor=pointer]:
+                - /url: /leaderboard/
+            - listitem [ref=f16e605]:
+              - link "Other plugins & apps" [ref=f16e606] [cursor=pointer]:
+                - /url: /pro/
+          - list [ref=f16e607]:
+            - heading "Company" [level=3] [ref=f16e608]
+            - listitem [ref=f16e609]:
+              - link "About" [ref=f16e610] [cursor=pointer]:
+                - /url: /about/
+            - listitem [ref=f16e611]:
+              - link "Blog" [ref=f16e612] [cursor=pointer]:
+                - /url: /blog/
+            - listitem [ref=f16e613]:
+              - link "Help Center" [ref=f16e614] [cursor=pointer]:
+                - /url: https://help.pexels.com/hc/en-us
+            - listitem [ref=f16e615]:
+              - link "Report content" [ref=f16e616] [cursor=pointer]:
+                - /url: /report/
+            - listitem [ref=f16e617]:
+              - link "Become a Hero" [ref=f16e618] [cursor=pointer]:
+                - /url: /hero/
+            - listitem [ref=f16e619]:
+              - link "Partner with Pexels" [ref=f16e620] [cursor=pointer]:
+                - /url: /become-a-partner/
+            - listitem [ref=f16e621]:
+              - link "Image & Video API" [ref=f16e622] [cursor=pointer]:
+                - /url: /api/
+            - listitem [ref=f16e623]: Sign Up
+        - list [ref=f16e624]:
+          - listitem [ref=f16e625]:
+            - heading "Free Stock Photos" [level=3] [ref=f16e626]
+          - listitem [ref=f16e627]:
+            - generic [ref=f16e629]:
+              - link "Black and white photography" [ref=f16e631] [cursor=pointer]:
+                - /url: /search/black%20and%20white/
+              - link "Happy birthday images" [ref=f16e632] [cursor=pointer]:
+                - /url: /search/happy%20birthday/
+              - link "Free business videos" [ref=f16e633] [cursor=pointer]:
+                - /url: /search/videos/business/
+              - link "Happy new year images" [ref=f16e634] [cursor=pointer]:
+                - /url: /search/happy%20new%20year/
+              - link "Cool wallpapers" [ref=f16e635] [cursor=pointer]:
+                - /url: /search/cool%20wallpaper/
+              - link "Best HD wallpapers" [ref=f16e636] [cursor=pointer]:
+                - /url: /search/hd%20wallpaper/
+              - link "Galaxy wallpaper" [ref=f16e637] [cursor=pointer]:
+                - /url: /search/galaxy%20wallpaper/
+              - link "Lock screen wallpaper" [ref=f16e638] [cursor=pointer]:
+                - /url: /search/lock%20screen%20wallpaper/
+              - link "iPhone wallpaper" [ref=f16e639] [cursor=pointer]:
+                - /url: /search/iphone%20wallpaper/
+              - link "4K wallpaper" [ref=f16e640] [cursor=pointer]:
+                - /url: /search/4k%20wallpaper/
+              - link "Samsung wallpaper" [ref=f16e641] [cursor=pointer]:
+                - /url: /search/samsung%20wallpaper/
+              - link "Love wallpaper" [ref=f16e642] [cursor=pointer]:
+                - /url: /search/love%20wallpaper/
+              - link "Mobile wallpaper" [ref=f16e643] [cursor=pointer]:
+                - /url: /search/mobile%20wallpaper/
+      - generic [ref=f16e645]:
+        - generic [ref=f16e646]: © 2026 Pexels
+        - generic [ref=f16e648]:
+          - link "Terms of Use" [ref=f16e650] [cursor=pointer]:
+            - /url: /terms-of-service/
+          - link "Privacy Policy" [ref=f16e651] [cursor=pointer]:
+            - /url: /privacy-policy/
+          - link "License" [ref=f16e652] [cursor=pointer]:
+            - /url: /license/
+          - link "Imprint" [ref=f16e653] [cursor=pointer]:
+            - /url: /imprint/
+          - link "Cookies Policy" [ref=f16e654] [cursor=pointer]:
+            - /url: /cookies/
+        - button "English" [ref=f16e657] [cursor=pointer]
+      - separator [ref=f16e662]
+  - region "Cookie banner" [ref=f16e663]:
+    - alertdialog "But first, cookies &#127850;" [ref=f16e664]:
+      - generic [ref=f16e666]:
+        - generic [ref=f16e668]:
+          - heading "But first, cookies 🍪" [level=2] [ref=f16e669]
+          - paragraph [ref=f16e670]:
+            - text: We use essential cookies to make Pexels work. We'd like to use other cookies to improve and personalize your visit, tailor ads you see from us on Pexels and partner sites, and to analyze our website's performance, but only if you accept. Learn more about your choices in
+            - link "our cookie policy" [active] [ref=f16e671] [cursor=pointer]:
+              - /url: https://www.pexels.com/cookies/
+            - text: .
+        - generic [ref=f16e673]:
+          - button "Cookies Settings" [ref=f16e674] [cursor=pointer]
+          - button "Accept All Cookies" [ref=f16e675] [cursor=pointer]
+  - alert [ref=f16e676]
+  - status [ref=f16e677]: "[object Object] has been selected."
