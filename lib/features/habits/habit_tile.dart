@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:notedhealth/core/i18n/app_localizations.dart';
+
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../models/habit.dart';
@@ -141,11 +143,11 @@ class HabitTile extends StatelessWidget {
                                       height: 1),
                                 ),
                               )
-                            : Text('Belum selesai',
+                            : Text(tr(context, 'Belum selesai'),
                                 style: AppText.body(11.5,
                                     color: muted, height: 1.2))
                       else
-                        Text(categoryLabel(habit.category),
+                        Text(tr(context, categoryLabel(habit.category)),
                             style: AppText.body(12.16,
                                 color: muted, height: 1.2)),
                     ],

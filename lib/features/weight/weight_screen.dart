@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../../core/format.dart';
 import '../../core/theme/app_colors.dart';
@@ -33,6 +34,7 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
     final success =
         isDark ? AppColors.successDark : AppColors.successLight;
     final danger = isDark ? AppColors.dangerDark : AppColors.dangerLight;
+    final lang = Localizations.localeOf(context).languageCode;
     final history = ref.watch(weightHistoryProvider);
     final latest = ref.watch(latestWeightProvider);
     final prefs = ref.watch(prefsProvider);
@@ -46,7 +48,7 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
         .toList();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Berat Badan')),
+      appBar: AppBar(title: Text(tr(context, 'Berat Badan'))),
       body: SafeArea(
         top: false,
         child: latest == null
@@ -63,15 +65,17 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
                           child: _WStat(
                             icon: 'i-scale',
                             tone: IcoTone.violet,
-                            label: 'Sekarang',
-                            big: '${fmtKg(latest.valueKg)} kg',
+                            label: tr(context, 'Sekarang'),
+                            big: '${fmtKg(latest.valueKg, lang: lang)} kg',
                             sub: history.length > 1
                                 ? _sinceCaption(
+                                    context,
                                     latest.valueKg,
                                     history[1].valueKg,
                                     success,
-                                    danger)
-                                : 'catatan pertamamu',
+                                    danger,
+                                  )
+                                : tr(context, 'catatan pertamamu'),
                             subColor: history.length > 1
                                 ? latest.valueKg <= history[1].valueKg
                                     ? success
@@ -84,13 +88,14 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
                           child: _WStat(
                             icon: 'i-target',
                             tone: IcoTone.amber,
-                            label: 'Target',
+                            label: tr(context, 'Target'),
                             big: prefs.targetKg == null
                                 ? '—'
-                                : '${fmtKg(prefs.targetKg!)} kg',
+                                : '${fmtKg(prefs.targetKg!, lang: lang)} kg',
                             sub: prefs.targetKg == null
-                                ? 'atur di Profil'
-                                : _etaCaption(history, latest, prefs.targetKg!),
+                                ? tr(context, 'atur di Profil')
+                                : _etaCaption(
+                                    context, history, latest, prefs.targetKg!),
                             subColor: muted,
                           ),
                         ),
@@ -113,11 +118,12 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
                     else
                       OutlinedButton(
                         onPressed: () => context.go('/profile'),
-                        child: const Text(
-                            'Isi tinggi badan untuk lihat BMI'),
+                        child: Text(
+                          tr(context, 'Isi tinggi badan untuk lihat BMI'),
+                        ),
                       ),
                     const SizedBox(height: 14),
-                    _SectionHeader(title: 'Grafik'),
+                    _SectionHeader(title: tr(context, 'Grafik')),
                     const SizedBox(height: 8),
                     _Seg(
                       options: const ['7 hari', '30 hari'],
@@ -138,21 +144,23 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
                       child: points.length < 2
                           ? Center(
                               child: Text(
-                                'Butuh ≥2 catatan untuk grafik.',
+                                tr(context, 'Butuh ≥2 catatan untuk grafik.'),
                                 style:
                                     AppText.body(12.5, color: muted),
                               ),
                             )
-                          : LineChart(_chartData(points, theme)),
+                          : LineChart(_chartData(points, theme, lang)),
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      _trendCaption(points),
+                      _trendCaption(context, points),
                       textAlign: TextAlign.center,
                       style: AppText.body(11.5, color: muted),
                     ),
                     const SizedBox(height: 14),
-                    _SectionHeader(title: 'Riwayat', link: 'Semua'),
+                    _SectionHeader(
+                        title: tr(context, 'Riwayat'),
+                        link: tr(context, 'Semua')),
                     const SizedBox(height: 8),
                     // Satu kartu berisi semua baris riwayat.
                     Container(
@@ -195,7 +203,8 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
     );
   }
 
-  LineChartData _chartData(List<WeightEntry> points, ThemeData theme) {
+  LineChartData _chartData(
+      List<WeightEntry> points, ThemeData theme, String lang) {
     final spots = [
       for (var i = 0; i < points.length; i++)
         FlSpot(i.toDouble(), points[i].valueKg),
@@ -234,7 +243,7 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
             showTitles: true,
             reservedSize: 40,
             getTitlesWidget: (v, _) => Text(
-              fmtKg(v),
+              fmtKg(v, lang: lang),
               style: TextStyle(
                 fontSize: 10,
                 color: theme.colorScheme.onSurfaceVariant,
@@ -256,7 +265,7 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
               return Padding(
                 padding: const EdgeInsets.only(top: 6),
                 child: Text(
-                  _shortDate(points[i].date),
+                  _shortDate(points[i].date, lang),
                   style: TextStyle(
                     fontSize: 10,
                     color: theme.colorScheme.onSurfaceVariant,
@@ -285,7 +294,7 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
         touchTooltipData: LineTouchTooltipData(
           getTooltipItems: (touched) => touched
               .map((s) => LineTooltipItem(
-                    '${fmtKg(s.y)} kg\n${_fmtDate(points[s.x.round()].date)}',
+                    '${fmtKg(s.y, lang: lang)} kg\n${_fmtDate(points[s.x.round()].date, lang)}',
                     const TextStyle(
                         color: Colors.white, fontSize: 12),
                   ))
@@ -296,38 +305,45 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
   }
 }
 
-String _sinceCaption(
-    double now, double before, Color success, Color danger) {
+String _sinceCaption(BuildContext context, double now, double before,
+    Color success, Color danger) {
   final d = now - before;
-  if (d.abs() < 0.05) return 'tanpa perubahan';
+  if (d.abs() < 0.05) return tr(context, 'tanpa perubahan');
   final sign = d < 0 ? '▼' : '▲';
-  return '$sign ${fmtKg(d.abs())} kg sejak kemarin';
+  final lang = Localizations.localeOf(context).languageCode;
+  return '$sign ${trLang(lang, '{x} kg sejak kemarin').replaceAll('{x}', fmtKg(d.abs(), lang: lang))}';
 }
 
-String _etaCaption(
-    List<WeightEntry> history, WeightEntry latest, double target) {
-  if (latest.valueKg <= target) return 'target tercapai 🎉';
-  if (history.length < 2) return 'butuh catatan rutin';
+String _etaCaption(BuildContext context, List<WeightEntry> history,
+    WeightEntry latest, double target) {
+  if (latest.valueKg <= target) return tr(context, 'target tercapai 🎉');
+  if (history.length < 2) return tr(context, 'butuh catatan rutin');
   final oldest = history.last;
   final days = DateTime.parse(latest.date)
       .difference(DateTime.parse(oldest.date))
       .inDays;
-  if (days < 2) return 'butuh catatan rutin';
+  if (days < 2) return tr(context, 'butuh catatan rutin');
   final perDay =
       (latest.valueKg - oldest.valueKg) / days; // bisa negatif
-  if (perDay >= -0.001) return 'stabil dulu ya';
+  if (perDay >= -0.001) return tr(context, 'stabil dulu ya');
   final weeks = ((latest.valueKg - target) / (perDay * 7)).ceil();
-  if (weeks <= 0) return 'segera sampai';
-  return 'estimasi $weeks minggu lagi';
+  if (weeks <= 0) return tr(context, 'segera sampai');
+  final lang = Localizations.localeOf(context).languageCode;
+  return trLang(lang, 'estimasi {x} minggu lagi').replaceAll('{x}', '$weeks');
 }
 
-String _trendCaption(List<WeightEntry> points) {
-  if (points.length < 2) return 'Catat rutin — grafik muncul otomatis.';
+String _trendCaption(BuildContext context, List<WeightEntry> points) {
+  if (points.length < 2) {
+    return tr(context, 'Catat rutin — grafik muncul otomatis.');
+  }
   final d = points.last.valueKg - points.first.valueKg;
-  if (d.abs() < 0.05) return 'Beratmu stabil di periode ini.';
+  if (d.abs() < 0.05) return tr(context, 'Beratmu stabil di periode ini.');
+  final lang = Localizations.localeOf(context).languageCode;
   return d < 0
-      ? 'Turun ${fmtKg(d.abs())} kg di periode ini — konsisten ya!'
-      : 'Naik ${fmtKg(d)} kg di periode ini — cek kebiasaanmu.';
+      ? trLang(lang, 'Turun {x} kg di periode ini — konsisten ya!')
+          .replaceAll('{x}', fmtKg(d.abs(), lang: lang))
+      : trLang(lang, 'Naik {x} kg di periode ini — cek kebiasaanmu.')
+          .replaceAll('{x}', fmtKg(d, lang: lang));
 }
 
 String dateKeyOf(DateTime d) =>
@@ -335,19 +351,20 @@ String dateKeyOf(DateTime d) =>
     '${d.month.toString().padLeft(2, '0')}-'
     '${d.day.toString().padLeft(2, '0')}';
 
-String _fmtDate(String ymd) {
+String _fmtDate(String ymd, String lang) {
   try {
     final d = DateTime.parse(ymd);
-    return DateFormat('d MMM yyyy', 'id_ID').format(d);
+    return DateFormat('d MMM yyyy', lang == 'en' ? 'en_US' : 'id_ID')
+        .format(d);
   } catch (_) {
     return ymd;
   }
 }
 
-String _shortDate(String ymd) {
+String _shortDate(String ymd, String lang) {
   try {
     final d = DateTime.parse(ymd);
-    return DateFormat('d/M', 'id_ID').format(d);
+    return DateFormat('d/M', lang == 'en' ? 'en_US' : 'id_ID').format(d);
   } catch (_) {
     return '';
   }
@@ -447,6 +464,7 @@ class _SelisihStrip extends StatelessWidget {
         isDark ? AppColors.dangerSoftDark : AppColors.dangerSoftLight;
     final diff = now - target;
     final down = diff > 0; // masih perlu turun
+    final lang = Localizations.localeOf(context).languageCode;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
@@ -461,7 +479,7 @@ class _SelisihStrip extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('SELISIH KE TARGET',
+                Text(tr(context, 'SELISIH KE TARGET'),
                     style: AppText.body(12.16,
                         color: theme.colorScheme.onPrimaryContainer,
                         weight: FontWeight.w800,
@@ -469,12 +487,14 @@ class _SelisihStrip extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   diff.abs() < 0.05
-                      ? 'Tepat di target!'
+                      ? tr(context, 'Tepat di target!')
                       : down
-                          ? 'Kurang ${fmtKg(diff)} kg'
-                          : 'Lewat ${fmtKg(-diff)} kg',
+                          ? tr(context, 'Kurang {x} kg')
+                              .replaceAll('{x}', fmtKg(diff, lang: lang))
+                          : tr(context, 'Lewat {x} kg')
+                              .replaceAll('{x}', fmtKg(-diff, lang: lang)),
                   style: AppText.display(
-                      20, color: theme.colorScheme.onPrimaryContainer),
+                      20, color: theme.colorScheme.onSurface),
                 ),
               ],
             ),
@@ -487,7 +507,7 @@ class _SelisihStrip extends StatelessWidget {
               borderRadius: BorderRadius.circular(99),
             ),
             child: Text(
-              down ? '▼ Turun' : '▲ Naik',
+              down ? tr(context, '▼ Turun') : tr(context, '▲ Naik'),
               style: AppText.body(11.84,
                   color: down ? success : danger,
                   weight: FontWeight.w800),
@@ -542,7 +562,7 @@ class _Seg extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final primaryInk =
-        isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+        isDark ? AppColors.primary : AppColors.primaryInkLight;
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
@@ -579,7 +599,7 @@ class _Seg extends StatelessWidget {
                         : null,
                   ),
                   child: Text(
-                    options[i],
+                    tr(context, options[i]),
                     textAlign: TextAlign.center,
                     style: AppText.body(12.8,
                         color:
@@ -619,6 +639,7 @@ class _BmiCard extends StatelessWidget {
         isDark ? AppColors.successSoftDark : AppColors.successSoftLight;
     // Posisi marker 15–35 → persen 0–100.
     final pos = ((bmi - 15) / 20).clamp(0.0, 1.0);
+    final lang = Localizations.localeOf(context).languageCode;
     final cat = bmi < 18.5
         ? 'Kurus'
         : bmi < 25
@@ -644,7 +665,7 @@ class _BmiCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('BMI — INDEKS MASSA TUBUH',
+                    Text(tr(context, 'BMI — INDEKS MASSA TUBUH'),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: AppText.body(11.2,
@@ -655,9 +676,11 @@ class _BmiCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                            bmi
-                                .toStringAsFixed(1)
-                                .replaceAll('.', ','),
+                            lang == 'id'
+                                ? bmi
+                                    .toStringAsFixed(1)
+                                    .replaceAll('.', ',')
+                                : bmi.toStringAsFixed(1),
                             style: AppText.display(32,
                                 color:
                                     theme.colorScheme.onSurface)),
@@ -669,7 +692,7 @@ class _BmiCard extends StatelessWidget {
                             color: successSoft,
                             borderRadius: BorderRadius.circular(99),
                           ),
-                          child: Text(cat,
+                          child: Text(tr(context, cat),
                               style: AppText.body(11.84,
                                   color: success,
                                   weight: FontWeight.w800)),
@@ -682,12 +705,12 @@ class _BmiCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('${fmtKg(weightKg)} kg',
+                  Text('${fmtKg(weightKg, lang: lang)} kg',
                       style: AppText.body(11.5,
                           color:
                               theme.colorScheme.onSurfaceVariant)),
                   Text(
-                    '÷ ${(heightCm / 100).toStringAsFixed(2).replaceAll('.', ',')} m²',
+                    '÷ ${lang == 'id' ? (heightCm / 100).toStringAsFixed(2).replaceAll('.', ',') : (heightCm / 100).toStringAsFixed(2)} m²',
                     style: AppText.body(11.5,
                         color: theme.colorScheme.onSurfaceVariant),
                   ),
@@ -701,17 +724,22 @@ class _BmiCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _legend('15', theme.colorScheme.onSurfaceVariant),
-              _legend('18,5', const Color(0xFF4CC3FF)),
-              _legend('25', success),
-              _legend('30', const Color(0xFFC98A00)),
-              _legend('35', theme.colorScheme.onSurfaceVariant),
+              _legend(tr(context, '15'),
+                  theme.colorScheme.onSurfaceVariant),
+              _legend(tr(context, '18,5'), const Color(0xFF4CC3FF)),
+              _legend(tr(context, '25'), success),
+              _legend(tr(context, '30'), const Color(0xFFC98A00)),
+              _legend(tr(context, '35'),
+                  theme.colorScheme.onSurfaceVariant),
             ],
           ),
           const SizedBox(height: 8),
           Text(
-            'Kurus <18,5 · Normal 18,5–24,9 · Berlebih 25–29,9 · '
-            'Obesitas ≥30 · tinggi dari Profil',
+            tr(
+              context,
+              'Kurus <18,5 · Normal 18,5–24,9 · Berlebih 25–29,9 · '
+              'Obesitas ≥30 · tinggi dari Profil',
+            ),
             style: AppText.body(10.5,
                 color: theme.colorScheme.onSurfaceVariant),
           ),
@@ -791,12 +819,13 @@ class _HistoryRow extends StatelessWidget {
     final success =
         isDark ? AppColors.successDark : AppColors.successLight;
     final danger = isDark ? AppColors.dangerDark : AppColors.dangerLight;
+    final lang = Localizations.localeOf(context).languageCode;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 13),
       child: Row(
         children: [
           Expanded(
-            child: Text(_fmtDate(entry.date),
+            child: Text(_fmtDate(entry.date, lang),
                 style: AppText.body(14.08,
                     color: theme.colorScheme.onSurface,
                     weight: FontWeight.w700)),
@@ -804,14 +833,14 @@ class _HistoryRow extends StatelessWidget {
           if (diff != null && diff.abs() >= 0.05)
             Text(
               diff < 0
-                  ? '▼ ${fmtKg(-diff)}'
-                  : '▲ ${fmtKg(diff)}',
+                  ? '▼ ${fmtKg(-diff, lang: lang)}'
+                  : '▲ ${fmtKg(diff, lang: lang)}',
               style: AppText.body(12.8,
                   color: diff < 0 ? success : danger,
                   weight: FontWeight.w800),
             ),
           const SizedBox(width: 10),
-          Text('${fmtKg(entry.valueKg)} kg',
+          Text('${fmtKg(entry.valueKg, lang: lang)} kg',
               style: AppText.display(16.8,
                   color: theme.colorScheme.onSurface)),
         ],
@@ -846,11 +875,11 @@ class _EmptyWeightCard extends StatelessWidget {
                   tone: IcoTone.violet,
                   size: 56),
               const SizedBox(height: 12),
-              Text('Belum ada catatan',
+              Text(tr(context, 'Belum ada catatan'),
                   style: AppText.display(20.8,
                       color: theme.colorScheme.onSurface)),
               const SizedBox(height: 6),
-              Text('Catat timbangan pertamamu hari ini.',
+              Text(tr(context, 'Catat timbangan pertamamu hari ini.'),
                   textAlign: TextAlign.center,
                   style: AppText.body(14.08,
                       color: theme.colorScheme.onSurfaceVariant)),
@@ -859,7 +888,7 @@ class _EmptyWeightCard extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: onAdd,
-                  child: const Text('Catat berat'),
+                  child: Text(tr(context, 'Catat berat')),
                 ),
               ),
             ],

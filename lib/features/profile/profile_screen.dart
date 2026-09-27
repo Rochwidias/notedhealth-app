@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_ce/hive_ce.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../auth/session_provider.dart';
 import '../auth/session_store.dart';
@@ -44,8 +45,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           onSubmitted: (_) => Navigator.pop(ctx, true),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Batal')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Simpan')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr(context, 'Batal'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(tr(context, 'Simpan'))),
         ],
       ),
     );
@@ -73,6 +74,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           final theme = Theme.of(ctx);
           final isDark = theme.brightness == Brightness.dark;
           final muted = isDark ? AppColors.darkMuted : AppColors.lightMuted;
+          final lang = Localizations.localeOf(context).languageCode;
           final surface3 = isDark ? AppColors.darkSurface3 : AppColors.lightSurface3;
           final cm = double.tryParse(ctrl.text.replaceAll(',', '.'));
           final valid = cm != null && cm >= 100 && cm <= 250;
@@ -100,10 +102,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 14),
-                  Text('Tinggi badan', style: AppText.display(20)),
+                  Text(tr(context, 'Tinggi badan'), style: AppText.display(20)),
                   const SizedBox(height: 4),
                   Text(
-                    'Cukup diisi sekali — dipakai hitung BMI.',
+                    tr(context, 'Cukup diisi sekali — dipakai hitung BMI.'),
                     style: AppText.body(12.5, color: muted),
                   ),
                   const SizedBox(height: 10),
@@ -129,7 +131,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(bottom: 8, left: 6),
-                        child: Text('cm', style: AppText.body(17.6, weight: FontWeight.w800, color: muted)),
+                        child: Text(tr(context, 'cm'), style: AppText.body(17.6, weight: FontWeight.w800, color: muted)),
                       ),
                     ],
                   ),
@@ -146,7 +148,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                               borderRadius: BorderRadius.circular(999),
                             ),
                             child: Text(
-                              'BMI ${fmtKg(bmi)} · ${bmiCategory(bmi)}',
+                              'BMI ${fmtKg(bmi, lang: lang)} · ${tr(context, bmiCategory(bmi))}',
                               style: TextStyle(
                                 fontSize: 12.48,
                                 fontWeight: FontWeight.w800,
@@ -156,14 +158,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'dengan berat ${fmtKg(latest!.valueKg)} kg',
+                            tr(context, 'dengan berat {x} kg')
+                                .replaceAll('{x}', fmtKg(latest!.valueKg, lang: lang)),
                             style: AppText.body(12, color: muted),
                           ),
                         ],
                       ),
                     ),
                   const SizedBox(height: 12),
-                  Text('Rentang valid 100–250 cm', style: AppText.body(12.5, color: muted)),
+                  Text(tr(context, 'Rentang valid 100–250 cm'), style: AppText.body(12.5, color: muted)),
                   const SizedBox(height: 14),
                   Row(
                     children: [
@@ -171,7 +174,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         flex: 1,
                         child: OutlinedButton(
                           onPressed: () => Navigator.pop(ctx),
-                          child: const Text('Batal'),
+                          child: Text(tr(context, 'Batal')),
                         ),
                       ),
                       const SizedBox(width: 10),
@@ -181,14 +184,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           onPressed: () {
                             if (!valid) {
                               ScaffoldMessenger.of(ctx).showSnackBar(
-                                const SnackBar(content: Text('Isi 100–250 cm.')),
+                                SnackBar(content: Text(tr(context, 'Isi 100–250 cm.'))),
                               );
                               return;
                             }
                             ref.read(prefsProvider.notifier).setHeightCm(cm);
                             Navigator.pop(ctx);
                           },
-                          child: const Text('Simpan'),
+                          child: Text(tr(context, 'Simpan')),
                         ),
                       ),
                     ],
@@ -206,11 +209,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final yes = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Keluar?'),
-        content: const Text('Kamu bisa masuk lagi kapan saja. Data di perangkat ini tetap tersimpan.'),
+        title: Text(tr(context, 'Keluar?')),
+        content: Text(
+          tr(
+            context,
+            'Kamu bisa masuk lagi kapan saja. Data di perangkat ini tetap tersimpan.',
+          ),
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Batal')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Keluar')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr(context, 'Batal'))),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(tr(context, 'Keluar'))),
         ],
       ),
     );
@@ -235,18 +243,26 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final yes = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(isGoogle ? 'Hapus akun & data?' : 'Hapus semua data?'),
+        title: Text(
+          isGoogle ? tr(context, 'Hapus akun & data?') : tr(context, 'Hapus semua data?'),
+        ),
         content: Text(
           isGoogle
-              ? 'Akun Google dan seluruh data cloud ikut terhapus permanen. Lanjutkan?'
-              : 'Seluruh habit, berat, dan skor di perangkat ini terhapus permanen. Lanjutkan?',
+              ? tr(
+                  context,
+                  'Akun Google dan seluruh data cloud ikut terhapus permanen. Lanjutkan?',
+                )
+              : tr(
+                  context,
+                  'Seluruh habit, berat, dan skor di perangkat ini terhapus permanen. Lanjutkan?',
+                ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Batal')),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(tr(context, 'Batal'))),
           FilledButton(
             style: FilledButton.styleFrom(backgroundColor: Theme.of(context).colorScheme.error),
             onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('Hapus'),
+            child: Text(tr(context, 'Hapus')),
           ),
         ],
       ),
@@ -278,12 +294,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final session = ref.watch(sessionProvider);
     final prefs = ref.watch(prefsProvider);
+    final lang = Localizations.localeOf(context).languageCode;
     final isGoogle = session.mode == AuthMode.google;
     final dangerSoft = isDark ? AppColors.dangerSoftDark : AppColors.dangerSoftLight;
     final danger = isDark ? AppColors.dangerDark : AppColors.dangerLight;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Profil'), centerTitle: false),
+      appBar: AppBar(title: Text(tr(context, 'Profil')), centerTitle: false),
       body: _busy
           ? const Center(child: CircularProgressIndicator())
           : ListView(
@@ -292,18 +309,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 _Hero(
                   name: prefs.name,
                   subtitle: isGoogle
-                      ? (session.email ?? 'Akun Google')
-                      : 'Mode tamu · data di perangkat ini',
+                      ? (session.email ?? tr(context, 'Akun Google'))
+                      : tr(context, 'Mode tamu · data di perangkat ini'),
                   avatar: prefs.name.isEmpty ? '?' : prefs.name.characters.first.toUpperCase(),
                 ),
-                const _Sec('Data diri'),
+                _Sec(tr(context, 'Data diri')),
                 _Row(
                   icon: 'i-pencil', tone: IcoTone.violet,
-                  label: 'Nama', desc: 'Tampil di dashboard', value: prefs.name,
+                  label: tr(context, 'Nama'), desc: tr(context, 'Tampil di dashboard'), value: prefs.name,
                   onTap: () => _editText(
-                    title: 'Nama', initial: prefs.name, hint: 'Nama panggilan',
+                    title: tr(context, 'Nama'), initial: prefs.name, hint: tr(context, 'Nama panggilan'),
                     onSave: (v) {
-                      if (v.length < 2) return 'Nama minimal 2 huruf.';
+                      if (v.length < 2) return tr(context, 'Nama minimal 2 huruf.');
                       ref.read(prefsProvider.notifier).setName(v);
                       return null;
                     },
@@ -311,15 +328,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
                 _Row(
                   icon: 'i-target', tone: IcoTone.blue,
-                  label: 'Target berat', desc: 'Dipakai hitung selisih',
-                  value: prefs.targetKg == null ? 'Belum diisi' : '${fmtKg(prefs.targetKg!)} kg',
+                  label: tr(context, 'Target berat'), desc: tr(context, 'Dipakai hitung selisih'),
+                  value: prefs.targetKg == null
+                      ? tr(context, 'Belum diisi')
+                      : '${fmtKg(prefs.targetKg!, lang: lang)} kg',
                   onTap: () => _editText(
-                    title: 'Target berat',
-                    initial: prefs.targetKg == null ? '' : fmtKg(prefs.targetKg!),
-                    hint: 'contoh 68',
+                    title: tr(context, 'Target berat'),
+                    initial: prefs.targetKg == null
+                        ? ''
+                        : fmtKg(prefs.targetKg!, lang: lang),
+                    hint: tr(context, 'contoh 68'),
                     onSave: (v) {
                       final kg = parseKg(v);
-                      if (kg == null || kg < 20 || kg > 300) return 'Isi 20–300 kg.';
+                      if (kg == null || kg < 20 || kg > 300) return tr(context, 'Isi 20–300 kg.');
                       ref.read(prefsProvider.notifier).setTargetKg(kg);
                       return null;
                     },
@@ -327,27 +348,29 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
                 _Row(
                   icon: 'i-height', tone: IcoTone.green,
-                  label: 'Tinggi badan', desc: 'Untuk hitung BMI',
-                  value: prefs.heightCm == null ? 'Belum diisi' : '${prefs.heightCm!.toStringAsFixed(0)} cm',
+                  label: tr(context, 'Tinggi badan'), desc: tr(context, 'Untuk hitung BMI'),
+                  value: prefs.heightCm == null
+                      ? tr(context, 'Belum diisi')
+                      : '${prefs.heightCm!.toStringAsFixed(0)} cm',
                   onTap: _showHeightSheet,
                 ),
-                const _Sec('Pengingat harian'),
+                _Sec(tr(context, 'Pengingat harian')),
                 _TimeCard(
                   icon: 'i-clock', tone: IcoTone.amber,
-                  time: '07:00', label: 'Pagi — cek checklist',
+                  time: '07:00', label: tr(context, 'Pagi — cek checklist'),
                   on: prefs.reminderMorning,
                   onChanged: (v) => ref.read(prefsProvider.notifier).setReminderMorning(v),
                 ),
                 _TimeCard(
                   icon: 'i-moon', tone: IcoTone.violet,
-                  time: '21:00', label: 'Malam — catat berat & skor',
+                  time: '21:00', label: tr(context, 'Malam — catat berat & skor'),
                   on: prefs.reminderNight,
                   onChanged: (v) => ref.read(prefsProvider.notifier).setReminderNight(v),
                 ),
-                const _Sec('Aplikasi'),
+                _Sec(tr(context, 'Aplikasi')),
                 _Row(
                   icon: 'i-moon', tone: IcoTone.violet,
-                  label: 'Mode gelap', desc: 'Sementara ikuti preferensi sistem',
+                  label: tr(context, 'Mode gelap'), desc: tr(context, 'Sementara ikuti preferensi sistem'),
                   trailing: Switch(
                     value: prefs.themeModeName == 'dark',
                     onChanged: (v) => ref
@@ -357,21 +380,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
                 _Row(
                   icon: 'i-globe', tone: IcoTone.blue,
-                  label: 'Bahasa', desc: 'Ganti bahasa aplikasi',
-                  trailing: _LangSeg(
-                    onEn: () => ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('English segera hadir.')),
-                    ),
-                  ),
+                  label: tr(context, 'Bahasa'), desc: tr(context, 'Ganti bahasa aplikasi'),
+                  trailing: const _LangSeg(),
                 ),
                 _Row(
                   icon: 'i-leaf', tone: IcoTone.green,
-                  label: 'Katalog menu sehat', desc: 'Makanan & minuman favorit',
+                  label: tr(context, 'Katalog menu sehat'), desc: tr(context, 'Makanan & minuman favorit'),
                   onTap: () => context.push('/catalog'),
                 ),
                 _Row(
                   icon: 'i-shield', tone: IcoTone.blue,
-                  label: 'Privasi & Legal', desc: 'Kebijakan, syarat layanan & kredit',
+                  label: tr(context, 'Privasi & Legal'), desc: tr(context, 'Kebijakan, syarat layanan & kredit'),
                   onTap: () => context.push('/privacy'),
                 ),
                 const SizedBox(height: 4),
@@ -379,7 +398,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   width: double.infinity,
                   child: OutlinedButton(
                     onPressed: _busy ? null : _signOut,
-                    child: const Text('Keluar'),
+                    child: Text(tr(context, 'Keluar')),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -396,7 +415,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       children: [
                         const SvgIcon('i-trash', size: 18),
                         const SizedBox(width: 8),
-                        Text(isGoogle ? 'Hapus akun & data' : 'Hapus semua data'),
+                        Text(isGoogle
+                            ? tr(context, 'Hapus akun & data')
+                            : tr(context, 'Hapus semua data')),
                       ],
                     ),
                   ),
@@ -404,7 +425,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 const SizedBox(height: 14),
                 Center(
                   child: Text(
-                    'NotedHealth v0.1.0 · mockup desain',
+                    tr(context, 'NotedHealth v0.1.0 · mockup desain'),
                     style: AppText.body(12, color: isDark ? AppColors.darkMuted : AppColors.lightMuted),
                   ),
                 ),
@@ -529,7 +550,7 @@ class _Row extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final line = isDark ? AppColors.darkLine : AppColors.lightLine;
     final muted = isDark ? AppColors.darkMuted : AppColors.lightMuted;
-    final primaryInk = isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+    final primaryInk = isDark ? AppColors.primary : AppColors.primaryInkLight;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -633,7 +654,7 @@ class _TimeCard extends StatelessWidget {
               children: [
                 Text(time, style: AppText.display(21.6)),
                 Text(label, style: const TextStyle(fontSize: 14.08, fontWeight: FontWeight.w800)),
-                Text('Notifikasi lokal tiap hari', style: AppText.body(12, color: muted)),
+                Text(tr(context, 'Notifikasi lokal tiap hari'), style: AppText.body(12, color: muted)),
               ],
             ),
           ),
@@ -644,16 +665,15 @@ class _TimeCard extends StatelessWidget {
   }
 }
 
-/// Segmen bahasa ID/EN — frame 08 lang-seg (EN menampilkan snackbar dulu).
-class _LangSeg extends StatelessWidget {
-  const _LangSeg({required this.onEn});
-
-  final VoidCallback onEn;
+/// Segmen bahasa ID/EN — frame 08 lang-seg, ganti bahasa app langsung.
+class _LangSeg extends ConsumerWidget {
+  const _LangSeg();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+    final lang = ref.watch(langProvider);
 
     Widget btn(String label, {required bool on}) => Container(
           padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 7),
@@ -682,8 +702,14 @@ class _LangSeg extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          btn('ID', on: true),
-          GestureDetector(onTap: onEn, child: btn('EN', on: false)),
+          GestureDetector(
+            onTap: () => ref.read(prefsProvider.notifier).setLang('id'),
+            child: btn('ID', on: lang == 'id'),
+          ),
+          GestureDetector(
+            onTap: () => ref.read(prefsProvider.notifier).setLang('en'),
+            child: btn('EN', on: lang == 'en'),
+          ),
         ],
       ),
     );

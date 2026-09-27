@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
@@ -26,14 +27,15 @@ class ChecklistScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checklist Hari Ini'),
+        title: Text(tr(context, 'Checklist Hari Ini')),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 14),
             child: GestureDetector(
               onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                    content: Text('Pilih tanggal — segera hadir.')),
+                SnackBar(
+                    content:
+                        Text(tr(context, 'Pilih tanggal — segera hadir.'))),
               ),
               child: Container(
                 width: 42,
@@ -97,7 +99,7 @@ class ChecklistScreen extends ConsumerWidget {
                     ],
                     const SizedBox(height: 10),
                     Text(
-                      'Streak harianmu aman selama skor > 0',
+                      tr(context, 'Streak harianmu aman selama skor > 0'),
                       textAlign: TextAlign.center,
                       style: AppText.body(11.5, color: muted),
                     ),
@@ -143,7 +145,7 @@ class _CatLabel extends StatelessWidget {
           SvgIcon(categoryIcon(c), size: 16, color: muted),
           const SizedBox(width: 7),
           Text(
-            label.toUpperCase(),
+            tr(context, label).toUpperCase(),
             style: AppText.body(12.48,
                 color: muted,
                 weight: FontWeight.w800,
@@ -167,7 +169,7 @@ class _ProgressCard extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final primaryInk = isDark
-        ? AppColors.primaryInkDark
+        ? AppColors.primary
         : AppColors.primaryInkLight;
     final pct = score.clamp(0.0, 100.0);
     return Container(
@@ -194,7 +196,7 @@ class _ProgressCard extends StatelessWidget {
             textBaseline: TextBaseline.alphabetic,
             children: [
               Expanded(
-                child: Text('Progres skor',
+                child: Text(tr(context, 'Progres skor'),
                     style: AppText.body(14.4,
                         color: theme.colorScheme.onSurface,
                         weight: FontWeight.w800)),
@@ -253,7 +255,7 @@ class _EmptyChecklist extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final primaryInk = isDark
-        ? AppColors.primaryInkDark
+        ? AppColors.primary
         : AppColors.primaryInkLight;
     final primarySoft = isDark
         ? AppColors.primarySoftDark
@@ -304,14 +306,14 @@ class _EmptyChecklist extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 22),
-            Text('Belum ada habit',
+            Text(tr(context, 'Belum ada habit'),
                 textAlign: TextAlign.center,
                 style: AppText.display(20.8,
                     color: theme.colorScheme.onSurface)),
             const SizedBox(height: 8),
             Text(
-              'Mulai dari satu kebiasaan kecil — bobotnya yang menentukan '
-              'seberapa penting bagi skor harianmu.',
+              tr(context, 'Mulai dari satu kebiasaan kecil — bobotnya yang menentukan '
+                  'seberapa penting bagi skor harianmu.'),
               textAlign: TextAlign.center,
               style: AppText.body(14.08,
                   color: theme.colorScheme.onSurfaceVariant,
@@ -322,12 +324,12 @@ class _EmptyChecklist extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: onAdd,
-                child: const Text('Buat habit pertama'),
+                child: Text(tr(context, 'Buat habit pertama')),
               ),
             ),
             const SizedBox(height: 12),
             Text(
-              'Contoh: “Minum air 8 gelas · bobot 20”',
+              tr(context, 'Contoh: “Minum air 8 gelas · bobot 20”'),
               textAlign: TextAlign.center,
               style: AppText.body(11.5,
                   color: theme.colorScheme.onSurfaceVariant),

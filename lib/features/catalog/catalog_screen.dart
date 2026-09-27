@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../widgets/svg_icon.dart';
@@ -45,7 +46,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_tab == 0 ? 'Makanan Sehat' : 'Minuman Sehat'),
+        title: Text(_tab == 0
+            ? tr(context, 'Makanan Sehat')
+            : tr(context, 'Minuman Sehat')),
         leading: IconButton(
           icon: const SvgIcon('i-back'),
           onPressed: () => context.pop(),
@@ -65,7 +68,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
               child: Row(
                 children: [
                   _SegBtn(
-                    label: 'Makanan',
+                    label: tr(context, 'Makanan'),
                     on: _tab == 0,
                     onTap: () => setState(() {
                       _tab = 0;
@@ -73,7 +76,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                     }),
                   ),
                   _SegBtn(
-                    label: 'Minuman',
+                    label: tr(context, 'Minuman'),
                     on: _tab == 1,
                     onTap: () => setState(() {
                       _tab = 1;
@@ -104,7 +107,9 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         isDense: true,
-                        hintText: _tab == 0 ? 'Cari menu…' : 'Cari minuman…',
+                        hintText: _tab == 0
+                            ? tr(context, 'Cari menu…')
+                            : tr(context, 'Cari minuman…'),
                         hintStyle: TextStyle(color: muted, fontSize: 14.4),
                         contentPadding: EdgeInsets.symmetric(vertical: 10),
                       ),
@@ -143,7 +148,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
                       ),
                     ),
                     child: Text(
-                      f,
+                      tr(context, f),
                       style: TextStyle(
                         fontSize: 12.48,
                         fontWeight: FontWeight.w800,
@@ -160,7 +165,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
           Expanded(
             child: _items.isEmpty
                 ? Center(
-                    child: Text('Tidak ada menu cocok.',
+                    child: Text(tr(context, 'Tidak ada menu cocok.'),
                         style: TextStyle(color: muted)),
                   )
                 : GridView.builder(
@@ -178,7 +183,7 @@ class _CatalogScreenState extends State<CatalogScreen> {
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Text(
-              'Foto: Pexels — bebas lisensi komersial',
+              tr(context, 'Foto: Pexels — bebas lisensi komersial'),
               style: TextStyle(fontSize: 12, color: muted),
             ),
           ),
@@ -285,7 +290,7 @@ class _FoodCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      item.name,
+                      tr(context, item.name),
                       style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 13.76),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -314,7 +319,7 @@ class _FoodCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          item.portion,
+                          tr(context, item.portion),
                           style: TextStyle(fontSize: 12, color: muted),
                         ),
                       ],

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/format.dart';
+import '../../core/i18n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/ico_chip.dart';
@@ -37,15 +38,20 @@ class DashboardScreen extends ConsumerWidget {
 
     final firstName =
         prefs.name.isEmpty ? 'Teman Sehat' : prefs.name.split(' ').first;
-    final dateStr =
-        DateFormat('EEEE, d MMM yyyy', 'id_ID').format(DateTime.now());
+    final lang = Localizations.localeOf(context).languageCode;
+    final dateStr = DateFormat('EEEE, d MMM yyyy', lang == 'en' ? 'en_US' : 'id_ID')
+        .format(DateTime.now());
     final doneCount = habits.where((h) => completions[h.id] == true).length;
 
     final caption = habits.isEmpty
-        ? 'Belum ada habit hari ini — buat satu dulu ya.'
+        ? tr(context, 'Belum ada habit hari ini — buat satu dulu ya.')
         : doneCount == habits.length
-            ? 'Semua habit selesai — skor $score% dari total bobot aktif. Mantap!'
-            : '$score% dari total bobot aktif hari ini — tinggal ${habits.length - doneCount} lagi!';
+            ? tr(context,
+                    'Semua habit selesai — skor {x}% dari total bobot aktif. Mantap!')
+                .replaceAll('{x}', '$score')
+            : tr(context, '{x}% dari total bobot aktif hari ini — tinggal {n} lagi!')
+                .replaceAll('{x}', '$score')
+                .replaceAll('{n}', '${habits.length - doneCount}');
 
     return Scaffold(
       body: SafeArea(
@@ -76,7 +82,9 @@ class DashboardScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Halo, $firstName 👋',
+                        Text(
+                            tr(context, 'Halo, {name} 👋')
+                                .replaceAll('{name}', firstName),
                             style: AppText.body(15,
                                 color: text, weight: FontWeight.w800,
                                 height: 1.2)),
@@ -143,7 +151,7 @@ class DashboardScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('SKOR HARIAN',
+                              Text(tr(context, 'SKOR HARIAN'),
                                   style: AppText.body(12.5,
                                       color: Colors.white
                                           .withValues(alpha: 0.85),
@@ -151,7 +159,9 @@ class DashboardScreen extends ConsumerWidget {
                                       height: 1.2)),
                               const SizedBox(height: 4),
                               Text(
-                                  '$doneCount dari ${habits.length} habit',
+                                  tr(context, '{a} dari {b} habit')
+                                      .replaceAll('{a}', '$doneCount')
+                                      .replaceAll('{b}', '${habits.length}'),
                                   style: AppText.display(25.6,
                                       color: Colors.white)),
                               const SizedBox(height: 6),
@@ -175,9 +185,9 @@ class DashboardScreen extends ConsumerWidget {
                   Expanded(
                     child: _StatCard(
                       emoji: '🔥',
-                      label: 'Streak',
-                      big: '$streak hari',
-                      sub: 'berturut-turut',
+                      label: tr(context, 'Streak'),
+                      big: tr(context, '{x} hari').replaceAll('{x}', '$streak'),
+                      sub: tr(context, 'berturut-turut'),
                       subColor: theme.brightness == Brightness.dark
                           ? AppColors.successDark
                           : AppColors.successLight,
@@ -188,16 +198,16 @@ class DashboardScreen extends ConsumerWidget {
                     child: _StatCard(
                       icon: 'i-scale',
                       iconTone: IcoTone.violet,
-                      label: 'Berat terakhir',
+                      label: tr(context, 'Berat terakhir'),
                       big: latest == null
                           ? '— kg'
-                          : '${fmtKg(latest.valueKg)} kg',
+                          : '${fmtKg(latest.valueKg, lang: lang)} kg',
                       sub: latest == null
-                          ? 'Belum timbang'
+                          ? tr(context, 'Belum timbang')
                           : prev == null
-                              ? 'catatan pertamamu'
+                              ? tr(context, 'catatan pertamamu')
                               : _deltaCaption(
-                                  latest.valueKg, prev.valueKg),
+                                  latest.valueKg, prev.valueKg, lang),
                       subColor: latest == null || prev == null
                           ? muted
                           : latest.valueKg <= prev.valueKg
@@ -230,7 +240,7 @@ class DashboardScreen extends ConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('TARGET BERAT',
+                            Text(tr(context, 'TARGET BERAT'),
                                 style: AppText.body(12.16,
                                     color: theme
                                         .colorScheme.onPrimaryContainer,
@@ -238,11 +248,11 @@ class DashboardScreen extends ConsumerWidget {
                                     height: 1.2)),
                             const SizedBox(height: 2),
                             Text(
-                              '${fmtKg(prefs.targetKg!)} kg — '
-                              '${targetCaption(latest.valueKg, prefs.targetKg!)}',
+                              '${fmtKg(prefs.targetKg!, lang: lang)} kg — '
+                              '${targetCaption(latest.valueKg, prefs.targetKg!, lang: lang)}',
                               style: AppText.display(20,
                                   color: theme
-                                      .colorScheme.onPrimaryContainer),
+                                      .colorScheme.onSurface),
                             ),
                           ],
                         ),
@@ -258,8 +268,8 @@ class DashboardScreen extends ConsumerWidget {
                         ),
                         child: Text(
                           _onTarget(latest.valueKg, prefs.targetKg!)
-                              ? 'Tepat jalur'
-                              : 'Menuju target',
+                              ? tr(context, 'Tepat jalur')
+                              : tr(context, 'Menuju target'),
                           style: AppText.body(11.84,
                               color: theme.brightness == Brightness.dark
                                   ? AppColors.successDark
@@ -273,12 +283,12 @@ class DashboardScreen extends ConsumerWidget {
               else
                 OutlinedButton(
                   onPressed: () => context.go('/profile'),
-                  child: const Text('Atur target berat di Profil'),
+                  child: Text(tr(context, 'Atur target berat di Profil')),
                 ),
               const SizedBox(height: 18),
               _SectionHeader(
-                title: 'Habit hari ini',
-                link: 'Lihat semua',
+                title: tr(context, 'Habit hari ini'),
+                link: tr(context, 'Lihat semua'),
                 onLink: () => context.go('/checklist'),
               ),
               const SizedBox(height: 6),
@@ -297,22 +307,23 @@ class DashboardScreen extends ConsumerWidget {
                   ),
               const SizedBox(height: 14),
               // Menu sehat — dua row-btn ala mockup.
-              _SectionHeader(title: 'Menu sehat', link: 'Katalog',
+              _SectionHeader(title: tr(context, 'Menu sehat'),
+                  link: tr(context, 'Katalog'),
                   onLink: () => context.push('/catalog')),
               const SizedBox(height: 6),
               _MenuRow(
                 icon: 'i-leaf',
                 tone: IcoTone.green,
-                title: 'Makanan Sehat',
-                desc: '6 menu + kalori per porsi',
+                title: tr(context, 'Makanan Sehat'),
+                desc: tr(context, '6 menu + kalori per porsi'),
                 onTap: () => context.push('/catalog?tab=0'),
               ),
               const SizedBox(height: 10),
               _MenuRow(
                 icon: 'i-droplet',
                 tone: IcoTone.blue,
-                title: 'Minuman Sehat',
-                desc: '6 minuman rendah kalori',
+                title: tr(context, 'Minuman Sehat'),
+                desc: tr(context, '6 minuman rendah kalori'),
                 onTap: () => context.push('/catalog?tab=1'),
               ),
             ],
@@ -324,11 +335,11 @@ class DashboardScreen extends ConsumerWidget {
   }
 }
 
-String _deltaCaption(double now, double before) {
+String _deltaCaption(double now, double before, String lang) {
   final d = now - before;
-  if (d == 0) return 'tanpa perubahan';
+  if (d == 0) return trLang(lang, 'tanpa perubahan');
   final sign = d < 0 ? '▼' : '▲';
-  return '$sign ${fmtKg(d.abs())} kg sejak catatan lalu';
+  return '$sign ${trLang(lang, '{x} kg sejak catatan lalu').replaceAll('{x}', fmtKg(d.abs(), lang: lang))}';
 }
 
 bool _onTarget(double now, double target) => (now - target).abs() <= 2;
@@ -340,9 +351,9 @@ class _BellButton extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content:
-                Text('Pengingat aktif 07:00 & 21:00 — atur di Profil.'),
+          SnackBar(
+            content: Text(
+                tr(context, 'Pengingat aktif 07:00 & 21:00 — atur di Profil.')),
           ),
         );
       },
@@ -561,18 +572,18 @@ class _EmptyHabitsCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Text('Belum ada habit',
+          Text(tr(context, 'Belum ada habit'),
               style: AppText.body(15,
                   color: theme.colorScheme.onSurface,
                   weight: FontWeight.w800)),
           const SizedBox(height: 4),
-          Text('Mulai dari 1 kebiasaan kecil hari ini.',
+          Text(tr(context, 'Mulai dari 1 kebiasaan kecil hari ini.'),
               style: AppText.body(12.5,
                   color: theme.colorScheme.onSurfaceVariant)),
           const SizedBox(height: 12),
           ElevatedButton(
             onPressed: onAdd,
-            child: const Text('+ Tambah habit pertama'),
+            child: Text(tr(context, '+ Tambah habit pertama')),
           ),
         ],
       ),
@@ -600,7 +611,7 @@ class _QuickFabState extends State<_QuickFab> {
         if (_open) ...[
           _FabAction(
             icon: 'i-scale',
-            label: 'Catat berat',
+            label: tr(context, 'Catat berat'),
             onTap: () {
               setState(() => _open = false);
               showWeightSheet(context);
@@ -609,7 +620,7 @@ class _QuickFabState extends State<_QuickFab> {
           const SizedBox(height: 10),
           _FabAction(
             icon: 'i-list',
-            label: 'Centang habit',
+            label: tr(context, 'Centang habit'),
             onTap: () {
               setState(() => _open = false);
               context.go('/checklist');
@@ -618,7 +629,7 @@ class _QuickFabState extends State<_QuickFab> {
           const SizedBox(height: 10),
           _FabAction(
             icon: 'i-plus',
-            label: 'Tambah habit',
+            label: tr(context, 'Tambah habit'),
             onTap: () {
               setState(() => _open = false);
               context.push('/habit-form');

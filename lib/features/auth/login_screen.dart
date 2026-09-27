@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/i18n/app_localizations.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/svg_icon.dart';
@@ -41,9 +42,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   /// Sementara: snackbar ramah, arahkan ke Tamu.
   void _googleSoon() {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content:
-            Text('Login Google segera hadir — masuk sebagai Tamu dulu ya.'),
+      SnackBar(
+        content: Text(
+            tr(context, 'Login Google segera hadir — masuk sebagai Tamu dulu ya.')),
       ),
     );
   }
@@ -119,13 +120,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: 18),
                   Text(
-                    'Halo lagi!',
+                    tr(context, 'Halo lagi!'),
                     textAlign: TextAlign.center,
                     style: AppText.display(30, color: text),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Masuk dengan Google, atau coba sebagai Tamu dulu.',
+                    tr(context, 'Masuk dengan Google, atau coba sebagai Tamu dulu.'),
                     textAlign: TextAlign.center,
                     style: AppText.body(14.5, color: muted),
                   ),
@@ -171,14 +172,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        item.$2,
+                                        tr(context, item.$2),
                                         style: AppText.body(14,
                                             color: text,
                                             weight: FontWeight.w800,
                                             height: 1.25),
                                       ),
                                       Text(
-                                        item.$3,
+                                        tr(context, item.$3),
                                         style: AppText.body(11.5,
                                             color: muted, height: 1.3),
                                       ),
@@ -207,7 +208,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         SvgIconGoogle(size: 20),
                         const SizedBox(width: 10),
                         Text(
-                          _busy ? 'Memproses…' : 'Masuk dengan Google',
+                          _busy
+                              ? tr(context, 'Memproses…')
+                              : tr(context, 'Masuk dengan Google'),
                           style: AppText.body(16,
                               color: text, weight: FontWeight.w800),
                         ),
@@ -220,7 +223,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       Expanded(child: Divider(color: line)),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Text('atau',
+                        child: Text(tr(context, 'atau'),
                             style: AppText.body(12.5, color: muted)),
                       ),
                       Expanded(child: Divider(color: line)),
@@ -236,13 +239,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       children: [
                         SvgIcon('i-user', size: 20, color: text),
                         const SizedBox(width: 10),
-                        Text(_busy ? 'Memproses…' : 'Masuk sebagai Tamu'),
+                        Text(_busy
+                            ? tr(context, 'Memproses…')
+                            : tr(context, 'Masuk sebagai Tamu')),
                       ],
                     ),
                   ),
                   const SizedBox(height: 18),
                   Text(
-                    'Google: tersimpan aman di akunmu · Tamu: lokal di perangkat ini.',
+                    tr(context,
+                        'Google: tersimpan aman di akunmu · Tamu: lokal di perangkat ini.'),
                     textAlign: TextAlign.center,
                     style: AppText.body(11.5, color: muted),
                   ),

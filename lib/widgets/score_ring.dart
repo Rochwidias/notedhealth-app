@@ -1,8 +1,10 @@
-import 'dart:math' as math;
+﻿import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-/// Cincin skor harian 0–100 ala mockup (latar redup + busur progres kuning).
+import '../core/i18n/app_localizations.dart';
+
+/// Cincin skor harian 0â€“100 ala mockup (latar redup + busur progres kuning).
 class ScoreRing extends StatelessWidget {
   const ScoreRing({
     super.key,
@@ -44,7 +46,7 @@ class ScoreRing extends StatelessWidget {
               ),
               SizedBox(height: size * 0.03),
               Text(
-                'SKOR',
+                tr(context, 'SKOR'),
                 style: TextStyle(
                   fontSize: size * 0.083,
                   fontWeight: FontWeight.w800,

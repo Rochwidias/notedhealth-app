@@ -58,7 +58,8 @@ abstract final class AppTheme {
       seedColor: AppColors.primary,
       brightness: brightness,
     ).copyWith(
-      primary: primaryInk,
+      // Dark: #9D86FF (terang) supaya teks violet kontras di atas surface gelap.
+      primary: isDark ? AppColors.primary : AppColors.primaryInkLight,
       onPrimary: Colors.white,
       secondary: AppColors.accent,
       onSecondary: const Color(0xFF1E1B2E),
@@ -70,7 +71,7 @@ abstract final class AppTheme {
       error: danger,
       onError: isDark ? const Color(0xFF1E1B2E) : Colors.white,
       primaryContainer: primarySoft,
-      onPrimaryContainer: primaryInk,
+      onPrimaryContainer: isDark ? AppColors.primary : AppColors.primaryInkLight,
       tertiary: success,
       scrim: Colors.black54,
     );

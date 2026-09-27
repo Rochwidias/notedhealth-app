@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
@@ -81,7 +82,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
     final title = _title.text.trim();
     if (title.length < 3) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Judul minimal 3 huruf.')),
+        SnackBar(content: Text(tr(context, 'Judul minimal 3 huruf.'))),
       );
       return;
     }
@@ -112,16 +113,16 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Hapus habit?'),
-        content: const Text('Centang yang sudah tercatat tetap tersimpan.'),
+        title: Text(tr(ctx, 'Hapus habit?')),
+        content: Text(tr(ctx, 'Centang yang sudah tercatat tetap tersimpan.')),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Batal'),
+            child: Text(tr(ctx, 'Batal')),
           ),
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Hapus'),
+            child: Text(tr(ctx, 'Hapus')),
           ),
         ],
       ),
@@ -141,7 +142,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
     final isDark = theme.brightness == Brightness.dark;
     final isEdit = widget.habitId != null;
     final primaryInk =
-        isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+        isDark ? AppColors.primary : AppColors.primaryInkLight;
     final primarySoft =
         isDark ? AppColors.primarySoftDark : AppColors.primarySoftLight;
     final dangerSoft =
@@ -150,7 +151,8 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(isEdit ? 'Ubah Habit' : 'Tambah Habit'),
+        title: Text(
+            isEdit ? tr(context, 'Ubah Habit') : tr(context, 'Tambah Habit')),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
@@ -160,12 +162,12 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
             _FieldLabel('Judul habit'),
             TextField(
               controller: _title,
-              decoration: const InputDecoration(
-                hintText: 'cth: Minum air 8 gelas',
+              decoration: InputDecoration(
+                hintText: tr(context, 'cth: Minum air 8 gelas'),
               ),
             ),
             const SizedBox(height: 6),
-            Text('Minimal 3 karakter',
+            Text(tr(context, 'Minimal 3 karakter'),
                 style: AppText.body(11.5, color: muted)),
             const SizedBox(height: 18),
 
@@ -207,12 +209,12 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Ikon terpilih',
+                        Text(tr(context, 'Ikon terpilih'),
                             style: AppText.body(14.4,
                                 color: text,
                                 weight: FontWeight.w800,
                                 height: 1.25)),
-                        Text('Tampil di checklist & daftar habit',
+                        Text(tr(context, 'Tampil di checklist & daftar habit'),
                             style: AppText.body(11.5,
                                 color: isDark
                                     ? AppColors.darkMuted
@@ -230,7 +232,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 6, bottom: 7),
                 child: Text(
-                  group.toUpperCase(),
+                  tr(context, group).toUpperCase(),
                   style: AppText.body(10.72,
                       color: muted,
                       weight: FontWeight.w800,
@@ -271,7 +273,8 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
             ],
             const SizedBox(height: 7),
             Text(
-              '64 emoji tersedia — ketuk untuk memilih, tampil sebagai ikon habit.',
+              tr(context,
+                  '64 emoji tersedia — ketuk untuk memilih, tampil sebagai ikon habit.'),
               style: AppText.body(11.5, color: muted),
             ),
             const SizedBox(height: 18),
@@ -282,7 +285,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
               children: [
                 for (final c in _categories) ...[
                   _CatChip(
-                    label: categoryLabel(c),
+                    label: tr(context, categoryLabel(c)),
                     icon: categoryIcon(c),
                     on: _category == c,
                     onTap: () => setState(() => _category = c),
@@ -325,8 +328,8 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
             ),
             const SizedBox(height: 6),
             Text(
-              'Bobot relatif — total semua habit tidak harus 100. '
-              'Skor = bobot selesai ÷ bobot aktif.',
+              tr(context, 'Bobot relatif — total semua habit tidak harus 100. '
+                  'Skor = bobot selesai ÷ bobot aktif.'),
               style: AppText.body(11.5, color: muted),
             ),
             const SizedBox(height: 18),
@@ -358,12 +361,12 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Habit aktif',
+                        Text(tr(context, 'Habit aktif'),
                             style: AppText.body(14.4,
                                 color: text,
                                 weight: FontWeight.w800,
                                 height: 1.25)),
-                        Text('Muncul di checklist harian & dihitung ke skor',
+                        Text(tr(context, 'Muncul di checklist harian & dihitung ke skor'),
                             style: AppText.body(12.16,
                                 color: muted, height: 1.3)),
                       ],
@@ -380,12 +383,12 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
 
             ElevatedButton(
               onPressed: _save,
-              child: const Text('Simpan habit'),
+              child: Text(tr(context, 'Simpan habit')),
             ),
             const SizedBox(height: 10),
             OutlinedButton(
               onPressed: () => context.pop(),
-              child: const Text('Batal'),
+              child: Text(tr(context, 'Batal')),
             ),
             if (isEdit) ...[
               const SizedBox(height: 14),
@@ -395,7 +398,7 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
                   backgroundColor: dangerSoft,
                   foregroundColor: danger,
                 ),
-                child: const Text('Hapus habit'),
+                child: Text(tr(context, 'Hapus habit')),
               ),
             ],
           ],
@@ -413,7 +416,7 @@ class _FieldLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      text,
+      tr(context, text),
       style: AppText.body(13.5,
           color: Theme.of(context).colorScheme.onSurfaceVariant,
           weight: FontWeight.w800),
@@ -440,7 +443,7 @@ class _CatChip extends StatelessWidget {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
     final primaryInk =
-        isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+        isDark ? AppColors.primary : AppColors.primaryInkLight;
     final primarySoft =
         isDark ? AppColors.primarySoftDark : AppColors.primarySoftLight;
     return GestureDetector(

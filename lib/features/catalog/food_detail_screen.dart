@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
@@ -19,7 +20,7 @@ class FoodDetailScreen extends StatelessWidget {
     if (item == null) {
       return Scaffold(
         appBar: AppBar(),
-        body: const Center(child: Text('Menu tidak ditemukan.')),
+        body: Center(child: Text(tr(context, 'Menu tidak ditemukan.'))),
       );
     }
     final theme = Theme.of(context);
@@ -55,7 +56,7 @@ class FoodDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            item.name,
+                            tr(context, item.name),
                             style: AppText.display(24),
                           ),
                           const SizedBox(height: 8),
@@ -74,7 +75,7 @@ class FoodDetailScreen extends StatelessWidget {
                               ),
                               if (item.badge != null)
                                 _DetailChip(
-                                  label: item.badge!,
+                                  label: tr(context, item.badge!),
                                   bg: isDark
                                       ? AppColors.successSoftDark
                                       : AppColors.successSoftLight,
@@ -83,7 +84,7 @@ class FoodDetailScreen extends StatelessWidget {
                                       : AppColors.successLight,
                                 ),
                               _DetailChip(
-                                label: item.portion,
+                                label: tr(context, item.portion),
                                 bg: surface2,
                                 fg: muted,
                               ),
@@ -111,11 +112,11 @@ class FoodDetailScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 Text(
-                  item.desc,
+                  tr(context, item.desc),
                   style: AppText.body(14.4, color: muted),
                 ),
                 const SizedBox(height: 6),
-                _Sec('Bahan utama'),
+                _Sec(tr(context, 'Bahan utama')),
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -152,7 +153,7 @@ class FoodDetailScreen extends StatelessWidget {
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
-                                  item.ingredients[i],
+                                  tr(context, item.ingredients[i]),
                                   style: AppText.body(14),
                                 ),
                               ),
@@ -165,7 +166,7 @@ class FoodDetailScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                _Sec('Tips sehat'),
+                _Sec(tr(context, 'Tips sehat')),
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(14),
@@ -182,7 +183,7 @@ class FoodDetailScreen extends StatelessWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: Text(
-                          item.tip,
+                          tr(context, item.tip),
                           style: AppText.body(13.6, weight: FontWeight.w600),
                         ),
                       ),
@@ -192,15 +193,15 @@ class FoodDetailScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Dicatat! Pelacakan kalori penuh menyusul.'),
+                    SnackBar(
+                      content: Text(tr(context, 'Dicatat! Pelacakan kalori penuh menyusul.')),
                     ),
                   ),
-                  child: const Text('Tandai: saya makan ini'),
+                  child: Text(tr(context, 'Tandai: saya makan ini')),
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Catatan ringan untuk riwayat hari ini (opsional)',
+                  tr(context, 'Catatan ringan untuk riwayat hari ini (opsional)'),
                   textAlign: TextAlign.center,
                   style: AppText.body(12, color: muted),
                 ),

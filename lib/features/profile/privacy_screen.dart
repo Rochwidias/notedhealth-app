@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notedhealth/core/i18n/app_localizations.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
@@ -15,11 +16,11 @@ class PrivacyScreen extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final line = isDark ? AppColors.darkLine : AppColors.lightLine;
     final muted = isDark ? AppColors.darkMuted : AppColors.lightMuted;
-    final primaryInk = isDark ? AppColors.primaryInkDark : AppColors.primaryInkLight;
+    final primaryInk = isDark ? AppColors.primary : AppColors.primaryInkLight;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Privasi & Legal'),
+        title: Text(tr(context, 'Privasi & Legal')),
         leading: IconButton(
           icon: const SvgIcon('i-back'),
           onPressed: () => Navigator.of(context).maybePop(),
@@ -42,48 +43,69 @@ class PrivacyScreen extends StatelessWidget {
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(
-                    'Datamu milikmu. Ringkasan singkat cara NotedHealth menangani data:',
+                    tr(
+                      context,
+                      'Datamu milikmu. Ringkasan singkat cara NotedHealth menangani data:',
+                    ),
                     style: AppText.body(13.76, weight: FontWeight.w600),
                   ),
                 ),
               ],
             ),
           ),
-          const _Sec('Kebijakan privasi'),
+          _Sec(tr(context, 'Kebijakan privasi')),
           _Card(
             children: [
-              'Email & nama hanya diambil dari Google Sign-In — untuk login, bukan untuk iklan',
-              'Berat badan, habit, & skor harian tersimpan di Cloud Firestore atas nama akunmu',
-              'Hanya kamu yang bisa membaca datanya — aturan keamanan Firestore menolak akses siapa pun selain pemilik akun',
-              'Tidak dibagikan ke pihak ketiga, tidak ada tracking atau analytics iklan',
-              'Hapus akun di Profil = seluruh data ikut terhapus permanen',
-              'Pengingat 07.00 & 21.00 adalah notifikasi lokal di perangkat, tanpa server',
+              tr(
+                context,
+                'Email & nama hanya diambil dari Google Sign-In — untuk login, bukan untuk iklan',
+              ),
+              tr(
+                context,
+                'Berat badan, habit, & skor harian tersimpan di Cloud Firestore atas nama akunmu',
+              ),
+              tr(
+                context,
+                'Hanya kamu yang bisa membaca datanya — aturan keamanan Firestore menolak akses siapa pun selain pemilik akun',
+              ),
+              tr(
+                context,
+                'Tidak dibagikan ke pihak ketiga, tidak ada tracking atau analytics iklan',
+              ),
+              tr(context, 'Hapus akun di Profil = seluruh data ikut terhapus permanen'),
+              tr(context, 'Pengingat 07.00 & 21.00 adalah notifikasi lokal di perangkat, tanpa server'),
             ],
             line: line,
             muted: muted,
           ),
           const SizedBox(height: 9),
           Text(
-            'Versi lengkap kebijakan privasi akan tersedia di URL publik saat rilis (wajib untuk Google Play).',
+            tr(
+              context,
+              'Versi lengkap kebijakan privasi akan tersedia di URL publik saat rilis (wajib untuk Google Play).',
+            ),
             style: AppText.body(12, color: muted),
           ),
-          const _Sec('Syarat layanan'),
+          _Sec(tr(context, 'Syarat layanan')),
           _RowBtn(
             icon: 'i-book',
             tone: IcoTone.violet,
-            label: 'Ketentuan penggunaan',
-            desc: 'Tanggung jawab pengguna & batasan aplikasi',
+            label: tr(context, 'Ketentuan penggunaan'),
+            desc: tr(context, 'Tanggung jawab pengguna & batasan aplikasi'),
             muted: muted,
             onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Halaman ketentuan menyusul.')),
+              SnackBar(content: Text(tr(context, 'Halaman ketentuan menyusul.'))),
             ),
           ),
           const SizedBox(height: 2),
           Text(
-            'NotedHealth adalah pencatat kebiasaan, bukan alat medis — tidak memberi diagnosis atau saran medis.',
+            tr(
+              context,
+              'NotedHealth adalah pencatat kebiasaan, bukan alat medis — tidak memberi diagnosis atau saran medis.',
+            ),
             style: AppText.body(12, color: muted),
           ),
-          const _Sec('Kredit'),
+          _Sec(tr(context, 'Kredit')),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(18),
@@ -104,7 +126,7 @@ class PrivacyScreen extends StatelessWidget {
               children: [
                 const IcoChip(icon: 'i-sparkle', tone: IcoTone.violet),
                 const SizedBox(height: 10),
-                Text('Desain & pengembangan oleh', style: AppText.body(12, color: muted)),
+                Text(tr(context, 'Desain & pengembangan oleh'), style: AppText.body(12, color: muted)),
                 const SizedBox(height: 2),
                 Text(
                   '@rochwidias',
@@ -115,7 +137,10 @@ class PrivacyScreen extends StatelessWidget {
           ),
           const SizedBox(height: 14),
           Text(
-            'Foto: Pexels (Pexels License) · Font: Plus Jakarta Sans & Fredoka (SIL OFL 1.1) · Ikon SVG buatan sendiri',
+            tr(
+              context,
+              'Foto: Pexels (Pexels License) · Font: Plus Jakarta Sans & Fredoka (SIL OFL 1.1) · Ikon SVG buatan sendiri',
+            ),
             textAlign: TextAlign.center,
             style: AppText.body(12, color: muted),
           ),

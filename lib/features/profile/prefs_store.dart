@@ -14,6 +14,11 @@ final themeModeProvider = Provider<ThemeMode>((ref) {
   return ref.watch(prefsProvider).themeMode;
 });
 
+/// Kode bahasa aktif ('id' | 'en').
+final langProvider = Provider<String>((ref) {
+  return ref.watch(prefsProvider).lang;
+});
+
 class PrefsState {
   const PrefsState({
     this.name = '',
@@ -22,6 +27,7 @@ class PrefsState {
     this.reminderMorning = true,
     this.reminderNight = true,
     this.themeModeName = 'system',
+    this.lang = 'id',
   });
 
   final String name;
@@ -30,6 +36,7 @@ class PrefsState {
   final bool reminderMorning;
   final bool reminderNight;
   final String themeModeName; // system | light | dark
+  final String lang; // id | en
 
   ThemeMode get themeMode => switch (themeModeName) {
         'light' => ThemeMode.light,
@@ -44,6 +51,7 @@ class PrefsState {
     bool? reminderMorning,
     bool? reminderNight,
     String? themeModeName,
+    String? lang,
   }) =>
       PrefsState(
         name: name ?? this.name,
@@ -52,6 +60,7 @@ class PrefsState {
         reminderMorning: reminderMorning ?? this.reminderMorning,
         reminderNight: reminderNight ?? this.reminderNight,
         themeModeName: themeModeName ?? this.themeModeName,
+        lang: lang ?? this.lang,
       );
 
   /// BMI = kg ÷ m². Null bila berat/tinggi belum diisi.
@@ -86,6 +95,7 @@ class PrefsController extends Notifier<PrefsState> {
       reminderMorning: (_box.get('reminderMorning') as bool?) ?? true,
       reminderNight: (_box.get('reminderNight') as bool?) ?? true,
       themeModeName: (_box.get('themeMode') as String?) ?? 'system',
+      lang: (_box.get('lang') as String?) ?? 'id',
     );
   }
 
@@ -115,6 +125,7 @@ class PrefsController extends Notifier<PrefsState> {
       reminderMorning: state.reminderMorning,
       reminderNight: state.reminderNight,
       themeModeName: state.themeModeName,
+      lang: state.lang,
     );
   }
 
@@ -130,6 +141,7 @@ class PrefsController extends Notifier<PrefsState> {
       reminderMorning: state.reminderMorning,
       reminderNight: state.reminderNight,
       themeModeName: state.themeModeName,
+      lang: state.lang,
     );
   }
 
@@ -146,5 +158,10 @@ class PrefsController extends Notifier<PrefsState> {
   Future<void> setThemeModeName(String v) async {
     await _save('themeMode', v);
     state = state.copyWith(themeModeName: v);
+  }
+
+  Future<void> setLang(String v) async {
+    await _save('lang', v);
+    state = state.copyWith(lang: v);
   }
 }
