@@ -48,3 +48,10 @@ app.*.map.json
 .widget_preview/
 
 .playwright-mcp/
+
+# artefak verifikasi lokal
+shot-*.png
+test-run*.log
+build-apk.log
+firebase-debug.log
+*-dump.xml

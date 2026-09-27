@@ -39,6 +39,12 @@ dependencies:
   hive_ce: ^2.20.0
   hive_ce_flutter: ^2.3.4
   flutter_svg: ^2.3.0
+  firebase_core: ^4.15.0
+  firebase_auth: ^6.7.0
+  google_sign_in: ^7.2.0
+  cloud_firestore: ^6.10.0
+  fl_chart: ^1.2.0
+  intl: ^0.20.3
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +70,7 @@ flutter:
 
   assets:
     - assets/icons/
+    - assets/food/
 
   fonts:
     - family: PlusJakartaSans

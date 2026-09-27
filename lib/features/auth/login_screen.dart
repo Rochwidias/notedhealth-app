@@ -1,12 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../../widgets/svg_icon.dart';
+import 'auth_repository.dart';
+import 'session_provider.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  bool _busy = false;
+
+  Future<void> _login(Future<void> Function(AuthRepository repo) action) async {
+    if (_busy) return;
+    setState(() => _busy = true);
+    try {
+      await action(ref.read(authRepositoryProvider));
+      ref.read(sessionProvider.notifier).refresh();
+      if (mounted) context.go('/home');
+    } on AuthException catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message)),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _busy = false);
+    }
+  }
+
+  /// Login Google aktif lagi setelah Firebase project siap.
+  /// Sementara: snackbar ramah, arahkan ke Tamu.
+  void _googleSoon() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content:
+            Text('Login Google segera hadir — masuk sebagai Tamu dulu ya.'),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +140,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 28),
                   ElevatedButton(
-                    onPressed: () => context.go('/home'),
+                    onPressed: _busy ? null : _googleSoon,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: theme.colorScheme.surface,
                       foregroundColor: text,
@@ -115,7 +154,7 @@ class LoginScreen extends StatelessWidget {
                         SvgIconGoogle(size: 20),
                         const SizedBox(width: 10),
                         Text(
-                          'Masuk dengan Google',
+                          _busy ? 'Memproses…' : 'Masuk dengan Google',
                           style: AppText.body(15,
                               color: text, weight: FontWeight.w800),
                         ),
@@ -136,13 +175,15 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 14),
                   OutlinedButton(
-                    onPressed: () => context.go('/home'),
+                    onPressed: _busy
+                        ? null
+                        : () => _login((r) => r.continueAsGuest()),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgIcon('i-user', size: 20, color: text),
                         const SizedBox(width: 10),
-                        const Text('Masuk sebagai Tamu'),
+                        Text(_busy ? 'Memproses…' : 'Masuk sebagai Tamu'),
                       ],
                     ),
                   ),

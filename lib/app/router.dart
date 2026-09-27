@@ -1,54 +1,58 @@
 import 'package:go_router/go_router.dart';
 
 import '../features/auth/login_screen.dart';
+import '../features/auth/session_store.dart';
+import '../features/catalog/catalog_screen.dart';
+import '../features/catalog/food_detail_screen.dart';
+import '../features/checklist/checklist_screen.dart';
+import '../features/dashboard/dashboard_screen.dart';
+import '../features/habits/habit_form_screen.dart';
+import '../features/profile/privacy_screen.dart';
+import '../features/profile/profile_screen.dart';
 import '../features/shell/home_shell.dart';
-import '../features/shell/placeholder_screen.dart';
+import '../features/weight/weight_screen.dart';
 
-/// Factory router — dipanggil ulang tiap test agar state navigasi tidak bocor
-/// antar-test. Produksi memakai [appRouter].
-GoRouter buildRouter() => GoRouter(
-      initialLocation: '/login',
-      routes: [
-    GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginScreen(),
-    ),
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) =>
-          HomeShell(shell: navigationShell),
-      branches: [
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/home',
-            builder: (context, state) =>
-                const PlaceholderScreen(title: 'Beranda'),
-          ),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/checklist',
-            builder: (context, state) =>
-                const PlaceholderScreen(title: 'Checklist'),
-          ),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/weight',
-            builder: (context, state) =>
-                const PlaceholderScreen(title: 'Berat'),
-          ),
-        ]),
-        StatefulShellBranch(routes: [
-          GoRoute(
-            path: '/profile',
-            builder: (context, state) =>
-                const PlaceholderScreen(title: 'Profil'),
-          ),
-        ]),
-      ],
-    ),
-  ],
-);
-
-/// Router produksi (satu instance untuk app berjalan).
-final GoRouter appRouter = buildRouter();
+/// Factory agar tiap test dapat router segar (tidak bocor state antar-test).
+GoRouter buildRouter() {
+  return GoRouter(
+    initialLocation: readSession().isSignedIn ? '/home' : '/login',
+    refreshListenable: sessionRefresh,
+    redirect: (context, state) {
+      final signedIn = readSession().isSignedIn;
+      final onLogin = state.matchedLocation == '/login';
+      if (!signedIn && !onLogin) return '/login';
+      if (signedIn && onLogin) return '/home';
+      return null;
+    },
+    routes: [
+      GoRoute(path: '/login', builder: (ctx, st) => const LoginScreen()),
+      StatefulShellRoute.indexedStack(
+        builder: (ctx, st, shell) => HomeShell(shell: shell),
+        branches: [
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/home', builder: (ctx, st) => const DashboardScreen()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/checklist', builder: (ctx, st) => const ChecklistScreen()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/weight', builder: (ctx, st) => const WeightScreen()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/profile', builder: (ctx, st) => const ProfileScreen()),
+          ]),
+        ],
+      ),
+      GoRoute(
+        path: '/habit-form',
+        builder: (ctx, st) => HabitFormScreen(habitId: st.uri.queryParameters['id']),
+      ),
+      GoRoute(path: '/catalog', builder: (ctx, st) => const CatalogScreen()),
+      GoRoute(
+        path: '/food/:id',
+        builder: (ctx, st) => FoodDetailScreen(id: st.pathParameters['id'] ?? ''),
+      ),
+      GoRoute(path: '/privacy', builder: (ctx, st) => const PrivacyScreen()),
+    ],
+  );
+}
