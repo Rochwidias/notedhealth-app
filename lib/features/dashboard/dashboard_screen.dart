@@ -677,6 +677,7 @@ class _QuickFabState extends State<_QuickFab> {
           const SizedBox(height: 10),
         ],
         FloatingActionButton(
+          heroTag: 'fab-dashboard',
           onPressed: () => setState(() => _open = !_open),
           child: Transform.rotate(
             angle: _open ? 0.785 : 0,

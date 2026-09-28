@@ -27,12 +27,33 @@ Future<void> loginAsGuest(WidgetTester tester) async {
   }
 }
 
+/// Pastikan widget ada di tree (scroll list dulu bila lazy) lalu tampil di layar.
+Future<void> show(WidgetTester tester, Finder target) async {
+  if (target.evaluate().isEmpty) {
+    await tester.scrollUntilVisible(
+      target,
+      300,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await tester.pumpAndSettle();
+  }
+  await tester.ensureVisible(target);
+  await tester.pumpAndSettle();
+}
+
 void main() {
   setUpAll(() async {
     final dir = await Directory.systemTemp.createTemp('notedhealth_test');
     Hive.init(dir.path);
     await initializeDateFormatting('id_ID', null);
-    for (final name in ['session', 'habits', 'weights', 'daily_logs', 'prefs']) {
+    for (final name in [
+      'session',
+      'habits',
+      'weights',
+      'daily_logs',
+      'prefs',
+      'favorites',
+    ]) {
       await Hive.openBox(name);
     }
   });
@@ -40,7 +61,14 @@ void main() {
   // clear() dilepas tanpa await (future flush Hive pending di tester,
   // memori langsung konsisten) agar setUp tak gantung.
   setUp(() {
-    for (final name in ['session', 'habits', 'weights', 'daily_logs', 'prefs']) {
+    for (final name in [
+      'session',
+      'habits',
+      'weights',
+      'daily_logs',
+      'prefs',
+      'favorites',
+    ]) {
       detachHive(Hive.box(name).clear(), 'clear/$name');
     }
   });
@@ -78,8 +106,9 @@ void main() {
     expect(find.text('Data diri'), findsOneWidget);
   });
 
-  test('router punya rute login, shell, form, katalog, dan privasi', () {
-    expect(buildRouter().configuration.routes.length, 6);
+  test('router punya rute login, shell, form, katalog, favorit, riwayat, privasi',
+      () {
+    expect(buildRouter().configuration.routes.length, 8);
   });
 
   testWidgets('badge avatar profil membuka dialog edit nama', (tester) async {
@@ -106,5 +135,60 @@ void main() {
     await tester.tap(find.text('Streak'));
     await tester.pumpAndSettle();
     expect(find.text('Checklist Hari Ini'), findsOneWidget);
+  });
+
+  testWidgets('favorit: toggle hati di detail lalu tampil di halaman Favorit',
+      (tester) async {
+    await pumpApp(tester);
+    await loginAsGuest(tester);
+
+    await tester.tap(find.text('Profil'));
+    await tester.pumpAndSettle();
+    await show(tester, find.text('Makanan & minuman favorit'));
+    await tester.tap(find.text('Makanan & minuman favorit'));
+    await tester.pumpAndSettle();
+    expect(find.text('Belum ada favorit'), findsOneWidget);
+
+    await tester.tap(find.text('Buka katalog'));
+    await tester.pumpAndSettle();
+    await show(tester, find.text('Salad Sayur Segar'));
+    await tester.tap(find.text('Salad Sayur Segar'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const ValueKey('fav-toggle')));
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.favorite_rounded), findsWidgets);
+
+    // Kembali ke katalog (hati = IconButton pertama, back = kedua).
+    await tester.tap(find.byType(IconButton).at(1));
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.favorite_rounded), findsWidgets);
+
+    // Tombol hati appbar (back = 0, hati = 1) → halaman Favorit.
+    await tester.tap(find.byType(IconButton).at(1));
+    await tester.pumpAndSettle();
+    expect(find.text('Salad Sayur Segar'), findsOneWidget);
+  });
+
+  testWidgets('riwayat lengkap: link Semua lalu tap baris buka sheet ubah',
+      (tester) async {
+    Hive.box('weights').put(
+      '2026-09-27',
+      {'valueKg': 72.5, 'date': '2026-09-27'},
+    );
+    await pumpApp(tester);
+    await loginAsGuest(tester);
+
+    await tester.tap(find.text('Berat'));
+    await tester.pumpAndSettle();
+    await show(tester, find.text('Semua'));
+    await tester.tap(find.text('Semua'));
+    await tester.pumpAndSettle();
+    expect(find.text('Riwayat'), findsWidgets);
+
+    await show(tester, find.text('27 Sep 2026'));
+    await tester.tap(find.text('27 Sep 2026'));
+    await tester.pumpAndSettle();
+    expect(find.text('Ubah catatan'), findsOneWidget);
   });
 }

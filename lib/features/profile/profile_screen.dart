@@ -396,7 +396,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 _Row(
                   icon: 'i-leaf', tone: IcoTone.green,
                   label: tr(context, 'Katalog menu sehat'), desc: tr(context, 'Makanan & minuman favorit'),
-                  onTap: () => context.push('/catalog'),
+                  onTap: () => context.push('/favorites'),
                 ),
                 _Row(
                   icon: 'i-shield', tone: IcoTone.blue,

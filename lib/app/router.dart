@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../features/auth/login_screen.dart';
 import '../features/auth/session_store.dart';
 import '../features/catalog/catalog_screen.dart';
+import '../features/catalog/favorites_screen.dart';
 import '../features/catalog/food_detail_screen.dart';
 import '../features/checklist/checklist_screen.dart';
 import '../features/dashboard/dashboard_screen.dart';
@@ -10,6 +11,7 @@ import '../features/habits/habit_form_screen.dart';
 import '../features/profile/privacy_screen.dart';
 import '../features/profile/profile_screen.dart';
 import '../features/shell/home_shell.dart';
+import '../features/weight/history_screen.dart';
 import '../features/weight/weight_screen.dart';
 
 /// Factory agar tiap test dapat router segar (tidak bocor state antar-test).
@@ -58,6 +60,8 @@ GoRouter buildRouter() {
         path: '/food/:id',
         builder: (ctx, st) => FoodDetailScreen(id: st.pathParameters['id'] ?? ''),
       ),
+      GoRoute(path: '/favorites', builder: (ctx, st) => const FavoritesScreen()),
+      GoRoute(path: '/history', builder: (ctx, st) => const HistoryScreen()),
       GoRoute(path: '/privacy', builder: (ctx, st) => const PrivacyScreen()),
     ],
   );

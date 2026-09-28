@@ -6,22 +6,27 @@ import 'package:notedhealth/core/i18n/app_localizations.dart';
 import '../../core/format.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../models/weight_entry.dart';
 import '../../widgets/svg_icon.dart';
 import '../profile/prefs_store.dart';
 import 'weight_repository.dart';
 
 /// Bottom sheet catat timbangan — frame 06 mockup.
-/// Bisa dipanggil dari Beranda (FAB) maupun layar Berat.
-Future<void> showWeightSheet(BuildContext context) {
+/// Bisa dipanggil dari Beranda (FAB), layar Berat, maupun baris riwayat
+/// (isi [entry] = mode ubah/hapus catatan lama).
+Future<void> showWeightSheet(BuildContext context, {WeightEntry? entry}) {
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    builder: (_) => const WeightSheet(),
+    builder: (_) => WeightSheet(entry: entry),
   );
 }
 
 class WeightSheet extends ConsumerStatefulWidget {
-  const WeightSheet({super.key});
+  const WeightSheet({super.key, this.entry});
+
+  /// Catatan yang diedit; null = mode catat baru (tanggal hari ini).
+  final WeightEntry? entry;
 
   @override
   ConsumerState<WeightSheet> createState() => _WeightSheetState();
@@ -33,10 +38,15 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
   @override
   void initState() {
     super.initState();
-    final latest = ref.read(latestWeightProvider);
-    _ctrl = TextEditingController(
-      text: latest == null ? '' : fmtKg(latest.valueKg),
-    );
+    final existing = widget.entry;
+    if (existing != null) {
+      _ctrl = TextEditingController(text: fmtKg(existing.valueKg));
+    } else {
+      final latest = ref.read(latestWeightProvider);
+      _ctrl = TextEditingController(
+        text: latest == null ? '' : fmtKg(latest.valueKg),
+      );
+    }
   }
 
   @override
@@ -55,7 +65,9 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
       return;
     }
     try {
-      await ref.read(weightHistoryProvider.notifier).save(kg);
+      final date =
+          widget.entry == null ? null : DateTime.tryParse(widget.entry!.date);
+      await ref.read(weightHistoryProvider.notifier).save(kg, date: date);
       if (mounted) Navigator.of(context).pop();
     } on FormatException catch (e) {
       if (mounted) {
@@ -63,6 +75,30 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
             .showSnackBar(SnackBar(content: Text(e.message)));
       }
     }
+  }
+
+  Future<void> _confirmDelete() async {
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(tr(ctx, 'Hapus catatan berat ini?')),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(tr(ctx, 'Batal')),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(tr(ctx, 'Hapus')),
+          ),
+        ],
+      ),
+    );
+    if (ok != true || !mounted) return;
+    await ref
+        .read(weightHistoryProvider.notifier)
+        .remove(widget.entry!.date);
+    if (mounted) Navigator.of(context).pop();
   }
 
   @override
@@ -87,6 +123,14 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
     final today = DateFormat('EEEE, d MMM yyyy',
             lang == 'en' ? 'en_US' : 'id_ID')
         .format(DateTime.now());
+    final editing = widget.entry != null;
+    final entryDate = widget.entry == null
+        ? null
+        : DateTime.tryParse(widget.entry!.date);
+    final chipDate = entryDate == null
+        ? today
+        : DateFormat('EEEE, d MMM yyyy', lang == 'en' ? 'en_US' : 'id_ID')
+            .format(entryDate);
 
     return Padding(
       padding: EdgeInsets.only(
@@ -109,13 +153,18 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
             ),
           ),
           const SizedBox(height: 16),
-          Text(tr(context, 'Catat berat'),
+          Text(
+              editing
+                  ? tr(context, 'Ubah catatan')
+                  : tr(context, 'Catat berat'),
               style: AppText.display(20,
                   color: theme.colorScheme.onSurface)),
           const SizedBox(height: 4),
           Text(
-            tr(context,
-                'Sekali per tanggal — input ulang tanggal sama = update.'),
+            editing
+                ? tr(context, 'Perbarui berat untuk tanggal ini.')
+                : tr(context,
+                    'Sekali per tanggal — input ulang tanggal sama = update.'),
             textAlign: TextAlign.center,
             style: AppText.body(11.5,
                 color: theme.colorScheme.onSurfaceVariant),
@@ -135,7 +184,7 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
               children: [
                 SvgIcon('i-calendar', size: 15, color: primaryInk),
                 const SizedBox(width: 7),
-                Text(today,
+                Text(chipDate,
                     style: AppText.body(12.48,
                         color: primaryInk,
                         weight: FontWeight.w800,
@@ -227,6 +276,24 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
           const SizedBox(height: 18),
           Row(
             children: [
+              if (editing) ...[
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: _confirmDelete,
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: isDark
+                          ? AppColors.dangerDark
+                          : AppColors.dangerLight,
+                      side: BorderSide(
+                          color: isDark
+                              ? AppColors.dangerDark
+                              : AppColors.dangerLight),
+                    ),
+                    child: Text(tr(context, 'Hapus')),
+                  ),
+                ),
+                const SizedBox(width: 12),
+              ],
               Expanded(
                 child: OutlinedButton(
                   onPressed: () => Navigator.of(context).pop(),

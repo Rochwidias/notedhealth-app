@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:notedhealth/core/i18n/app_localizations.dart';
 
@@ -6,16 +7,17 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../widgets/ico_chip.dart';
 import '../../widgets/svg_icon.dart';
+import 'favorites_store.dart';
 import 'food_data.dart';
 
 /// Detail menu — frame 11. Foto full-bleed + info + tombol "saya makan ini".
-class FoodDetailScreen extends StatelessWidget {
+class FoodDetailScreen extends ConsumerWidget {
   const FoodDetailScreen({super.key, required this.id});
 
   final String id;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final item = findFood(id);
     if (item == null) {
       return Scaffold(
@@ -28,6 +30,8 @@ class FoodDetailScreen extends StatelessWidget {
     final line = isDark ? AppColors.darkLine : AppColors.lightLine;
     final muted = isDark ? AppColors.darkMuted : AppColors.lightMuted;
     final surface2 = isDark ? AppColors.darkSurface2 : AppColors.lightSurface2;
+    final danger = isDark ? AppColors.dangerDark : AppColors.dangerLight;
+    final fav = ref.watch(favoritesProvider).contains(id);
 
     return Scaffold(
       body: ListView(
@@ -94,6 +98,29 @@ class FoodDetailScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10),
+                    Container(
+                      width: 42,
+                      height: 42,
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surface,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: line),
+                      ),
+                      child: IconButton(
+                        key: const ValueKey('fav-toggle'),
+                        padding: EdgeInsets.zero,
+                        icon: Icon(
+                          fav
+                              ? Icons.favorite_rounded
+                              : Icons.favorite_border_rounded,
+                          size: 20,
+                          color: fav ? danger : muted,
+                        ),
+                        onPressed: () =>
+                            ref.read(favoritesProvider.notifier).toggle(id),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
                     Container(
                       width: 42,
                       height: 42,

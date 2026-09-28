@@ -119,6 +119,7 @@ class ChecklistScreen extends ConsumerWidget {
               ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab-checklist',
         onPressed: () => context.push('/habit-form'),
         child: SvgIcon('i-plus', size: 24, color: Colors.white),
       ),

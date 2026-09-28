@@ -24,6 +24,7 @@ Future<void> main() async {
   await Hive.openBox('weights');
   await Hive.openBox('daily_logs');
   await Hive.openBox('prefs');
+  await Hive.openBox('favorites');
   // Firebase stub — login Google aktif nanti; dibungkus agar mode Tamu
   // tetap jalan penuh tanpa Firebase.
   try {

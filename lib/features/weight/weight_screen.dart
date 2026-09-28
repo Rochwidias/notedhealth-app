@@ -12,6 +12,7 @@ import '../../models/weight_entry.dart';
 import '../../widgets/ico_chip.dart';
 import '../../widgets/svg_icon.dart';
 import '../profile/prefs_store.dart';
+import 'history_row.dart';
 import 'weight_repository.dart';
 import 'weight_sheet.dart';
 
@@ -159,8 +160,10 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
                     ),
                     const SizedBox(height: 14),
                     _SectionHeader(
-                        title: tr(context, 'Riwayat'),
-                        link: tr(context, 'Semua')),
+                      title: tr(context, 'Riwayat'),
+                      link: tr(context, 'Semua'),
+                      onLink: () => context.push('/history'),
+                    ),
                     const SizedBox(height: 8),
                     // Satu kartu berisi semua baris riwayat.
                     Container(
@@ -182,11 +185,13 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
                                 color: theme.colorScheme.outline,
                                 height: 1,
                               ),
-                            _HistoryRow(
+                            HistoryRow(
                               entry: history[i],
                               prev: i + 1 < history.length
                                   ? history[i + 1]
                                   : null,
+                              onTap: () => showWeightSheet(context,
+                                  entry: history[i]),
                             ),
                           ],
                         ],
@@ -197,6 +202,7 @@ class _WeightScreenState extends ConsumerState<WeightScreen> {
               ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'fab-weight',
         onPressed: () => showWeightSheet(context),
         child: SvgIcon('i-plus', size: 24, color: Colors.white),
       ),
@@ -520,10 +526,11 @@ class _SelisihStrip extends StatelessWidget {
 }
 
 class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title, this.link});
+  const _SectionHeader({required this.title, this.link, this.onLink});
 
   final String title;
   final String? link;
+  final VoidCallback? onLink;
 
   @override
   Widget build(BuildContext context) {
@@ -537,10 +544,21 @@ class _SectionHeader extends StatelessWidget {
                   weight: FontWeight.w800)),
         ),
         if (link != null)
-          Text(link!,
-              style: AppText.body(13.12,
-                  color: theme.colorScheme.primary,
-                  weight: FontWeight.w800)),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: onLink,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                child: Text(link!,
+                    style: AppText.body(13.12,
+                        color: theme.colorScheme.primary,
+                        weight: FontWeight.w800)),
+              ),
+            ),
+          ),
       ],
     );
   }
@@ -804,50 +822,6 @@ class _BmiBar extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _HistoryRow extends StatelessWidget {
-  const _HistoryRow({required this.entry, this.prev});
-
-  final WeightEntry entry;
-  final WeightEntry? prev;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final isDark = theme.brightness == Brightness.dark;
-    final diff = prev == null ? null : entry.valueKg - prev!.valueKg;
-    final success =
-        isDark ? AppColors.successDark : AppColors.successLight;
-    final danger = isDark ? AppColors.dangerDark : AppColors.dangerLight;
-    final lang = Localizations.localeOf(context).languageCode;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 13),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(_fmtDate(entry.date, lang),
-                style: AppText.body(14.08,
-                    color: theme.colorScheme.onSurface,
-                    weight: FontWeight.w700)),
-          ),
-          if (diff != null && diff.abs() >= 0.05)
-            Text(
-              diff < 0
-                  ? '▼ ${fmtKg(-diff, lang: lang)}'
-                  : '▲ ${fmtKg(diff, lang: lang)}',
-              style: AppText.body(12.8,
-                  color: diff < 0 ? success : danger,
-                  weight: FontWeight.w800),
-            ),
-          const SizedBox(width: 10),
-          Text('${fmtKg(entry.valueKg, lang: lang)} kg',
-              style: AppText.display(16.8,
-                  color: theme.colorScheme.onSurface)),
-        ],
       ),
     );
   }
