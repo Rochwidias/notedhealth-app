@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../core/hive_fast.dart';
+import '../widget/weight_widget_service.dart';
 
 /// Preferensi profil dari box Hive `prefs`:
 /// nama, target berat, tinggi badan, pengingat, mode tema.
@@ -117,6 +120,7 @@ class PrefsController extends Notifier<PrefsState> {
       throw const FormatException('Target harus 20–300 kg.');
     }
     await _save('targetKg', v);
+    unawaited(refreshWeightWidget());
     // copyWith tak bisa set null → bangun ulang manual.
     state = PrefsState(
       name: state.name,

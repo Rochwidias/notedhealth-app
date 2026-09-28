@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -12,6 +15,8 @@ import 'app/router.dart';
 import 'core/i18n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
 import 'features/profile/prefs_store.dart';
+import 'features/widget/weight_widget_service.dart';
+import 'features/widget/widget_bridge.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -38,7 +43,16 @@ Future<void> main() async {
   } catch (_) {
     // Abaikan — mode Tamu 100% lokal.
   }
-  runApp(ProviderScope(child: NotedHealthApp(router: buildRouter())));
+  // Widget home screen: callback background (refresh periodik) + snapshot awal.
+  await HomeWidget.registerInteractivityCallback(widgetBackgroundCallback);
+  unawaited(refreshWeightWidget());
+  final router = buildRouter();
+  runApp(ProviderScope(
+    child: WidgetBridge(
+      router: router,
+      child: NotedHealthApp(router: router),
+    ),
+  ));
 }
 
 class NotedHealthApp extends ConsumerWidget {

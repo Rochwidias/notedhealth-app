@@ -26,6 +26,18 @@ GoRouter buildRouter() {
       if (signedIn && onLogin) return '/home';
       return null;
     },
+    // Deep link dari tombol widget home screen (notedhealth://widget/...)
+    // tidak cocok rute mana pun — alihkan, jangan tampilkan layar error.
+    onException: (context, state, router) {
+      final uri = state.uri;
+      final loc =
+          uri.scheme == 'notedhealth' && uri.host == 'widget' ? uri.path : '';
+      if (loc == '/log_weight') {
+        router.go('/weight');
+      } else {
+        router.go(readSession().isSignedIn ? '/home' : '/login');
+      }
+    },
     routes: [
       GoRoute(path: '/login', builder: (ctx, st) => const LoginScreen()),
       StatefulShellRoute.indexedStack(

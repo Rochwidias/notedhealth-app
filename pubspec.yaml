@@ -47,6 +47,7 @@ dependencies:
   cloud_firestore: ^6.10.0
   fl_chart: ^1.2.0
   intl: ^0.20.3
+  home_widget: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -81,3 +82,4 @@ flutter:
     - family: Fredoka
       fonts:
         - asset: assets/fonts/Fredoka.ttf
+

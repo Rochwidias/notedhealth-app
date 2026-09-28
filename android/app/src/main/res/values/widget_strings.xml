@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_score_label">SKOR HARIAN</string>
+    <string name="widget_description">Ringkasan berat, skor, dan kebiasaan hari ini.</string>
+</resources>

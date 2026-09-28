@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../core/hive_fast.dart';
 import '../../models/daily_log.dart';
 import '../../models/habit.dart';
+import '../widget/weight_widget_service.dart';
 import 'habit_repository.dart';
 
 /// Kunci tanggal YYYY-MM-DD.
@@ -61,6 +64,7 @@ class CompletionsController extends Notifier<Map<String, bool>> {
     final score = calcScore(habits, cur);
     detachHive(_box.put(_today, {'completions': cur, 'score': score}), 'daily_log');
     state = cur;
+    unawaited(refreshWeightWidget());
   }
 }
 

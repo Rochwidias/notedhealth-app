@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +11,7 @@ import '../../core/theme/app_theme.dart';
 import '../../models/weight_entry.dart';
 import '../../widgets/svg_icon.dart';
 import '../profile/prefs_store.dart';
+import '../widget/weight_widget_service.dart';
 import 'weight_repository.dart';
 
 /// Bottom sheet catat timbangan — frame 06 mockup.
@@ -68,6 +71,7 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
       final date =
           widget.entry == null ? null : DateTime.tryParse(widget.entry!.date);
       await ref.read(weightHistoryProvider.notifier).save(kg, date: date);
+      unawaited(refreshWeightWidget());
       if (mounted) Navigator.of(context).pop();
     } on FormatException catch (e) {
       if (mounted) {
@@ -98,6 +102,7 @@ class _WeightSheetState extends ConsumerState<WeightSheet> {
     await ref
         .read(weightHistoryProvider.notifier)
         .remove(widget.entry!.date);
+    unawaited(refreshWeightWidget());
     if (mounted) Navigator.of(context).pop();
   }
 

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive.dart';
 
 import '../../core/hive_fast.dart';
 import '../../models/habit.dart';
+import '../widget/weight_widget_service.dart';
 
 const _habitBox = 'habits';
 
@@ -36,7 +39,10 @@ class HabitListController extends Notifier<List<Habit>> {
     return items;
   }
 
-  void _emit() => state = _all();
+  void _emit() {
+    state = _all();
+    unawaited(refreshWeightWidget());
+  }
 
   Future<void> add({
     required String title,
