@@ -312,6 +312,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ? (session.email ?? tr(context, 'Akun Google'))
                       : tr(context, 'Mode tamu · data di perangkat ini'),
                   avatar: prefs.name.isEmpty ? '?' : prefs.name.characters.first.toUpperCase(),
+                  onEdit: () => _editText(
+                    title: tr(context, 'Nama'), initial: prefs.name, hint: tr(context, 'Nama panggilan'),
+                    onSave: (v) {
+                      if (v.length < 2) return tr(context, 'Nama minimal 2 huruf.');
+                      ref.read(prefsProvider.notifier).setName(v);
+                      return null;
+                    },
+                  ),
                 ),
                 _Sec(tr(context, 'Data diri')),
                 _Row(
@@ -377,6 +385,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         .read(prefsProvider.notifier)
                         .setThemeModeName(v ? 'dark' : 'system'),
                   ),
+                  onTap: () => ref.read(prefsProvider.notifier).setThemeModeName(
+                      prefs.themeModeName == 'dark' ? 'system' : 'dark'),
                 ),
                 _Row(
                   icon: 'i-globe', tone: IcoTone.blue,
@@ -425,7 +435,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 const SizedBox(height: 14),
                 Center(
                   child: Text(
-                    tr(context, 'NotedHealth v0.1.0 · mockup desain'),
+                    'NotedHealth v0.1.0',
                     style: AppText.body(12, color: isDark ? AppColors.darkMuted : AppColors.lightMuted),
                   ),
                 ),
@@ -436,11 +446,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 }
 
 class _Hero extends StatelessWidget {
-  const _Hero({required this.name, required this.subtitle, required this.avatar});
+  const _Hero({required this.name, required this.subtitle, required this.avatar, required this.onEdit});
 
   final String name;
   final String subtitle;
   final String avatar;
+  final VoidCallback onEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -467,10 +478,18 @@ class _Hero extends StatelessWidget {
                     colors: [AppColors.accent, Color(0xFFFF9F43)],
                   ),
                 ),
-                child: Center(
-                  child: Text(
-                    avatar,
-                    style: AppText.display(38.4, color: const Color(0xFF4A3200)),
+                child: Material(
+                  key: const ValueKey('avatar-edit'),
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onEdit,
+                    borderRadius: BorderRadius.circular(34),
+                    child: Center(
+                      child: Text(
+                        avatar,
+                        style: AppText.display(38.4, color: const Color(0xFF4A3200)),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -568,35 +587,38 @@ class _Row extends StatelessWidget {
           ),
         ],
       ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(18),
-        child: Row(
-          children: [
-            IcoChip(icon: icon, tone: tone),
-            const SizedBox(width: 13),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label, style: const TextStyle(fontSize: 14.4, fontWeight: FontWeight.w800)),
-                  Text(desc, style: AppText.body(12.16, color: muted)),
-                ],
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(18),
+          child: Row(
+            children: [
+              IcoChip(icon: icon, tone: tone),
+              const SizedBox(width: 13),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(label, style: const TextStyle(fontSize: 14.4, fontWeight: FontWeight.w800)),
+                    Text(desc, style: AppText.body(12.16, color: muted)),
+                  ],
+                ),
               ),
-            ),
-            if (value != null)
-              Text(
-                value!,
-                style: TextStyle(fontSize: 14.08, fontWeight: FontWeight.w800, color: primaryInk),
-              ),
-            if (trailing != null) ...[
-              const SizedBox(width: 8),
-              trailing!,
-            ] else if (onTap != null) ...[
-              const SizedBox(width: 8),
-              SvgIcon('i-next', size: 16, color: muted),
+              if (value != null)
+                Text(
+                  value!,
+                  style: TextStyle(fontSize: 14.08, fontWeight: FontWeight.w800, color: primaryInk),
+                ),
+              if (trailing != null) ...[
+                const SizedBox(width: 8),
+                trailing!,
+              ] else if (onTap != null) ...[
+                const SizedBox(width: 8),
+                SvgIcon('i-next', size: 16, color: muted),
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -644,22 +666,29 @@ class _TimeCard extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        children: [
-          IcoChip(icon: icon, tone: tone),
-          const SizedBox(width: 13),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(time, style: AppText.display(21.6)),
-                Text(label, style: const TextStyle(fontSize: 14.08, fontWeight: FontWeight.w800)),
-                Text(tr(context, 'Notifikasi lokal tiap hari'), style: AppText.body(12, color: muted)),
-              ],
-            ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: () => onChanged(!on),
+          child: Row(
+            children: [
+              IcoChip(icon: icon, tone: tone),
+              const SizedBox(width: 13),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(time, style: AppText.display(21.6)),
+                    Text(label, style: const TextStyle(fontSize: 14.08, fontWeight: FontWeight.w800)),
+                    Text(tr(context, 'Notifikasi lokal tiap hari'), style: AppText.body(12, color: muted)),
+                  ],
+                ),
+              ),
+              Switch(value: on, onChanged: onChanged),
+            ],
           ),
-          Switch(value: on, onChanged: onChanged),
-        ],
+        ),
       ),
     );
   }
@@ -702,13 +731,21 @@ class _LangSeg extends ConsumerWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onTap: () => ref.read(prefsProvider.notifier).setLang('id'),
-            child: btn('ID', on: lang == 'id'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(999),
+              onTap: () => ref.read(prefsProvider.notifier).setLang('id'),
+              child: btn('ID', on: lang == 'id'),
+            ),
           ),
-          GestureDetector(
-            onTap: () => ref.read(prefsProvider.notifier).setLang('en'),
-            child: btn('EN', on: lang == 'en'),
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(999),
+              onTap: () => ref.read(prefsProvider.notifier).setLang('en'),
+              child: btn('EN', on: lang == 'en'),
+            ),
           ),
         ],
       ),

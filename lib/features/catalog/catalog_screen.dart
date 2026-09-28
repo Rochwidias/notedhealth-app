@@ -132,29 +132,35 @@ class _CatalogScreenState extends State<CatalogScreen> {
               itemBuilder: (ctx, i) {
                 final f = _filters[i];
                 final on = f == _filter;
-                return GestureDetector(
-                  onTap: () => setState(() => _filter = f),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
-                    decoration: BoxDecoration(
-                      color: on
-                          ? (isDark
-                              ? AppColors.primarySoftDark
-                              : AppColors.primarySoftLight)
-                          : theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(999),
-                      border: Border.all(
-                        color: on ? theme.colorScheme.primary : line,
-                      ),
+                return Container(
+                  decoration: BoxDecoration(
+                    color: on
+                        ? (isDark
+                            ? AppColors.primarySoftDark
+                            : AppColors.primarySoftLight)
+                        : theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(999),
+                    border: Border.all(
+                      color: on ? theme.colorScheme.primary : line,
                     ),
-                    child: Text(
-                      tr(context, f),
-                      style: TextStyle(
-                        fontSize: 12.48,
-                        fontWeight: FontWeight.w800,
-                        color: on
-                            ? theme.colorScheme.primary
-                            : muted,
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(999),
+                      onTap: () => setState(() => _filter = f),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                        child: Text(
+                          tr(context, f),
+                          style: TextStyle(
+                            fontSize: 12.48,
+                            fontWeight: FontWeight.w800,
+                            color: on
+                                ? theme.colorScheme.primary
+                                : muted,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -209,32 +215,36 @@ class _SegBtn extends StatelessWidget {
     final muted = isDark ? AppColors.darkMuted : AppColors.lightMuted;
 
     return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 150),
-          padding: const EdgeInsets.symmetric(vertical: 9),
-          decoration: BoxDecoration(
-            color: on ? (isDark ? AppColors.darkSurface : AppColors.lightSurface) : Colors.transparent,
-            borderRadius: BorderRadius.circular(999),
-            boxShadow: on
-                ? [
-                    BoxShadow(
-                      color: (isDark ? Colors.black : const Color(0xFF1E1B2E))
-                          .withValues(alpha: isDark ? 0.35 : 0.08),
-                      blurRadius: 30,
-                      offset: const Offset(0, 10),
-                    ),
-                  ]
-                : null,
-          ),
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 12.8,
-              fontWeight: FontWeight.w800,
-              color: on ? primaryInk : muted,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(999),
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            padding: const EdgeInsets.symmetric(vertical: 9),
+            decoration: BoxDecoration(
+              color: on ? (isDark ? AppColors.darkSurface : AppColors.lightSurface) : Colors.transparent,
+              borderRadius: BorderRadius.circular(999),
+              boxShadow: on
+                  ? [
+                      BoxShadow(
+                        color: (isDark ? Colors.black : const Color(0xFF1E1B2E))
+                            .withValues(alpha: isDark ? 0.35 : 0.08),
+                        blurRadius: 30,
+                        offset: const Offset(0, 10),
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12.8,
+                fontWeight: FontWeight.w800,
+                color: on ? primaryInk : muted,
+              ),
             ),
           ),
         ),

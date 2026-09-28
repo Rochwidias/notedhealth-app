@@ -575,36 +575,40 @@ class _Seg extends StatelessWidget {
         children: [
           for (var i = 0; i < options.length; i++)
             Expanded(
-              child: GestureDetector(
-                onTap: () => onPick(i),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 9),
-                  decoration: BoxDecoration(
-                    color: i == index
-                        ? theme.colorScheme.surface
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(99),
-                    boxShadow: i == index
-                        ? [
-                            BoxShadow(
-                              color: isDark
-                                  ? Colors.black
-                                      .withValues(alpha: 0.35)
-                                  : const Color(0xFF1E1B2E)
-                                      .withValues(alpha: 0.08),
-                              blurRadius: 30,
-                              offset: const Offset(0, 10),
-                            ),
-                          ]
-                        : null,
-                  ),
-                  child: Text(
-                    tr(context, options[i]),
-                    textAlign: TextAlign.center,
-                    style: AppText.body(12.8,
-                        color:
-                            i == index ? primaryInk : muted(context),
-                        weight: FontWeight.w800),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(99),
+                  onTap: () => onPick(i),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 9),
+                    decoration: BoxDecoration(
+                      color: i == index
+                          ? theme.colorScheme.surface
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(99),
+                      boxShadow: i == index
+                          ? [
+                              BoxShadow(
+                                color: isDark
+                                    ? Colors.black
+                                        .withValues(alpha: 0.35)
+                                    : const Color(0xFF1E1B2E)
+                                        .withValues(alpha: 0.08),
+                                blurRadius: 30,
+                                offset: const Offset(0, 10),
+                              ),
+                            ]
+                          : null,
+                    ),
+                    child: Text(
+                      tr(context, options[i]),
+                      textAlign: TextAlign.center,
+                      style: AppText.body(12.8,
+                          color:
+                              i == index ? primaryInk : muted(context),
+                          weight: FontWeight.w800),
+                    ),
                   ),
                 ),
               ),

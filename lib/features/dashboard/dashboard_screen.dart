@@ -66,15 +66,23 @@ class DashboardScreen extends ConsumerWidget {
                   Container(
                     width: 46,
                     height: 46,
-                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: theme.colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(16),
                     ),
-                    child: Text(
-                      firstName.isEmpty ? 'N' : firstName.characters.first.toUpperCase(),
-                      style: AppText.display(22,
-                          color: theme.colorScheme.primary),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () => context.go('/profile'),
+                        child: Center(
+                          child: Text(
+                            firstName.isEmpty ? 'N' : firstName.characters.first.toUpperCase(),
+                            style: AppText.display(22,
+                                color: theme.colorScheme.primary),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -191,6 +199,7 @@ class DashboardScreen extends ConsumerWidget {
                       subColor: theme.brightness == Brightness.dark
                           ? AppColors.successDark
                           : AppColors.successLight,
+                      onTap: () => context.go('/checklist'),
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -226,58 +235,67 @@ class DashboardScreen extends ConsumerWidget {
               // Strip target.
               if (prefs.targetKg != null && latest != null)
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16, vertical: 14),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: Row(
-                    children: [
-                      IcoChip(icon: 'i-target', tone: IcoTone.violet),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(24),
+                      onTap: () => context.go('/weight'),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 14),
+                        child: Row(
                           children: [
-                            Text(tr(context, 'TARGET BERAT'),
-                                style: AppText.body(12.16,
-                                    color: theme
-                                        .colorScheme.onPrimaryContainer,
-                                    weight: FontWeight.w800,
-                                    height: 1.2)),
-                            const SizedBox(height: 2),
-                            Text(
-                              '${fmtKg(prefs.targetKg!, lang: lang)} kg — '
-                              '${targetCaption(latest.valueKg, prefs.targetKg!, lang: lang)}',
-                              style: AppText.display(20,
-                                  color: theme
-                                      .colorScheme.onSurface),
+                            IcoChip(icon: 'i-target', tone: IcoTone.violet),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(tr(context, 'TARGET BERAT'),
+                                      style: AppText.body(12.16,
+                                          color: theme
+                                              .colorScheme.onPrimaryContainer,
+                                          weight: FontWeight.w800,
+                                          height: 1.2)),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    '${fmtKg(prefs.targetKg!, lang: lang)} kg — '
+                                    '${targetCaption(latest.valueKg, prefs.targetKg!, lang: lang)}',
+                                    style: AppText.display(20,
+                                        color: theme
+                                            .colorScheme.onSurface),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: theme.brightness == Brightness.dark
+                                    ? AppColors.successSoftDark
+                                    : AppColors.successSoftLight,
+                                borderRadius: BorderRadius.circular(99),
+                              ),
+                              child: Text(
+                                _onTarget(latest.valueKg, prefs.targetKg!)
+                                    ? tr(context, 'Tepat jalur')
+                                    : tr(context, 'Menuju target'),
+                                style: AppText.body(11.84,
+                                    color: theme.brightness == Brightness.dark
+                                        ? AppColors.successDark
+                                        : AppColors.successLight,
+                                    weight: FontWeight.w800),
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 5),
-                        decoration: BoxDecoration(
-                          color: theme.brightness == Brightness.dark
-                              ? AppColors.successSoftDark
-                              : AppColors.successSoftLight,
-                          borderRadius: BorderRadius.circular(99),
-                        ),
-                        child: Text(
-                          _onTarget(latest.valueKg, prefs.targetKg!)
-                              ? tr(context, 'Tepat jalur')
-                              : tr(context, 'Menuju target'),
-                          style: AppText.body(11.84,
-                              color: theme.brightness == Brightness.dark
-                                  ? AppColors.successDark
-                                  : AppColors.successLight,
-                              weight: FontWeight.w800),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 )
               else
@@ -348,26 +366,31 @@ class _BellButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return GestureDetector(
-      onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-                tr(context, 'Pengingat aktif 07:00 & 21:00 — atur di Profil.')),
-          ),
-        );
-      },
-      child: Container(
-        width: 42,
-        height: 42,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
+    return Container(
+      width: 42,
+      height: 42,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: theme.colorScheme.outline),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: theme.colorScheme.outline),
+          onTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                    tr(context, 'Pengingat aktif 07:00 & 21:00 — atur di Profil.')),
+              ),
+            );
+          },
+          child: Center(
+            child: SvgIcon('i-bell', size: 20,
+                color: theme.colorScheme.onSurface),
+          ),
         ),
-        child: SvgIcon('i-bell', size: 20,
-            color: theme.colorScheme.onSurface),
       ),
     );
   }
@@ -392,12 +415,16 @@ class _SectionHeader extends StatelessWidget {
                   color: theme.colorScheme.onSurface,
                   weight: FontWeight.w800)),
         ),
-        GestureDetector(
-          onTap: onLink,
-          child: Text(link,
-              style: AppText.body(13.12,
-                  color: theme.colorScheme.primary,
-                  weight: FontWeight.w800)),
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(8),
+            onTap: onLink,
+            child: Text(link,
+                style: AppText.body(13.12,
+                    color: theme.colorScheme.primary,
+                    weight: FontWeight.w800)),
+          ),
         ),
       ],
     );
@@ -422,47 +449,53 @@ class _MenuRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: theme.colorScheme.outline),
+        boxShadow: [
+          BoxShadow(
+            color: theme.brightness == Brightness.dark
+                ? Colors.black.withValues(alpha: 0.35)
+                : const Color(0xFF1E1B2E).withValues(alpha: 0.08),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: theme.colorScheme.outline),
-          boxShadow: [
-            BoxShadow(
-              color: theme.brightness == Brightness.dark
-                  ? Colors.black.withValues(alpha: 0.35)
-                  : const Color(0xFF1E1B2E).withValues(alpha: 0.08),
-              blurRadius: 30,
-              offset: const Offset(0, 10),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 14),
+            child: Row(
+              children: [
+                IcoChip(icon: icon, tone: tone),
+                const SizedBox(width: 13),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(title,
+                          style: AppText.body(14.4,
+                              color: theme.colorScheme.onSurface,
+                              weight: FontWeight.w800,
+                              height: 1.25)),
+                      Text(desc,
+                          style: AppText.body(12.16,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              height: 1.3)),
+                    ],
+                  ),
+                ),
+                SvgIcon('i-next', size: 20,
+                    color: theme.colorScheme.onSurfaceVariant),
+              ],
             ),
-          ],
-        ),
-        child: Row(
-          children: [
-            IcoChip(icon: icon, tone: tone),
-            const SizedBox(width: 13),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(title,
-                      style: AppText.body(14.4,
-                          color: theme.colorScheme.onSurface,
-                          weight: FontWeight.w800,
-                          height: 1.25)),
-                  Text(desc,
-                      style: AppText.body(12.16,
-                          color: theme.colorScheme.onSurfaceVariant,
-                          height: 1.3)),
-                ],
-              ),
-            ),
-            SvgIcon('i-next', size: 20,
-                color: theme.colorScheme.onSurfaceVariant),
-          ],
+          ),
         ),
       ),
     );
@@ -493,59 +526,65 @@ class _StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: theme.colorScheme.outline),
+        boxShadow: [
+          BoxShadow(
+            color: theme.brightness == Brightness.dark
+                ? Colors.black.withValues(alpha: 0.35)
+                : const Color(0xFF1E1B2E).withValues(alpha: 0.08),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: theme.colorScheme.outline),
-          boxShadow: [
-            BoxShadow(
-              color: theme.brightness == Brightness.dark
-                  ? Colors.black.withValues(alpha: 0.35)
-                  : const Color(0xFF1E1B2E).withValues(alpha: 0.08),
-              blurRadius: 30,
-              offset: const Offset(0, 10),
-            ),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IcoChip(
-                  icon: icon ?? 'i-sparkle',
-                  tone: iconTone,
-                  emoji: emoji,
+                Row(
+                  children: [
+                    IcoChip(
+                      icon: icon ?? 'i-sparkle',
+                      tone: iconTone,
+                      emoji: emoji,
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppText.body(12.16,
+                              color: theme.colorScheme.onSurfaceVariant,
+                              weight: FontWeight.w800,
+                              height: 1.2)),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(label,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppText.body(12.16,
-                          color: theme.colorScheme.onSurfaceVariant,
-                          weight: FontWeight.w800,
-                          height: 1.2)),
-                ),
+                const SizedBox(height: 8),
+                Text(big,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppText.display(27.2,
+                        color: theme.colorScheme.onSurface)),
+                const SizedBox(height: 2),
+                Text(sub,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: AppText.body(12.16,
+                        color: subColor, weight: FontWeight.w700)),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(big,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppText.display(27.2,
-                    color: theme.colorScheme.onSurface)),
-            const SizedBox(height: 2),
-            Text(sub,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppText.body(12.16,
-                    color: subColor, weight: FontWeight.w700)),
-          ],
+          ),
         ),
       ),
     );
@@ -664,47 +703,53 @@ class _FabAction extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surface,
+    return Container(
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(99),
+        border: Border.all(color: theme.colorScheme.outline),
+        boxShadow: [
+          BoxShadow(
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.4)
+                : const Color(0xFF1E1B2E).withValues(alpha: 0.12),
+            blurRadius: 28,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(99),
-          border: Border.all(color: theme.colorScheme.outline),
-          boxShadow: [
-            BoxShadow(
-              color: isDark
-                  ? Colors.black.withValues(alpha: 0.4)
-                  : const Color(0xFF1E1B2E).withValues(alpha: 0.12),
-              blurRadius: 28,
-              offset: const Offset(0, 10),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 30,
+                  height: 30,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: isDark
+                        ? AppColors.primarySoftDark
+                        : AppColors.primarySoftLight,
+                    shape: BoxShape.circle,
+                  ),
+                  child: SvgIcon(icon,
+                      size: 16,
+                      color: theme.colorScheme.primary),
+                ),
+                const SizedBox(width: 10),
+                Text(label,
+                    style: AppText.body(13.5,
+                        color: theme.colorScheme.onSurface,
+                        weight: FontWeight.w800)),
+              ],
             ),
-          ],
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 30,
-              height: 30,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: isDark
-                    ? AppColors.primarySoftDark
-                    : AppColors.primarySoftLight,
-                shape: BoxShape.circle,
-              ),
-              child: SvgIcon(icon,
-                  size: 16,
-                  color: theme.colorScheme.primary),
-            ),
-            const SizedBox(width: 10),
-            Text(label,
-                style: AppText.body(13.5,
-                    color: theme.colorScheme.onSurface,
-                    weight: FontWeight.w800)),
-          ],
+          ),
         ),
       ),
     );

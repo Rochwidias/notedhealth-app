@@ -57,28 +57,32 @@ class HabitTile extends StatelessWidget {
     final successSoft =
         isDark ? AppColors.successSoftDark : AppColors.successSoftLight;
 
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
-        decoration: BoxDecoration(
-          color: done ? successSoft : theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: done ? Colors.transparent : theme.colorScheme.outline,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: isDark
-                  ? Colors.black.withValues(alpha: 0.35)
-                  : const Color(0xFF1E1B2E).withValues(alpha: 0.07),
-              blurRadius: 30,
-              offset: const Offset(0, 10),
-            ),
-          ],
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        color: done ? successSoft : theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(
+          color: done ? Colors.transparent : theme.colorScheme.outline,
         ),
-        child: Row(
+        boxShadow: [
+          BoxShadow(
+            color: isDark
+                ? Colors.black.withValues(alpha: 0.35)
+                : const Color(0xFF1E1B2E).withValues(alpha: 0.07),
+            blurRadius: 30,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+            child: Row(
           children: [
             _CheckButton(done: done, onTap: onToggle),
             const SizedBox(width: 13),
@@ -158,7 +162,9 @@ class HabitTile extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ),
+  ),
+  );
   }
 }
 
@@ -175,28 +181,31 @@ class _CheckButton extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
     final success =
         isDark ? AppColors.successDark : AppColors.successLight;
-    return GestureDetector(
-      onTap: onTap,
-      behavior: HitTestBehavior.opaque,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        width: 28,
-        height: 28,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: done ? success : Colors.transparent,
-          border: Border.all(
-            color: done
-                ? success
-                : (isDark ? AppColors.darkSurface3 : AppColors.lightSurface3),
-            width: 2.5,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(10),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          width: 28,
+          height: 28,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: done ? success : Colors.transparent,
+            border: Border.all(
+              color: done
+                  ? success
+                  : (isDark ? AppColors.darkSurface3 : AppColors.lightSurface3),
+              width: 2.5,
+            ),
           ),
+          child: done
+              ? const Center(
+                  child: SvgIcon('i-check', size: 15, color: Colors.white),
+                )
+              : null,
         ),
-        child: done
-            ? const Center(
-                child: SvgIcon('i-check', size: 15, color: Colors.white),
-              )
-            : null,
       ),
     );
   }

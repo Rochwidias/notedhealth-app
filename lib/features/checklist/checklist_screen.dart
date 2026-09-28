@@ -31,23 +31,28 @@ class ChecklistScreen extends ConsumerWidget {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 14),
-            child: GestureDetector(
-              onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content:
-                        Text(tr(context, 'Pilih tanggal — segera hadir.'))),
+            child: Container(
+              width: 42,
+              height: 42,
+              margin: const EdgeInsets.only(right: 6),
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(color: theme.colorScheme.outline),
               ),
-              child: Container(
-                width: 42,
-                height: 42,
-                margin: const EdgeInsets.only(right: 6),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
                   borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: theme.colorScheme.outline),
+                  onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content:
+                            Text(tr(context, 'Pilih tanggal — segera hadir.'))),
+                  ),
+                  child: Center(
+                    child: SvgIcon('i-calendar', size: 20, color: theme.colorScheme.onSurface),
+                  ),
                 ),
-                child: SvgIcon('i-calendar', size: 20, color: theme.colorScheme.onSurface),
               ),
             ),
           ),
@@ -90,7 +95,13 @@ class ChecklistScreen extends ConsumerWidget {
                           child: HabitTile(
                             habit: habit,
                             done: false,
-                            onToggle: () {},
+                            onToggle: () => ScaffoldMessenger.of(context)
+                                .showSnackBar(
+                              SnackBar(
+                                content: Text(tr(context,
+                                    'Kebiasaan nonaktif — buka untuk mengaktifkan.')),
+                              ),
+                            ),
                             onTap: () => context
                                 .push('/habit-form?id=${habit.id}'),
                             meta: HabitMeta.progress,

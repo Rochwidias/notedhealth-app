@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive.dart';
@@ -17,8 +18,13 @@ Future<void> pumpApp(WidgetTester tester) {
 }
 
 Future<void> loginAsGuest(WidgetTester tester) async {
-  await tester.tap(find.text('Masuk sebagai Tamu'));
   await tester.pumpAndSettle();
+  final guest = find.text('Masuk sebagai Tamu');
+  // Session Hive bisa masih basi (clear async) — langsung di dashboard juga oke.
+  if (guest.evaluate().isNotEmpty) {
+    await tester.tap(guest);
+    await tester.pumpAndSettle();
+  }
 }
 
 void main() {
@@ -74,5 +80,31 @@ void main() {
 
   test('router punya rute login, shell, form, katalog, dan privasi', () {
     expect(buildRouter().configuration.routes.length, 6);
+  });
+
+  testWidgets('badge avatar profil membuka dialog edit nama', (tester) async {
+    await pumpApp(tester);
+    await loginAsGuest(tester);
+
+    await tester.tap(find.text('Profil'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const ValueKey('avatar-edit')));
+    await tester.pumpAndSettle();
+    expect(find.byType(AlertDialog), findsOneWidget);
+    expect(find.text('Nama panggilan'), findsOneWidget);
+
+    await tester.tap(find.text('Batal'));
+    await tester.pumpAndSettle();
+    expect(find.byType(AlertDialog), findsNothing);
+  });
+
+  testWidgets('kartu streak di beranda membuka checklist', (tester) async {
+    await pumpApp(tester);
+    await loginAsGuest(tester);
+
+    await tester.tap(find.text('Streak'));
+    await tester.pumpAndSettle();
+    expect(find.text('Checklist Hari Ini'), findsOneWidget);
   });
 }

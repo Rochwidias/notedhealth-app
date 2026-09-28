@@ -248,24 +248,30 @@ class _HabitFormScreenState extends ConsumerState<HabitFormScreen> {
                 childAspectRatio: 1,
                 children: [
                   for (final e in emojis)
-                    GestureDetector(
-                      onTap: () => setState(() => _icon = e),
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: _icon == e
+                            ? primarySoft
+                            : theme.colorScheme.surface,
+                        borderRadius: BorderRadius.circular(13),
+                        border: Border.all(
                           color: _icon == e
-                              ? primarySoft
-                              : theme.colorScheme.surface,
+                              ? AppColors.primary
+                              : line,
+                          width: 1.5,
+                        ),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
                           borderRadius: BorderRadius.circular(13),
-                          border: Border.all(
-                            color: _icon == e
-                                ? AppColors.primary
-                                : line,
-                            width: 1.5,
+                          onTap: () => setState(() => _icon = e),
+                          child: Center(
+                            child: Text(e,
+                                style: const TextStyle(fontSize: 19)),
                           ),
                         ),
-                        child: Text(e,
-                            style: const TextStyle(fontSize: 19)),
                       ),
                     ),
                 ],
@@ -446,32 +452,38 @@ class _CatChip extends StatelessWidget {
         isDark ? AppColors.primary : AppColors.primaryInkLight;
     final primarySoft =
         isDark ? AppColors.primarySoftDark : AppColors.primarySoftLight;
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: on
-              ? primarySoft
-              : (isDark
-                  ? AppColors.darkSurface2
-                  : AppColors.lightSurface2),
+    return Container(
+      decoration: BoxDecoration(
+        color: on
+            ? primarySoft
+            : (isDark
+                ? AppColors.darkSurface2
+                : AppColors.lightSurface2),
+        borderRadius: BorderRadius.circular(99),
+        border: on ? Border.all(color: AppColors.primary) : null,
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
           borderRadius: BorderRadius.circular(99),
-          border: on ? Border.all(color: AppColors.primary) : null,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgIcon(icon, size: 14, color: on ? primaryInk : Theme.of(context).colorScheme.onSurfaceVariant),
-            const SizedBox(width: 6),
-            Text(
-              label,
-              style: AppText.body(12.48,
-                  color: on ? primaryInk : theme.colorScheme.onSurfaceVariant,
-                  weight: FontWeight.w800,
-                  height: 1.2),
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgIcon(icon, size: 14, color: on ? primaryInk : Theme.of(context).colorScheme.onSurfaceVariant),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  style: AppText.body(12.48,
+                      color: on ? primaryInk : theme.colorScheme.onSurfaceVariant,
+                      weight: FontWeight.w800,
+                      height: 1.2),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -261,26 +261,29 @@ class _RowBtn extends StatelessWidget {
           ),
         ],
       ),
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(18),
-        child: Row(
-          children: [
-            IcoChip(icon: icon, tone: tone),
-            const SizedBox(width: 13),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(label, style: const TextStyle(fontSize: 14.4, fontWeight: FontWeight.w800)),
-                  Text(desc, style: AppText.body(12.16, color: muted)),
-                ],
-              ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(18),
+          child: Row(
+            children: [
+              IcoChip(icon: icon, tone: tone),
+              const SizedBox(width: 13),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(label, style: const TextStyle(fontSize: 14.4, fontWeight: FontWeight.w800)),
+                    Text(desc, style: AppText.body(12.16, color: muted)),
+                  ],
+                ),
             ),
             SvgIcon('i-next', size: 16, color: muted),
           ],
         ),
       ),
+    ),
     );
   }
 }
