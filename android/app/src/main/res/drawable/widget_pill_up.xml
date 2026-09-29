@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pil delta naik/datar: merah lembut (datar ikut merah pudar via alpha teks di provider). -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/widget_up_bg" />
+    <corners android:radius="999dp" />
+</shape>

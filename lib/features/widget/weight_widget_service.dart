@@ -6,8 +6,12 @@ import '../../models/habit.dart';
 import '../../models/weight_entry.dart';
 import 'widget_snapshot.dart';
 
-/// Nama AppWidgetProvider di AndroidManifest.
-const String _widgetProvider = 'WeightWidgetProvider';
+/// Nama AppWidgetProvider di AndroidManifest (ringkasan, berat, habit).
+const List<String> _widgetProviders = [
+  'WeightWidgetProvider',
+  'WeightMiniWidgetProvider',
+  'HabitWidgetProvider',
+];
 
 /// URI deep link dari widget → app.
 final Uri widgetLogWeightUri = Uri.parse('notedhealth://widget/log_weight');
@@ -55,7 +59,9 @@ Future<void> refreshWeightWidget() async {
     for (final e in snap.entries) {
       await HomeWidget.saveWidgetData<String>(e.key, e.value);
     }
-    await HomeWidget.updateWidget(name: _widgetProvider);
+    for (final name in _widgetProviders) {
+      await HomeWidget.updateWidget(name: name);
+    }
   } catch (_) {
     // Widget memakai data terakhir yang tersimpan — gagal refresh tak fatal.
   }

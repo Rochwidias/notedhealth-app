@@ -6,4 +6,14 @@
     <color name="widget_primary">#9D86FF</color>
     <color name="widget_on_primary">#FFFFFF</color>
     <color name="widget_track">#3A3150</color>
+    <color name="widget_line">#3A3253</color>
+    <color name="widget_violet_soft">#322A52</color>
+    <color name="widget_violet_ink">#B7A6FF</color>
+    <color name="widget_down_bg">#143B2C</color>
+    <color name="widget_down_text">#4FD6A0</color>
+    <color name="widget_up_bg">#4A1F24</color>
+    <color name="widget_up_text">#FF8A8F</color>
+    <color name="widget_panel">#2B2440</color>
+    <color name="widget_streak_bg">#4A3F1A</color>
+    <color name="widget_streak_text">#FFD64A</color>
 </resources>

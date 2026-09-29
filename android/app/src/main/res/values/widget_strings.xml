@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="widget_score_label">SKOR HARIAN</string>
+    <string name="widget_streak_label">STREAK</string>
+    <string name="widget_weight_label">BERAT</string>
     <string name="widget_description">Ringkasan berat, skor, dan kebiasaan hari ini.</string>
+    <string name="widget_description_mini">Berat terakhir, delta, target, dan tombol catat cepat.</string>
+    <string name="widget_description_habit">Skor harian, streak, dan kebiasaan hari ini.</string>
 </resources>

@@ -43,6 +43,28 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/weight_widget_info"/>
         </receiver>
+        <!-- Widget Berat (4x1): angka berat + tombol catat cepat. -->
+        <receiver
+            android:name=".WeightMiniWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/weight_mini_widget_info"/>
+        </receiver>
+        <!-- Widget Habit/Streak (2x2): skor, streak, dan centang kebiasaan. -->
+        <receiver
+            android:name=".HabitWidgetProvider"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/habit_widget_info"/>
+        </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

@@ -370,6 +370,7 @@ const Map<String, String> kEn = {
   'Ketuk hati di menu untuk simpan di sini.':
       'Tap the heart on a menu to save it here.',
   'Buka katalog': 'Browse catalog',
+  'Buka Habit': 'Open habits',
   'Ubah catatan': 'Edit entry',
   'Perbarui berat untuk tanggal ini.': 'Update the weight for this date.',
   'Hapus catatan berat ini?': 'Delete this weight entry?',

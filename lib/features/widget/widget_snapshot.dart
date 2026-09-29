@@ -16,9 +16,12 @@ const String kwScore = 'w_score';
 const String kwScoreLabel = 'w_score_label';
 const String kwStreak = 'w_streak';
 const String kwStreakLabel = 'w_streak_label';
+const String kwWeightLabel = 'w_weight_label';
+const String kwScoreText = 'w_score_text';
 const String kwHabitProgress = 'w_habit_progress';
 const String kwHabitLines = 'w_habit_lines';
 const String kwAction = 'w_action';
+const String kwAction2 = 'w_action2';
 const String kwDate = 'w_date';
 const String kwHasData = 'w_has_data';
 const String kwEmptyText = 'w_empty_text';
@@ -50,25 +53,43 @@ Map<String, String> buildWidgetSnapshot({
   final doneCount = active.where((h) => completions[h.id] == true).length;
   final lines = <String>[];
   for (final h in active) {
-    if (lines.length >= 4) break;
+    if (lines.length >= 3) break;
     final mark = completions[h.id] == true ? '✓' : '○';
     lines.add('$mark ${h.title}');
   }
 
+  final doneLabels = <String>[
+    trLang(lang, 'Berat'),
+    trLang(lang, 'Streak'),
+    trLang(lang, 'SKOR HARIAN'),
+    trLang(lang, 'Skor harian'),
+    trLang(lang, 'hari'),
+    trLang(lang, '{a} dari {b} habit'),
+    trLang(lang, 'Catat berat'),
+    trLang(lang, 'Buka Habit'),
+  ];
+  // ponytail: snapshot harus membawa label terjemahan agar RemoteViews
+  // tak perlu akses kamus; ceiling = gunakan label langsung di Kotlin.
+  assert(doneLabels.every((e) => e.isNotEmpty));
   final hasData = latest != null;
+  final targetLine = targetKg == null
+      ? ''
+      : 'Target ${fmtKg(targetKg, lang: lang)} kg';
   return {
     kwUpdated: ts,
     kwHasData: hasData ? '1' : '0',
     kwDate: dateStr,
     kwAction: trLang(lang, 'Catat berat'),
+    kwAction2: trLang(lang, 'Buka Habit'),
     kwScoreLabel: trLang(lang, 'SKOR HARIAN'),
     kwStreakLabel: trLang(lang, 'Streak'),
+    kwWeightLabel: trLang(lang, 'Berat'),
     kwScore: '$score',
-    kwStreak: '$streak ${trLang(lang, 'hari')}',
+    kwScoreText:
+        '${trLang(lang, 'Skor harian')} $score/100',
+    kwStreak: '🔥 $streak',
     kwHabitProgress:
-        trLang(lang, '{a} dari {b} habit')
-            .replaceAll('{a}', '$doneCount')
-            .replaceAll('{b}', '${active.length}'),
+        '${trLang(lang, '{a} dari {b} habit').replaceAll('{a}', '$doneCount').replaceAll('{b}', '${active.length}').toUpperCase()} · 🔥 $streak ${trLang(lang, 'hari').toUpperCase()}',
     kwHabitLines: lines.join('\n'),
     kwEmptyText: trLang(lang, 'Belum ada catatan'),
     if (hasData) ...{
@@ -77,17 +98,14 @@ Map<String, String> buildWidgetSnapshot({
           ? ''
           : '${_deltaSign(latest.valueKg - prev.valueKg)} '
               '${fmtKg((latest.valueKg - prev.valueKg).abs(), lang: lang)} kg',
-      kwTarget: targetKg == null
-          ? ''
-          : '${fmtKg(targetKg, lang: lang)} kg',
+      kwTarget: targetLine,
       kwTargetCaption: targetKg == null
           ? ''
-          : targetCaption(latest.valueKg, targetKg, lang: lang),
+          : '$targetLine · ${targetCaption(latest.valueKg, targetKg, lang: lang)}',
     } else ...{
       kwText: '',
       kwDelta: '',
-      kwTarget:
-          targetKg == null ? '' : '${fmtKg(targetKg, lang: lang)} kg',
+      kwTarget: targetLine,
       kwTargetCaption: '',
     },
   };

@@ -32,11 +32,20 @@ class _WidgetBridgeState extends State<WidgetBridge>
   }
 
   Future<void> _onWidgetClick(Uri? uri) async {
-    if (uri == null || uri.path != '/log_weight') return;
-    widget.router.go('/weight');
-    await Future<void>.delayed(const Duration(milliseconds: 450));
-    final ctx = widget.router.routerDelegate.navigatorKey.currentContext;
-    if (ctx != null && ctx.mounted) showWeightSheet(ctx);
+    if (uri == null || uri.scheme != 'notedhealth') return;
+    switch (uri.path) {
+      case '/log_weight':
+        widget.router.go('/weight');
+        await Future<void>.delayed(const Duration(milliseconds: 450));
+        final ctx = widget.router.routerDelegate.navigatorKey.currentContext;
+        if (ctx != null && ctx.mounted) showWeightSheet(ctx);
+      case '/open_weight':
+        widget.router.go('/weight');
+      case '/habit':
+        widget.router.go('/checklist');
+      default:
+        break;
+    }
   }
 
   @override

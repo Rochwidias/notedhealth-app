@@ -32,10 +32,14 @@ GoRouter buildRouter() {
       final uri = state.uri;
       final loc =
           uri.scheme == 'notedhealth' && uri.host == 'widget' ? uri.path : '';
-      if (loc == '/log_weight') {
-        router.go('/weight');
-      } else {
-        router.go(readSession().isSignedIn ? '/home' : '/login');
+      switch (loc) {
+        case '/log_weight':
+        case '/open_weight':
+          router.go('/weight');
+        case '/habit':
+          router.go('/checklist');
+        default:
+          router.go(readSession().isSignedIn ? '/home' : '/login');
       }
     },
     routes: [
